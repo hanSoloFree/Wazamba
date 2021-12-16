@@ -15,6 +15,8 @@
 		0498E757276B68D4002EE87F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0498E755276B68D4002EE87F /* Main.storyboard */; };
 		0498E759276B68D5002EE87F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498E758276B68D5002EE87F /* Assets.xcassets */; };
 		0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0498E75A276B68D5002EE87F /* LaunchScreen.storyboard */; };
+		0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E762276BCDA8002EE87F /* GameOverViewController.swift */; };
+		0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E765276BCF3D002EE87F /* GameOverDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		0498E756276B68D4002EE87F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0498E758276B68D5002EE87F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0498E75B276B68D5002EE87F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0498E762276BCDA8002EE87F /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		0498E765276BCF3D002EE87F /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,16 +63,34 @@
 		0498E74A276B68D4002EE87F /* Wazamba */ = {
 			isa = PBXGroup;
 			children = (
+				0498E767276BCF68002EE87F /* Delegates */,
+				0498E764276BCDAF002EE87F /* ViewControllers */,
 				0498E74B276B68D4002EE87F /* AppDelegate.swift */,
 				0498E74D276B68D4002EE87F /* GameScene.sks */,
 				0498E74F276B68D4002EE87F /* Actions.sks */,
 				0498E751276B68D4002EE87F /* GameScene.swift */,
-				0498E753276B68D4002EE87F /* GameViewController.swift */,
 				0498E755276B68D4002EE87F /* Main.storyboard */,
 				0498E758276B68D5002EE87F /* Assets.xcassets */,
 				0498E75A276B68D5002EE87F /* LaunchScreen.storyboard */,
 			);
 			path = Wazamba;
+			sourceTree = "<group>";
+		};
+		0498E764276BCDAF002EE87F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0498E762276BCDA8002EE87F /* GameOverViewController.swift */,
+				0498E753276B68D4002EE87F /* GameViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0498E767276BCF68002EE87F /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				0498E765276BCF3D002EE87F /* GameOverDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +166,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
+				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
 				0498E752276B68D4002EE87F /* GameScene.swift in Sources */,
 				0498E754276B68D4002EE87F /* GameViewController.swift in Sources */,
 				0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */,

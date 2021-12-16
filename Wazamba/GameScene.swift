@@ -3,6 +3,8 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var gameOverDelegate: GameOverDelegate?
+    
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
     
@@ -16,7 +18,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var startingPositions: [CGPoint] = [CGPoint]()
     
     var blocksInTheirStartingPositions: Int = 0
-    
     
     
     //MARK: - LEVEL
@@ -44,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         guard let touchLocation = touches.first?.location(in: self) else { return }
                 
-
+        checkIfWon()
         
         for item in blocksArray {
             let blockIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
@@ -162,7 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        checkIfWon()
+        
     }
     
 
@@ -208,18 +209,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             index += 1
         }
         if blocksInTheirStartingPositions == blocksArray.count {
-            print("WON")
+            isPaused = true
+            gameOverDelegate?.won = true
+            gameOverDelegate?.pushGameOverViewController()
         }
     }
-    
-    func module(_ a: CGFloat) -> CGFloat {
-        return sqrt(a*a)
-    }
-    
-    
-    
-    
-    
     
     
     // MARK: - MAY BE INCAPSULATED
@@ -404,4 +398,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
+    
+    
+    
+    
+    
+    func module(_ a: CGFloat) -> CGFloat {
+        return sqrt(a*a)
+    }
 }
