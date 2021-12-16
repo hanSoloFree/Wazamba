@@ -17,6 +17,8 @@
 		0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0498E75A276B68D5002EE87F /* LaunchScreen.storyboard */; };
 		0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E762276BCDA8002EE87F /* GameOverViewController.swift */; };
 		0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E765276BCF3D002EE87F /* GameOverDelegate.swift */; };
+		0498E769276BE57D002EE87F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E768276BE57D002EE87F /* MainViewController.swift */; };
+		0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E76A276BE6F2002EE87F /* LevelsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		0498E75B276B68D5002EE87F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0498E762276BCDA8002EE87F /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		0498E765276BCF3D002EE87F /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
+		0498E768276BE57D002EE87F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0498E76A276BE6F2002EE87F /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 		0498E764276BCDAF002EE87F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0498E76A276BE6F2002EE87F /* LevelsViewController.swift */,
+				0498E768276BE57D002EE87F /* MainViewController.swift */,
 				0498E762276BCDA8002EE87F /* GameOverViewController.swift */,
 				0498E753276B68D4002EE87F /* GameViewController.swift */,
 			);
@@ -169,6 +175,8 @@
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
 				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
 				0498E752276B68D4002EE87F /* GameScene.swift in Sources */,
+				0498E769276BE57D002EE87F /* MainViewController.swift in Sources */,
+				0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */,
 				0498E754276B68D4002EE87F /* GameViewController.swift in Sources */,
 				0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */,
 			);

@@ -7,6 +7,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
+    var timerCountdown: Int! {
+        didSet {
+            guard let time = timerCountdown else { return }
+            timer.text = String(describing: time)
+        }
+    }
+    var timer: SKLabelNode!
     
     
     var blocksCount: Int {
@@ -21,10 +28,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //MARK: - LEVEL
-    var level: Int = 2
+    var level: Int = 5
     
     var forced: Bool = false
     var isSelected: Bool = false
+    var timerShouldStart: Bool = false
+    var timerStarted: Bool = false
     var selectedBlock: SKSpriteNode?
     var selectedName: String?
     
@@ -38,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity.dy = gravity(self.level)
         
         createBackground()
+        createTimer()
         createBlocks()
     }
     
@@ -163,7 +173,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        
+        if timerShouldStart && !timerStarted {
+            timerStarted = true
+            timerShouldStart = false
+            timer.alpha = 1
+            startTimer()
+        }
     }
     
 
@@ -173,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         
-        
+
         if (bodyA.categoryBitMask == 0x1 << 0) && (bodyB.categoryBitMask == 0x1 << 0) {
             if !forced {
                 self.physicsWorld.gravity.dy = -9.8
@@ -183,6 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bodyB.node?.physicsBody?.applyImpulse(impulse)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                     self.forced = true
+                    self.timerShouldStart = true
                 }
             }
         }
@@ -210,6 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if blocksInTheirStartingPositions == blocksArray.count {
             isPaused = true
+            self.removeAction(forKey: "countdown")
             gameOverDelegate?.won = true
             gameOverDelegate?.pushGameOverViewController()
         }
@@ -274,6 +291,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.allowsRotation = false
         ground.physicsBody?.affectedByGravity = false
         ground.physicsBody?.pinned = false
+        
+        ground.physicsBody?.categoryBitMask =  0x1 << 2
+        ground.physicsBody?.contactTestBitMask = 0x1 << 1
         
         addChild(ground)
         
@@ -398,8 +418,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func createTimer() {
+        timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
+        let position = CGPoint(x: (self.frame.width / 2) - 60,
+                               y: (self.frame.height / 2) - 100)
+        
+        timer.fontSize = 40.0
+        timer.position = position
+        timer.alpha = 0
+        
+        switch level {
+        case 1...2:
+            timerCountdown = 6
+        case 3...5:
+            timerCountdown = 20
+        case 6:
+            timerCountdown = 45
+        case 7:
+            timerCountdown = 60
+        default:
+            timerCountdown = 15
+        }
+        guard let time = timerCountdown else { return }
+        timer.text = String(describing: time)
+        
+        addChild(timer)
+    }
+    
+
     
     
+    func startTimer() {
+        let timerAction = SKAction.wait(forDuration: 1)
+        let block = SKAction.run {
+            if self.timerCountdown > 0 {
+                self.timerCountdown -= 1
+            } else {
+                self.gameOverDelegate?.won = false
+                self.gameOverDelegate?.pushGameOverViewController()
+                self.removeAction(forKey: "countdown")
+            }
+        }
+        let sequence = SKAction.sequence([timerAction, block])
+        let repeatAction = SKAction.repeatForever(sequence)
+        run(repeatAction, withKey: "countdown")
+    }
     
     
     

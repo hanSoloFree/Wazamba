@@ -11,6 +11,7 @@ class GameOverViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         configure(won: won)
     }
     
