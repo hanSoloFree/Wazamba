@@ -5,20 +5,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
+    
+    
     var blocksCount: Int {
         return countBlocks(level)
     }
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
+    var framesArray: [SKSpriteNode] = [SKSpriteNode]()
+    var startingPositions: [CGPoint] = [CGPoint]()
+    
     
     
     
     //MARK: - LEVEL
-    var level: Int = 7
+    var level: Int = 2
     
     var forced: Bool = false
     var isSelected: Bool = false
+    var selectedBlock: SKSpriteNode?
     var selectedName: String?
     
+    var blockStartingSize: CGSize!
     
     
     
@@ -35,24 +42,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         guard let touchLocation = touches.first?.location(in: self) else { return }
         
+        
+        
+        
         for item in blocksArray {
-            let isTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
+            let blockIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
+            
+            
+    //MARK: - MOVE TO FRAME LOGIC
+            
+            if isSelected {
+                if selectedBlock != nil {
+                    for item in framesArray {
+                        guard let touchLocation = touches.first?.location(in: self) else { return }
+                        let frameIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
+                        
+                        
+                        if frameIsTouched {
+                            guard let block = selectedBlock else { return }
+                            
+                            let moveToFrameAction = SKAction.move(to: item.position, duration: 0.2)
+                            let resizeActiton = SKAction.resize(toWidth: blockStartingSize.width,
+                                                                height: blockStartingSize.height,
+                                                                duration: 0.2)
+                            let actionGroup = SKAction.group([moveToFrameAction, resizeActiton])
+                            block.run(actionGroup) {
+                                self.selectedName = nil
+                                self.isSelected = false
+                                self.selectedName = nil
+                                block.zRotation = 0
+                                block.physicsBody?.affectedByGravity = false
+                                block.physicsBody?.allowsRotation = false
+                                block.physicsBody?.isDynamic = false
+                                block.physicsBody?.categoryBitMask = 0x0 << 0
+                                block.zPosition += 1
+                            }
+                            return
+                        }
+                    }
+                }
+            }
+            
+            
+            
             
             
             
             //MARK: DESELECTION LOGIC
             
             if isSelected {
-                if selectedName == item.name {
-                    if !isTouched {
+                if (selectedName == item.name) && (item.size != blockStartingSize){
+                    if !blockIsTouched {
                         isSelected = false
-//                        selectedName = nil
+                        selectedName = nil
+                        selectedBlock = nil
+                        
                         item.physicsBody?.affectedByGravity = true
                         item.physicsBody?.allowsRotation = true
                         item.physicsBody?.isDynamic = true
                         
-                        let resizeAction = SKAction.resize(toWidth: item.size.width / 2,
-                                                           height: item.size.height / 2,
+                        let resizeAction = SKAction.resize(toWidth: blockStartingSize.width,
+                                                           height: blockStartingSize.height,
                                                            duration: 0.3)
                         
                         let randomX = CGFloat.random(in: -20...20)
@@ -76,10 +126,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //MARK: SELECTION LOGIC
             
             if !isSelected {
-                if isTouched {
+                if blockIsTouched {
                     isSelected = true
-                    selectedName = item.name
-                    
+                    if let name = item.name {
+                        selectedName = name
+                    }
+                    selectedBlock = item
                     
                     
                     let showPosition = CGPoint(x: 0, y: -100)
@@ -87,8 +139,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     let showAction = SKAction.move(to: showPosition,
                                                    duration: 0.3)
                     
-                    let resizeAction = SKAction.resize(toWidth: item.size.width * 2,
-                                                       height: item.size.height * 2,
+                    let resizeAction = SKAction.resize(toWidth: blockStartingSize.width * 2,
+                                                       height: blockStartingSize.height * 2,
                                                        duration: 0.3)
                     
                     let actionGroup = SKAction.group([showAction, resizeAction])
@@ -297,6 +349,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             block.physicsBody?.angularVelocity = CGFloat(drand48() * 2 - 1) * angularVelocityMultiplier
             block.physicsBody?.velocity.dx = CGFloat(drand48() * 2 - 1) * velocityMultiplier
             
+            blockStartingSize = block.size
+            startingPositions.append(block.position)
             blocksArray.append(block)
             addChild(block)
             
@@ -306,6 +360,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             frame.size = CGSize(width: blockHeight + 10, height: blockHeight + 10)
             frame.position = CGPoint(x: x, y: y)
             frame.zPosition = 9
+                        
+            framesArray.append(frame)
             addChild(frame)
         }
     }
