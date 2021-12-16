@@ -11,25 +11,110 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     
     
+    
     //MARK: - LEVEL
-    var level: Int = 6
+    var level: Int = 7
     
     var forced: Bool = false
+    var isSelected: Bool = false
+    var selectedName: String?
+    
+    
+    
+    
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity.dy = gravity(self.level)
         
-        print(blocksCount)
-        
         createBackground()
         createBlocks()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard let touchLocation = touches.first?.location(in: self) else { return }
+        
+        for item in blocksArray {
+            let isTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
+            
+            
+            
+            //MARK: DESELECTION LOGIC
+            
+            if isSelected {
+                if selectedName == item.name {
+                    if !isTouched {
+                        isSelected = false
+//                        selectedName = nil
+                        item.physicsBody?.affectedByGravity = true
+                        item.physicsBody?.allowsRotation = true
+                        item.physicsBody?.isDynamic = true
+                        
+                        let resizeAction = SKAction.resize(toWidth: item.size.width / 2,
+                                                           height: item.size.height / 2,
+                                                           duration: 0.3)
+                        
+                        let randomX = CGFloat.random(in: -20...20)
+                        let impulse = CGVector(dx: randomX, dy: 200)
+                        
+                        let impulseAction = SKAction.applyImpulse(impulse, duration: 0.3)
+                        
+                        let actionGroup = SKAction.group([resizeAction, impulseAction])
+                        
+                        item.run(actionGroup) {
+                            item.physicsBody?.affectedByGravity = true
+                            item.physicsBody?.allowsRotation = true
+                            item.physicsBody?.isDynamic = true
+                            item.physicsBody?.categoryBitMask = 0x1 << 0
+                            item.zPosition = 10
+                        }
+                    }
+                }
+            }
+            
+            //MARK: SELECTION LOGIC
+            
+            if !isSelected {
+                if isTouched {
+                    isSelected = true
+                    selectedName = item.name
+                    
+                    
+                    
+                    let showPosition = CGPoint(x: 0, y: -100)
+                    
+                    let showAction = SKAction.move(to: showPosition,
+                                                   duration: 0.3)
+                    
+                    let resizeAction = SKAction.resize(toWidth: item.size.width * 2,
+                                                       height: item.size.height * 2,
+                                                       duration: 0.3)
+                    
+                    let actionGroup = SKAction.group([showAction, resizeAction])
+                    item.run(actionGroup) {
+                        item.zRotation = 0
+                        item.physicsBody?.affectedByGravity = false
+                        item.physicsBody?.allowsRotation = false
+                        item.physicsBody?.isDynamic = false
+                        item.physicsBody?.categoryBitMask = 0x0 << 0
+                        item.zPosition += 1
+                    }
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    
     func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
-
+        
         
         if (bodyA.categoryBitMask == 0x1 << 0) && (bodyB.categoryBitMask == 0x1 << 0) {
             if !forced {
@@ -38,23 +123,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let impulse = CGVector(dx: randomX, dy: 50)
                 bodyA.node?.physicsBody?.applyImpulse(impulse)
                 bodyB.node?.physicsBody?.applyImpulse(impulse)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                     self.forced = true
                 }
             }
         }
     }
     
-// MARK: - MAY BE INCAPSULATED
+    // MARK: - MAY BE INCAPSULATED
     
     func gravity(_ level: Int) -> CGFloat {
         switch level {
         case 1...3:
-            return -9
+            return -7
         case 3...5:
-            return -5
+            return -4
         case 6...7:
-            return -2
+            return -1
         default:
             return -9.8
         }
@@ -88,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = 0
         
         addChild(background)
-
+        
         // MARK: GROUND
         ground = SKSpriteNode(imageNamed: "ground")
         let width = self.frame.width + 25
@@ -112,7 +197,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createBlocks() {
         //MARK: LINES OF BLOCKS
-
+        
         if (blocksCount > 0) && (blocksCount <= 3) {
             buildLine(lineNumber: 1)
         }
@@ -128,38 +213,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             buildLine(lineNumber: 2)
             buildLine(lineNumber: 3)
         }
-
-
+        
+        
     }
     
     // MARK: LINE
+    
     func buildLine(lineNumber: Int) {
-        var blockPerLine: Int!
+        var blocksForLine: Int!
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
+        var angularVelocityMultiplier: CGFloat!
+        var velocityMultiplier: CGFloat!
         
         let blockHeight = (self.frame.height / 15)
         
         var index = 0
         
+        switch self.level {
+        case 1...2:
+            angularVelocityMultiplier = 10.0
+            velocityMultiplier = 600.0
+        case 3...4:
+            angularVelocityMultiplier = 5.0
+            velocityMultiplier = 300.0
+        case 5...7:
+            angularVelocityMultiplier = 0.0
+            velocityMultiplier = 0.0
+        default:
+            break
+        }
+        
         switch lineNumber {
         case 1:
             index = 0
-            if blocksCount > 3 {
-                blockPerLine = 3
+            if blocksCount >= 3 {
+                blocksForLine = 3
             } else {
-                blockPerLine = blocksCount
+                blocksForLine = blocksCount
             }
             horizontalSpacing = 30.0
             verticalSpacing = 0.0
         case 2:
             index = 3
-            blockPerLine = blocksCount - 3
+            if blocksCount >= 7 {
+                blocksForLine = 4
+            } else {
+                blocksForLine = blocksCount - 3
+            }
             horizontalSpacing = 20.0
             verticalSpacing = blockHeight + horizontalSpacing
         case 3:
             index = 7
-            blockPerLine = blocksCount - 7
+            blocksForLine = blocksCount - 7
             horizontalSpacing = 40.0
             verticalSpacing = 2 * (blockHeight + horizontalSpacing)
             
@@ -169,9 +275,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // MARK: BLOCK
         
-        for _ in 1...blockPerLine {
+        for _ in 1...blocksForLine {
             index += 1
-            let block = SKSpriteNode(imageNamed: String(describing: index))
+            let name = String(describing: index)
+            let block = SKSpriteNode(imageNamed: name)
+            block.name = name
             
             block.size = CGSize(width: blockHeight, height: blockHeight)
             
@@ -185,6 +293,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
             block.physicsBody?.categoryBitMask = 0x1 << 0
             block.physicsBody?.contactTestBitMask = 0x1 << 0
+            
+            block.physicsBody?.angularVelocity = CGFloat(drand48() * 2 - 1) * angularVelocityMultiplier
+            block.physicsBody?.velocity.dx = CGFloat(drand48() * 2 - 1) * velocityMultiplier
             
             blocksArray.append(block)
             addChild(block)
