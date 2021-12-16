@@ -11,9 +11,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return countBlocks(level)
     }
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
+    var currentTimeBlocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var framesArray: [SKSpriteNode] = [SKSpriteNode]()
     var startingPositions: [CGPoint] = [CGPoint]()
     
+    var blocksInTheirStartingPositions: Int = 0
     
     
     
@@ -41,9 +43,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let touchLocation = touches.first?.location(in: self) else { return }
-        
-        
-        
+                
+
         
         for item in blocksArray {
             let blockIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
@@ -160,8 +161,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        checkIfWon()
+    }
     
-    
+
+   
     
     func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA
@@ -181,6 +186,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    
+    func checkIfWon() {
+        var index = 0
+        currentTimeBlocksArray.removeAll()
+        blocksInTheirStartingPositions = 0
+        for item in blocksArray {
+            currentTimeBlocksArray.append(item)
+        }
+        for item in currentTimeBlocksArray {
+            let startingPosition = self.startingPositions[index]
+            let currentPosition = item.position
+            
+            let diffferenceX = module(startingPosition.x) - module(currentPosition.x)
+            let diffferenceY = module(startingPosition.y) - module(currentPosition.y)
+            
+            if (diffferenceX < 0.1) && (diffferenceY < 0.1) {
+                self.blocksInTheirStartingPositions += 1
+            }
+            index += 1
+        }
+        if blocksInTheirStartingPositions == blocksArray.count {
+            print("WON")
+        }
+    }
+    
+    func module(_ a: CGFloat) -> CGFloat {
+        return sqrt(a*a)
+    }
+    
+    
+    
+    
+    
+    
     
     // MARK: - MAY BE INCAPSULATED
     
@@ -348,7 +388,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             block.physicsBody?.angularVelocity = CGFloat(drand48() * 2 - 1) * angularVelocityMultiplier
             block.physicsBody?.velocity.dx = CGFloat(drand48() * 2 - 1) * velocityMultiplier
-            
             blockStartingSize = block.size
             startingPositions.append(block.position)
             blocksArray.append(block)
@@ -360,7 +399,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             frame.size = CGSize(width: blockHeight + 10, height: blockHeight + 10)
             frame.position = CGPoint(x: x, y: y)
             frame.zPosition = 9
-                        
             framesArray.append(frame)
             addChild(frame)
         }
