@@ -27,13 +27,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var blocksCount: Int {
         return countBlocks(level)
     }
+    
+    
+    
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var currentTimeBlocksArray: [SKSpriteNode] = [SKSpriteNode]()
+    var blocksInTheFrame: [SKSpriteNode] = [SKSpriteNode]()
+    
+    
     var framesArray: [SKSpriteNode] = [SKSpriteNode]()
-    var filledFramesArray: [SKSpriteNode] = [SKSpriteNode]()
-    var blocksInTheFrames: [SKSpriteNode] = [SKSpriteNode]()
+    var filledFramesArray:[SKSpriteNode] = [SKSpriteNode]()
+    
+    
     var startingPositions: [CGPoint] = [CGPoint]()
     
+
     var blocksInTheirStartingPositions: Int = 0
     
     
@@ -42,11 +50,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameStarted: Bool = false
     
-    var forced: Bool = false
-    var isSelected: Bool = false
     var timerShouldStart: Bool = false
     var timerStarted: Bool = false
+
+    
+    
+    
+    var blockIsSelected: Bool = false
     var blockIsInTheFrame: Bool = false
+    
+    
     var selectedBlock: SKSpriteNode?
     var selectedName: String?
     
@@ -66,164 +79,213 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
         if gameStarted {
             
             guard let touchLocation = touches.first?.location(in: self) else { return }
             
-            for item in blocksArray {
-                let blockIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
+                                    //MARK: - TOUCH ON BLOCK!
+            for block in blocksArray {
+                let blockIsTouched: Bool = ((touchLocation.x > block.frame.minX + 3) && (touchLocation.x < block.frame.maxX - 3)) && ((touchLocation.y > block.frame.minY + 3) && (touchLocation.y < block.frame.maxY - 3))
+            
+                
+                                    //MARK: SIMMILAR CONDITIONS
                 
                 
-                //MARK: - MOVE TO FRAME LOGIC
                 
-                if isSelected {
-                    if selectedBlock != nil {
-                        for item in framesArray {
-                            guard let touchLocation = touches.first?.location(in: self) else { return }
-                            let frameIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
-                            
-                            
-                            if frameIsTouched && !filledFramesArray.contains(item) {
-                                guard let block = selectedBlock else { return }
-                                guard let size = blockStartingSize else { return }
-                                guard let name = block.name else { return }
-                                
-                                let moveToFrameAction = SKAction.move(to: item.position, duration: 0.2)
-                                let resizeActiton = SKAction.scale(to: size, duration: 0.2)
-                                                                
-                                let normalTexture = SKTexture(imageNamed: name)
-                                let textureAction = SKAction.setTexture(normalTexture)
-                                
-                                let actionGroup = SKAction.group([moveToFrameAction, resizeActiton, textureAction])
-                                
-                                block.run(actionGroup) {
-                                    self.filledFramesArray.append(item)
-                                    self.blocksInTheFrames.append(block)
-                                    
-                                    
-                                    self.selectedName = nil
-                                    self.isSelected = false
-                                    self.selectedName = nil
-                                    block.zRotation = 0
-                                    block.physicsBody?.affectedByGravity = false
-                                    block.physicsBody?.allowsRotation = false
-                                    block.physicsBody?.isDynamic = false
-                                    block.physicsBody?.categoryBitMask = 0x0 << 0
-                                    block.zPosition += 1
-                                }
-                                return
-                            }
+                if blockIsTouched && !blockIsSelected  {
+                                            //MARK: SELECT
+
+                    if !checkIfBlockIsInTheFrame(block) && block.physicsBody!.affectedByGravity {
+                    
+                    guard let name = block.name else { return }
+
+                    
+                    
+                    let selectedTexture = SKTexture(imageNamed: name + "s")
+                    
+                    let newTextureAction = SKAction.setTexture(selectedTexture)
+                    let scaleAction = SKAction.scale(by: 1.1, duration: 0.2)
+                    let actionsGroup = SKAction.group([newTextureAction, scaleAction])
+                    
+                        block.run(actionsGroup) {
+                            self.selectedBlock = block
+                            self.selectedName = name
+                            self.blockIsSelected = true
                         }
+                    } else {
+                                        //MARK: DROP FROM THE FRAME
+                        
+                        
+                        removeFromBlocksInTheFrames(block)
+                        let filledFrame = getFiiledFrameAccordingToBlock(block)
+                        removeFromFilledFrames(filledFrame)
+                        
+                        
+                        
+                        block.physicsBody?.affectedByGravity = true
+                        block.physicsBody?.allowsRotation = true
+                        block.physicsBody?.isDynamic = true
+                        block.physicsBody?.categoryBitMask = 0x1 << 0
+                        block.zPosition = 9
+                        
                     }
                 }
                 
+                                //MARK: DESELECT
                 
-                
-                
-                
-                
-                //MARK: DESELECTION LOGIC
-                
-                if isSelected {
-                    if (selectedName == item.name) && (item.size != blockStartingSize) {
-                        if !blockIsTouched {
-                            
-                            for frame in filledFramesArray {
-                                guard let selectedBlock = self.selectedBlock else { return }
-                                let blockPosition = selectedBlock.position
-                                let framePosition = frame.position
-                                let differenceX = module(framePosition.x) - module(blockPosition.x)
-                                let differenceY = module(framePosition.y) - module(blockPosition.y)
-                                if differenceX < 0.1 && differenceY < 0.1 {
-                                    blockIsInTheFrame = true
-                                } else {
-                                    blockIsInTheFrame = false
-                                }
-                            }
-                            isSelected = false
-                            selectedName = nil
-                            selectedBlock = nil
-                            
-                            item.physicsBody?.affectedByGravity = true
-                            item.physicsBody?.allowsRotation = true
-                            item.physicsBody?.isDynamic = true
-                            
-                            guard let size = blockStartingSize else { return }
-                            
-                            let resizeAction = SKAction.scale(to: size, duration: 0.2)
-                            
-                            guard let name = item.name else { return }
-                            let deselectedTextureName = SKTexture(imageNamed: name)
-                            
-                            let deselectAction = SKAction.setTexture(deselectedTextureName)
-                                    
-                            let actionsGroup = SKAction.group([resizeAction, deselectAction])
+                if   blockIsSelected && !checkIfBlockIsInTheFrame(block) && block.physicsBody!.affectedByGravity {
+                    
+                    guard let size = blockStartingSize else { return }
+                    guard let name = block.name else { return }
 
-                                    
-                                                        
-                            item.run(actionsGroup) {
-                                item.physicsBody?.affectedByGravity = true
-                                item.physicsBody?.allowsRotation = true
-                                item.physicsBody?.isDynamic = true
-                                item.physicsBody?.categoryBitMask = 0x1 << 0
-                                item.zPosition = 10
-                                self.blockIsInTheFrame = false
-                            }
-                            return
-                        }
+                    
+                    
+                    let scaleAction = SKAction.scale(to: size, duration: 0.2)
+            
+                    let oldTexture = SKTexture(imageNamed: name)
+                    
+                    let oldTextureAction = SKAction.setTexture(oldTexture)
+                            
+                    let actionsGroup = SKAction.group([scaleAction, oldTextureAction])
+                    
+                    block.run(actionsGroup) {
+                        
+                        
+                        
+                        self.blockIsSelected = false
+                        self.selectedName = nil
+                        self.selectedBlock = nil
+                        
+                        
+                        block.physicsBody?.affectedByGravity = true
+                        block.physicsBody?.allowsRotation = true
+                        block.physicsBody?.isDynamic = true
+                        block.physicsBody?.categoryBitMask = 0x1 << 0
+                        block.zPosition = 10
                     }
+                    
+                    
                 }
                 
-                //MARK: SELECTION LOGIC
                 
-                if !isSelected {
-                    if blockIsTouched {
-                        selectedBlock = item
-
-                        var index = 0
-                        for i in blocksInTheFrames {
-                            if i == selectedBlock {
-                                blocksInTheFrames.remove(at: index)
-                                item.physicsBody?.affectedByGravity = true
-                                item.physicsBody?.allowsRotation = true
-                                item.physicsBody?.isDynamic = true
-                                item.physicsBody?.categoryBitMask = 0x1 << 0
-                                item.zPosition = 10
-                                self.blockIsInTheFrame = false
-                                return
-                            }
-                            index += 1
-                        }
-                   
-                        isSelected = true
+            }
+            
+                            
+                                    //MARK: - TOUCH ON FRAME!
+            
+            
+            for frame in framesArray {
+                let frameIsTouched: Bool = ((touchLocation.x > frame.frame.minX) && (touchLocation.x < frame.frame.maxX)) && ((touchLocation.y > frame.frame.minY) && (touchLocation.y < frame.frame.maxY))
+            
+                                    //MARK: MOVE TO FRAME
+                
+                if frameIsTouched && blockIsSelected && !filledFramesArray.contains(frame) {
+                    guard let block = selectedBlock else { return }
+                    guard let name = block.name else { return }
+                    guard let size = blockStartingSize else { return }
+                
+                    let moveToFrameAction = SKAction.move(to: frame.position, duration: 0.2)
+                    let resizeActiton = SKAction.scale(to: size, duration: 0.2)
+                                                    
+                    let normalTexture = SKTexture(imageNamed: name)
+                    let textureAction = SKAction.setTexture(normalTexture)
+                    
+                    let actionsGroup = SKAction.group([moveToFrameAction, resizeActiton, textureAction])
+                    
+                    block.run(actionsGroup) {
+                        self.filledFramesArray.append(frame)
+                        self.blocksInTheFrame.append(block)
+                        
+                        self.selectedName = nil
+                        self.selectedBlock = nil
+                        self.blockIsSelected = false
                         
                         
-                        
-                        
-                        
-                        
-                        guard let name = item.name else { return }
-                        let selectedTextureName = name + "s"
-                        let selectedTexture = SKTexture(imageNamed: selectedTextureName)
-                        
-                        let selectAction = SKAction.setTexture(selectedTexture)
-                        let resizeAction = SKAction.scale(by: 1.1, duration: 0.2)
-                        let actionsGroup = SKAction.group([selectAction, resizeAction])
-                        
-                        
-                                                
-                        item.run(actionsGroup) {
-
-                        }
-                        return
+                        block.zRotation = 0
+                        block.physicsBody?.affectedByGravity = false
+                        block.physicsBody?.allowsRotation = false
+                        block.physicsBody?.isDynamic = false
+                        block.physicsBody?.categoryBitMask = 0x0 << 0
                     }
+            
                 }
-                
             }
         }
     }
+    
+    
+    func checkIfBlockIsInTheFrame(_ block: SKSpriteNode) -> Bool {
+        for i in blocksInTheFrame {
+            if i == block {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    func getFiiledFrameAccordingToBlock(_ block: SKSpriteNode) -> SKSpriteNode {
+        for filledFrame in filledFramesArray {
+            let blockIsInTheFrame: Bool = ((filledFrame.position.y < block.frame.maxY) && (filledFrame.position.y > block.frame.minY)) && ((filledFrame.position.x < block.frame.maxX) && (filledFrame.position.x > block.frame.minX))
+            
+            if blockIsInTheFrame {
+                return filledFrame
+            }
+        }
+        return SKSpriteNode()
+    }
+    
+    func removeFromFilledFrames(_ frame: SKSpriteNode) {
+        var index = 0
+        for i in filledFramesArray {
+            if i == frame {
+                filledFramesArray.remove(at: index)
+                return
+            }
+            index += 1
+        }
+    }
+    
+    func removeFromBlocksInTheFrames(_ block: SKSpriteNode) {
+        var index = 0
+        for i in blocksInTheFrame {
+            if i == block {
+                blocksInTheFrame.remove(at: index)
+                return
+            }
+            index += 1
+        }
+    }
+    
+    func getIndexInFilledFrames(_ frame: SKSpriteNode) -> Int {
+        var index = 0
+        for i in filledFramesArray {
+            if i == frame {
+                return index
+            }
+            index += 1
+        }
+        return -1
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     override func update(_ currentTime: TimeInterval) {
         if timerShouldStart && !timerStarted {
