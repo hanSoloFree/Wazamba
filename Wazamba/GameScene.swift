@@ -7,14 +7,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
+    
     var timerCountdown: Int! {
         didSet {
             guard let time = timerCountdown else { return }
             timer.text = String(describing: time)
         }
     }
-    var timer: SKLabelNode!
+    var gameStartTimerCountdown: Int! {
+        didSet {
+            guard let time = gameStartTimerCountdown else { return }
+            gameStartTimer.text = String(describing: time)
+        }
+    }
     
+    var timer: SKLabelNode!
+    var gameStartTimer: SKLabelNode!
     
     var blocksCount: Int {
         return countBlocks(level)
@@ -47,6 +55,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity.dy = gravity(self.level)
+        
+        createGameStartTimer()
+        
+        
         print(blocksCount)
         createBackground()
         createTimer()
@@ -498,7 +510,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(timer)
     }
     
-
+    func createGameStartTimer() {
+        gameStartTimer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
+        gameStartTimer.position = CGPoint(x: 0, y: 0)
+        gameStartTimer.fontSize = 60
+        gameStartTimer.zPosition = 20
+        
+        gameStartTimerCountdown = 5
+        
+        guard let time = gameStartTimerCountdown else { return }
+        
+        gameStartTimer.text = String(describing: time)
+        addChild(gameStartTimer)
+        startGameStartTimer()
+    }
+    
+    func startGameStartTimer() {
+        let timerAction = SKAction.wait(forDuration: 1)
+        let block = SKAction.run {
+            if self.gameStartTimerCountdown > 0 {
+                self.gameStartTimerCountdown -= 1
+            } else {
+                self.gameStartTimer.removeFromParent()
+                self.removeAction(forKey: "gameStartCountdown")
+            }
+        }
+        let sequence = SKAction.sequence([timerAction, block])
+        let repeatAction = SKAction.repeatForever(sequence)
+        run(repeatAction, withKey: "gameStartCountdown")
+    }
+    
+    
+    
     
     
     func startTimer() {
