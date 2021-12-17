@@ -29,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //MARK: - LEVEL
-    var level: Int = 2
+    var level: Int = 7
     
     var forced: Bool = false
     var isSelected: Bool = false
@@ -358,6 +358,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: LINE
     
     func buildLine(lineNumber: Int) {
+        let deviceScreen = self.frame.width / self.frame.height
         var blocksForLine: Int!
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
@@ -386,34 +387,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 1:
             index = 0
             if blocksCount >= 3 {
+                horizontalSpacing = self.frame.width / 5.3
                 blocksForLine = 3
             } else {
+                horizontalSpacing = self.frame.width / 3.8
                 blocksForLine = blocksCount
             }
-            horizontalSpacing = 30.0
             verticalSpacing = 0.0
         case 2:
             index = 3
             if blocksCount >= 7 {
                 blocksForLine = 4
-            } else {
+                horizontalSpacing = self.frame.width / 8
+            } else if blocksCount == 6 {
                 blocksForLine = blocksCount - 3
+                horizontalSpacing = self.frame.width / 5.3
+            } else {
+                blocksForLine = 2
+                horizontalSpacing = self.frame.width / 3.8
             }
-            horizontalSpacing = 20.0
-            verticalSpacing = blockHeight + horizontalSpacing
+            verticalSpacing = blockHeight + 20.0
         case 3:
             index = 7
-            blocksForLine = blocksCount - 7
-            horizontalSpacing = 40.0
-            verticalSpacing = 2 * (blockHeight + horizontalSpacing)
+            if blocksCount == 8 {
+                blocksForLine = 1
+                horizontalSpacing =  self.frame.width / 3
+            } else if blocksCount == 9{
+                blocksForLine = 2
+                horizontalSpacing = self.frame.width / 3.8
+            } else if blocksCount == 10 {
+                blocksForLine = 3
+                horizontalSpacing = self.frame.width / 5.3
+            }
+            verticalSpacing = 2 * (blockHeight + 20.0)
             
         default:
             break
         }
+
+        
         
         // MARK: BLOCK
         
         for _ in 1...blocksForLine {
+            
+            if deviceScreen > 0.5 {
+                horizontalSpacing += 5
+            }
+
             index += 1
             let name = String(describing: index)
             let block = SKSpriteNode(imageNamed: name)
@@ -453,9 +474,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func createTimer() {
         timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
         let position = CGPoint(x: (self.frame.width / 2) - 60,
-                               y: (self.frame.height / 2) - 100)
+                               y: (self.frame.height / 2) - 60)
         
-        timer.fontSize = 40.0
+        timer.fontSize = (self.frame.width / 10.35)
         timer.position = position
         timer.alpha = 0
         
