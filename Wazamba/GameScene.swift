@@ -22,18 +22,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var currentTimeBlocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var framesArray: [SKSpriteNode] = [SKSpriteNode]()
+    var filledFramesArray: [SKSpriteNode] = [SKSpriteNode]()
     var startingPositions: [CGPoint] = [CGPoint]()
     
     var blocksInTheirStartingPositions: Int = 0
     
     
     //MARK: - LEVEL
-    var level: Int = 5
+    var level: Int = 2
     
     var forced: Bool = false
     var isSelected: Bool = false
     var timerShouldStart: Bool = false
     var timerStarted: Bool = false
+    var blockIsInTheFrame: Bool = false
     var selectedBlock: SKSpriteNode?
     var selectedName: String?
     
@@ -70,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         let frameIsTouched: Bool = ((touchLocation.x > item.frame.minX) && (touchLocation.x < item.frame.maxX)) && ((touchLocation.y > item.frame.minY) && (touchLocation.y < item.frame.maxY))
                         
                         
-                        if frameIsTouched {
+                        if frameIsTouched && !filledFramesArray.contains(item) {
                             guard let block = selectedBlock else { return }
                             
                             let moveToFrameAction = SKAction.move(to: item.position, duration: 0.2)
@@ -79,6 +81,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                                                 duration: 0.2)
                             let actionGroup = SKAction.group([moveToFrameAction, resizeActiton])
                             block.run(actionGroup) {
+                                self.filledFramesArray.append(item)
+                                
                                 self.selectedName = nil
                                 self.isSelected = false
                                 self.selectedName = nil
@@ -103,8 +107,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //MARK: DESELECTION LOGIC
             
             if isSelected {
-                if (selectedName == item.name) && (item.size != blockStartingSize){
+                if (selectedName == item.name) && (item.size != blockStartingSize) {
                     if !blockIsTouched {
+                        for frame in filledFramesArray {
+                            guard let selectedBlock = self.selectedBlock else { return }
+                            let blockPosition = selectedBlock.position
+                            let framePosition = frame.position
+                            let differenceX = module(framePosition.x) - module(blockPosition.x)
+                            let differenceY = module(framePosition.y) - module(blockPosition.y)
+                            if differenceX < 0.1 && differenceY < 0.1 {
+                                blockIsInTheFrame = true
+                            } else {
+                                blockIsInTheFrame = false
+                            }
+                        }
                         isSelected = false
                         selectedName = nil
                         selectedBlock = nil
@@ -130,7 +146,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             item.physicsBody?.isDynamic = true
                             item.physicsBody?.categoryBitMask = 0x1 << 0
                             item.zPosition = 10
+                            self.blockIsInTheFrame = false
                         }
+                        return
                     }
                 }
             }
@@ -144,7 +162,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         selectedName = name
                     }
                     selectedBlock = item
-                    
+                    var index = 0
+                    for frame in filledFramesArray {
+                        let blockPosition = item.position
+                        let framePosition = frame.position
+                        let differenceX = module(framePosition.x) - module(blockPosition.x)
+                        let differenceY = module(framePosition.y) - module(blockPosition.y)
+                        if differenceX < 0.1 && differenceY < 0.1 {
+                            if filledFramesArray.contains(frame) {
+                                filledFramesArray.remove(at: index)
+                            }
+                        } else {
+                            blockIsInTheFrame = false
+                        }
+                        index += 1
+                    }
                     
                     let showPosition = CGPoint(x: 0, y: -100)
                     
@@ -164,7 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         item.physicsBody?.categoryBitMask = 0x0 << 0
                         item.zPosition += 1
                     }
-                    
+                    return
                 }
             }
             
