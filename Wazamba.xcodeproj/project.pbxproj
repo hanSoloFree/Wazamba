@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		048C9048276CC42400C31C1A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C9047276CC42400C31C1A /* Block.swift */; };
 		0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E74B276B68D4002EE87F /* AppDelegate.swift */; };
 		0498E74E276B68D4002EE87F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0498E74D276B68D4002EE87F /* GameScene.sks */; };
 		0498E750276B68D4002EE87F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0498E74F276B68D4002EE87F /* Actions.sks */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		048C9047276CC42400C31C1A /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		0498E748276B68D4002EE87F /* Wazamba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wazamba.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0498E74B276B68D4002EE87F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0498E74D276B68D4002EE87F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				0498E767276BCF68002EE87F /* Delegates */,
 				0498E764276BCDAF002EE87F /* ViewControllers */,
 				0498E74B276B68D4002EE87F /* AppDelegate.swift */,
+				048C9047276CC42400C31C1A /* Block.swift */,
 				0498E74D276B68D4002EE87F /* GameScene.sks */,
 				0498E74F276B68D4002EE87F /* Actions.sks */,
 				0498E751276B68D4002EE87F /* GameScene.swift */,
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
+				048C9048276CC42400C31C1A /* Block.swift in Sources */,
 				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
 				0498E752276B68D4002EE87F /* GameScene.swift in Sources */,
 				0498E769276BE57D002EE87F /* MainViewController.swift in Sources */,

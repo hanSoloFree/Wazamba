@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //MARK: - LEVEL
-    var level: Int = 7
+    var level: Int = 6
     
     var forced: Bool = false
     var isSelected: Bool = false
@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity.dy = gravity(self.level)
+//        physicsWorld.gravity.dy = gravity(self.level)
         
         createGameStartTimer()
         
@@ -226,27 +226,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
-   
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-
-        if (bodyA.categoryBitMask == 0x1 << 0) && (bodyB.categoryBitMask == 0x1 << 0) {
-            if !forced {
-                self.physicsWorld.gravity.dy = -9.8
-                let randomX = CGFloat.random(in: -50...50)
-                let impulse = CGVector(dx: randomX, dy: 50)
-                bodyA.node?.physicsBody?.applyImpulse(impulse)
-                bodyB.node?.physicsBody?.applyImpulse(impulse)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-                    self.forced = true
-                    self.timerShouldStart = true
-                }
-            }
-        }
-    }
     
     
     func checkIfWon() {
@@ -279,18 +258,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - MAY BE INCAPSULATED
     
-    func gravity(_ level: Int) -> CGFloat {
-        switch level {
-        case 1...3:
-            return -7
-        case 3...5:
-            return -4
-        case 6...7:
-            return -1
-        default:
-            return -9.8
-        }
-    }
     func countBlocks(_ level: Int) -> Int {
         switch level {
         case 1:
@@ -374,26 +341,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var blocksForLine: Int!
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
-        var angularVelocityMultiplier: CGFloat!
-        var velocityMultiplier: CGFloat!
+        
         
         let blockHeight = (self.frame.height / 15)
         
         var index = 0
         
-        switch self.level {
-        case 1...2:
-            angularVelocityMultiplier = 10.0
-            velocityMultiplier = 600.0
-        case 3...4:
-            angularVelocityMultiplier = 5.0
-            velocityMultiplier = 300.0
-        case 5...7:
-            angularVelocityMultiplier = 0.0
-            velocityMultiplier = 0.0
-        default:
-            break
-        }
         
         switch lineNumber {
         case 1:
@@ -465,8 +418,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             block.physicsBody?.categoryBitMask = 0x1 << 0
             block.physicsBody?.contactTestBitMask = 0x1 << 0
             
-            block.physicsBody?.angularVelocity = CGFloat(drand48() * 2 - 1) * angularVelocityMultiplier
-            block.physicsBody?.velocity.dx = CGFloat(drand48() * 2 - 1) * velocityMultiplier
+            block.physicsBody?.allowsRotation = false
+            block.physicsBody?.isDynamic = false
+            block.physicsBody?.affectedByGravity = false
+            block.physicsBody?.pinned = true
+            
+
             blockStartingSize = block.size
             startingPositions.append(block.position)
             blocksArray.append(block)
@@ -531,6 +488,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.gameStartTimerCountdown > 0 {
                 self.gameStartTimerCountdown -= 1
             } else {
+                self.blocksArray.forEach { block in
+
+        
+                    
+                    block.physicsBody?.allowsRotation = true
+                    block.physicsBody?.isDynamic = true
+                    block.physicsBody?.affectedByGravity = true
+                    block.physicsBody?.pinned = false
+                    
+                    let randomX = CGFloat.random(in: -200...200)
+                    
+                    let impulse = CGVector(dx: randomX, dy: 150)
+                    
+                    block.physicsBody?.applyImpulse(impulse)
+                }
                 self.gameStartTimer.removeFromParent()
                 self.removeAction(forKey: "gameStartCountdown")
             }
