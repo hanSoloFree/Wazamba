@@ -5,6 +5,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameOverDelegate: GameOverDelegate?
     
+    var aspectRatio: CGFloat!
+    
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
     
@@ -31,7 +33,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
-    var currentTimeBlocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var blocksInTheFrame: [SKSpriteNode] = [SKSpriteNode]()
     
     
@@ -46,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //MARK: - LEVEL
-    var level: Int = 7
+    var level: Int = 2
     
     var gameStarted: Bool = false
     
@@ -70,6 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
+        aspectRatio = self.frame.width / self.frame.height
         
         createGameStartTimer()
         
@@ -78,6 +80,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createBlocks()
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard !timerShouldStart else { return }
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
+            self.timerShouldStart = true
+            timer.alpha = 1
+            startTimer()
+        }
+    }
+
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if gameStarted {
             
@@ -122,9 +136,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                         
                         
-                        block.physicsBody?.affectedByGravity = true
-                        block.physicsBody?.allowsRotation = true
-                        block.physicsBody?.isDynamic = true
+                        physicsBody(for: block, isOn: true)
                         block.physicsBody?.categoryBitMask = 0x1 << 0
                         block.zPosition = 9
                         
@@ -157,9 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         self.selectedBlock = nil
                         
                         
-                        block.physicsBody?.affectedByGravity = true
-                        block.physicsBody?.allowsRotation = true
-                        block.physicsBody?.isDynamic = true
+                        self.physicsBody(for: block, isOn: true)
                         block.physicsBody?.categoryBitMask = 0x1 << 0
                         block.zPosition = 10
                     }
@@ -202,9 +212,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                         
                         block.zRotation = 0
-                        block.physicsBody?.affectedByGravity = false
-                        block.physicsBody?.allowsRotation = false
-                        block.physicsBody?.isDynamic = false
+                        self.physicsBody(for: block, isOn: false)
                         block.physicsBody?.categoryBitMask = 0x0 << 0
                     }
             
@@ -214,107 +222,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func checkIfBlockIsInTheFrame(_ block: SKSpriteNode) -> Bool {
-        for i in blocksInTheFrame {
-            if i == block {
-                return true
-            } else {
-                return false
-            }
-        }
-        return false
-    }
-    
-    func getFiiledFrameAccordingToBlock(_ block: SKSpriteNode) -> SKSpriteNode {
-        for filledFrame in filledFramesArray {
-            let blockIsInTheFrame: Bool = ((filledFrame.position.y < block.frame.maxY) && (filledFrame.position.y > block.frame.minY)) && ((filledFrame.position.x < block.frame.maxX) && (filledFrame.position.x > block.frame.minX))
-            
-            if blockIsInTheFrame {
-                return filledFrame
-            }
-        }
-        return SKSpriteNode()
-    }
-    
-    func removeFromFilledFrames(_ frame: SKSpriteNode) {
-        var index = 0
-        for i in filledFramesArray {
-            if i == frame {
-                filledFramesArray.remove(at: index)
-                return
-            }
-            index += 1
-        }
-    }
-    
-    func removeFromBlocksInTheFrames(_ block: SKSpriteNode) {
-        var index = 0
-        for i in blocksInTheFrame {
-            if i == block {
-                blocksInTheFrame.remove(at: index)
-                return
-            }
-            index += 1
-        }
-    }
-    
-    func getIndexInFilledFrames(_ frame: SKSpriteNode) -> Int {
-        var index = 0
-        for i in filledFramesArray {
-            if i == frame {
-                return index
-            }
-            index += 1
-        }
-        return -1
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     override func update(_ currentTime: TimeInterval) {
-        if timerShouldStart && !timerStarted {
-            timerStarted = true
-            timerShouldStart = false
-            timer.alpha = 1
-            startTimer()
-            checkIfWon()
-        }
+
     }
     
 
     
-    
+    // replace [SKSpriteNode]() with blocksArray
     func checkIfWon() {
         var index = 0
-        currentTimeBlocksArray.removeAll()
+        var currentTimeBlocksArray = blocksArray
         blocksInTheirStartingPositions = 0
         for item in blocksArray {
             currentTimeBlocksArray.append(item)
         }
-        for item in currentTimeBlocksArray {
+        for block in currentTimeBlocksArray {
             let startingPosition = self.startingPositions[index]
-            let currentPosition = item.position
+//
+//            let diffferenceX = module(startingPosition.x) - module(currentPosition.x)
+//            let diffferenceY = module(startingPosition.y) - module(currentPosition.y)
             
-            let diffferenceX = module(startingPosition.x) - module(currentPosition.x)
-            let diffferenceY = module(startingPosition.y) - module(currentPosition.y)
+            let blockIsInStartingPosition: Bool = ((block.frame.maxX > startingPosition.x) && (block.frame.minX < startingPosition.x)) && ((block.frame.maxY > startingPosition.y) && (block.frame.minY < startingPosition.y))
             
-            if (diffferenceX < 0.1) && (diffferenceY < 0.1) {
+            if blockIsInStartingPosition {
                 self.blocksInTheirStartingPositions += 1
             }
             index += 1
@@ -327,29 +257,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
-    // MARK: - MAY BE INCAPSULATED
-    
-    func countBlocks(_ level: Int) -> Int {
-        switch level {
-        case 1:
-            return 2
-        case 2:
-            return 3
-        case 3:
-            return 5
-        case 4:
-            return 6
-        case 5:
-            return 7
-        case 6:
-            return 9
-        case 7:
-            return 10
-        default:
-            return 0
-        }
-    }
     
     
     func createBackground() {
@@ -409,7 +316,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: LINE
     
     func buildLine(lineNumber: Int) {
-        let deviceScreen = self.frame.width / self.frame.height
         var blocksForLine: Int!
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
@@ -468,7 +374,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for _ in 1...blocksForLine {
             
-            if deviceScreen > 0.5 {
+            if aspectRatio > 0.5 {
                 horizontalSpacing += 5
             }
 
@@ -487,13 +393,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             horizontalSpacing += block.size.width
             
             block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
-            block.physicsBody?.categoryBitMask = 0x1 << 0
-            block.physicsBody?.contactTestBitMask = 0x1 << 0
+            block.physicsBody?.categoryBitMask = 0x1 << 1
+            block.physicsBody?.contactTestBitMask = 0x1 << 2
             
-            block.physicsBody?.allowsRotation = false
-            block.physicsBody?.isDynamic = false
-            block.physicsBody?.affectedByGravity = false
-            block.physicsBody?.pinned = true
+            physicsBody(for: block, isOn: false)
             
 
             blockStartingSize = block.size
@@ -517,8 +420,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createTimer() {
         timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
+        var y:CGFloat = 100
+        if aspectRatio > 0.5 { y = 60 }
+        
         let position = CGPoint(x: (self.frame.width / 2) - 60,
-                               y: (self.frame.height / 2) - 60)
+                               y: (self.frame.height / 2) - y)
         
         timer.fontSize = (self.frame.width / 10.35)
         timer.position = position
@@ -568,7 +474,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameStartTimer.fontSize = 60
         gameStartTimer.zPosition = 20
         
-        gameStartTimerCountdown = 5
+        gameStartTimerCountdown = timeToRemember()
         
         guard let time = gameStartTimerCountdown else { return }
         
@@ -588,12 +494,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     block.physicsBody?.allowsRotation = true
                     block.physicsBody?.isDynamic = true
                     block.physicsBody?.affectedByGravity = true
-                    block.physicsBody?.pinned = false
-                    
+                                        
                     let randomX = CGFloat.random(in: -200...200)
+                    let randomY = CGFloat.random(in: -50...200)
+                    let impulse = CGVector(dx: randomX, dy: randomY)
                     
-                    let impulse = CGVector(dx: randomX, dy: 150)
-                    
+                    block.physicsBody?.velocity.dx = randomX
                     block.physicsBody?.applyImpulse(impulse)
                 }
                 self.gameStartTimer.removeFromParent()
@@ -609,6 +515,106 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
+    // MARK: - MAY BE INCAPSULATED
+    
+    func countBlocks(_ level: Int) -> Int {
+        switch level {
+        case 1:
+            return 2
+        case 2:
+            return 3
+        case 3:
+            return 5
+        case 4:
+            return 6
+        case 5:
+            return 7
+        case 6:
+            return 9
+        case 7:
+            return 10
+        default:
+            return 0
+        }
+    }
+    
+    func timeToRemember() -> Int {
+        switch self.level {
+        case 1...2:
+            return 3
+        case 3...4:
+            return 6
+        case 5:
+            return 7
+        case 6...7:
+            return 9
+        default:
+            return 5
+        }
+    }
+    
+    func physicsBody(for block: SKSpriteNode, isOn: Bool) {
+        block.physicsBody?.affectedByGravity = isOn
+        block.physicsBody?.allowsRotation = isOn
+        block.physicsBody?.isDynamic = isOn
+    }
+    
+    
+    
+    func checkIfBlockIsInTheFrame(_ block: SKSpriteNode) -> Bool {
+        for i in blocksInTheFrame {
+            if i == block {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    func getFiiledFrameAccordingToBlock(_ block: SKSpriteNode) -> SKSpriteNode {
+        for filledFrame in filledFramesArray {
+            let blockIsInTheFrame: Bool = ((filledFrame.position.y < block.frame.maxY) && (filledFrame.position.y > block.frame.minY)) && ((filledFrame.position.x < block.frame.maxX) && (filledFrame.position.x > block.frame.minX))
+            
+            if blockIsInTheFrame {
+                return filledFrame
+            }
+        }
+        return SKSpriteNode()
+    }
+    
+    func removeFromFilledFrames(_ frame: SKSpriteNode) {
+        var index = 0
+        for i in filledFramesArray {
+            if i == frame {
+                filledFramesArray.remove(at: index)
+                return
+            }
+            index += 1
+        }
+    }
+    
+    func removeFromBlocksInTheFrames(_ block: SKSpriteNode) {
+        var index = 0
+        for i in blocksInTheFrame {
+            if i == block {
+                blocksInTheFrame.remove(at: index)
+                return
+            }
+            index += 1
+        }
+    }
+    
+    func getIndexInFilledFrames(_ frame: SKSpriteNode) -> Int {
+        var index = 0
+        for i in filledFramesArray {
+            if i == frame {
+                return index
+            }
+            index += 1
+        }
+        return -1
+    }
     
     
     
