@@ -31,13 +31,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var currentTimeBlocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var framesArray: [SKSpriteNode] = [SKSpriteNode]()
     var filledFramesArray: [SKSpriteNode] = [SKSpriteNode]()
+    var blocksInTheFrames: [SKSpriteNode] = [SKSpriteNode]()
     var startingPositions: [CGPoint] = [CGPoint]()
     
     var blocksInTheirStartingPositions: Int = 0
     
     
     //MARK: - LEVEL
-    var level: Int = 6
+    var level: Int = 7
     
     var gameStarted: Bool = false
     
@@ -86,14 +87,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             
                             if frameIsTouched && !filledFramesArray.contains(item) {
                                 guard let block = selectedBlock else { return }
+                                guard let size = blockStartingSize else { return }
+                                guard let name = block.name else { return }
                                 
                                 let moveToFrameAction = SKAction.move(to: item.position, duration: 0.2)
-                                let resizeActiton = SKAction.resize(toWidth: blockStartingSize.width,
-                                                                    height: blockStartingSize.height,
-                                                                    duration: 0.2)
-                                let actionGroup = SKAction.group([moveToFrameAction, resizeActiton])
+                                let resizeActiton = SKAction.scale(to: size, duration: 0.2)
+                                                                
+                                let normalTexture = SKTexture(imageNamed: name)
+                                let textureAction = SKAction.setTexture(normalTexture)
+                                
+                                let actionGroup = SKAction.group([moveToFrameAction, resizeActiton, textureAction])
+                                
                                 block.run(actionGroup) {
                                     self.filledFramesArray.append(item)
+                                    self.blocksInTheFrames.append(block)
+                                    
                                     
                                     self.selectedName = nil
                                     self.isSelected = false
@@ -121,6 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if isSelected {
                     if (selectedName == item.name) && (item.size != blockStartingSize) {
                         if !blockIsTouched {
+                            
                             for frame in filledFramesArray {
                                 guard let selectedBlock = self.selectedBlock else { return }
                                 let blockPosition = selectedBlock.position
@@ -141,18 +150,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             item.physicsBody?.allowsRotation = true
                             item.physicsBody?.isDynamic = true
                             
-                            let resizeAction = SKAction.resize(toWidth: blockStartingSize.width,
-                                                               height: blockStartingSize.height,
-                                                               duration: 0.3)
+                            guard let size = blockStartingSize else { return }
                             
-                            let randomX = CGFloat.random(in: -20...20)
-                            let impulse = CGVector(dx: randomX, dy: 200)
+                            let resizeAction = SKAction.scale(to: size, duration: 0.2)
                             
-                            let impulseAction = SKAction.applyImpulse(impulse, duration: 0.3)
+                            guard let name = item.name else { return }
+                            let deselectedTextureName = SKTexture(imageNamed: name)
                             
-                            let actionGroup = SKAction.group([resizeAction, impulseAction])
-                            
-                            item.run(actionGroup) {
+                            let deselectAction = SKAction.setTexture(deselectedTextureName)
+                                    
+                            let actionsGroup = SKAction.group([resizeAction, deselectAction])
+
+                                    
+                                                        
+                            item.run(actionsGroup) {
                                 item.physicsBody?.affectedByGravity = true
                                 item.physicsBody?.allowsRotation = true
                                 item.physicsBody?.isDynamic = true
@@ -169,44 +180,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if !isSelected {
                     if blockIsTouched {
-                        isSelected = true
-                        if let name = item.name {
-                            selectedName = name
-                        }
                         selectedBlock = item
+
                         var index = 0
-                        for frame in filledFramesArray {
-                            let blockPosition = item.position
-                            let framePosition = frame.position
-                            let differenceX = module(framePosition.x) - module(blockPosition.x)
-                            let differenceY = module(framePosition.y) - module(blockPosition.y)
-                            if differenceX < 0.1 && differenceY < 0.1 {
-                                if filledFramesArray.contains(frame) {
-                                    filledFramesArray.remove(at: index)
-                                }
-                            } else {
-                                blockIsInTheFrame = false
+                        for i in blocksInTheFrames {
+                            if i == selectedBlock {
+                                blocksInTheFrames.remove(at: index)
+                                item.physicsBody?.affectedByGravity = true
+                                item.physicsBody?.allowsRotation = true
+                                item.physicsBody?.isDynamic = true
+                                item.physicsBody?.categoryBitMask = 0x1 << 0
+                                item.zPosition = 10
+                                self.blockIsInTheFrame = false
+                                return
                             }
                             index += 1
                         }
+                   
+                        isSelected = true
                         
-                        let showPosition = CGPoint(x: 0, y: -100)
                         
-                        let showAction = SKAction.move(to: showPosition,
-                                                       duration: 0.3)
                         
-                        let resizeAction = SKAction.resize(toWidth: blockStartingSize.width * 2,
-                                                           height: blockStartingSize.height * 2,
-                                                           duration: 0.3)
                         
-                        let actionGroup = SKAction.group([showAction, resizeAction])
-                        item.run(actionGroup) {
-                            item.zRotation = 0
-                            item.physicsBody?.affectedByGravity = false
-                            item.physicsBody?.allowsRotation = false
-                            item.physicsBody?.isDynamic = false
-                            item.physicsBody?.categoryBitMask = 0x0 << 0
-                            item.zPosition += 1
+                        
+                        
+                        guard let name = item.name else { return }
+                        let selectedTextureName = name + "s"
+                        let selectedTexture = SKTexture(imageNamed: selectedTextureName)
+                        
+                        let selectAction = SKAction.setTexture(selectedTexture)
+                        let resizeAction = SKAction.scale(by: 1.1, duration: 0.2)
+                        let actionsGroup = SKAction.group([selectAction, resizeAction])
+                        
+                        
+                                                
+                        item.run(actionsGroup) {
+
                         }
                         return
                     }
@@ -441,6 +450,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: CORNER TIMER
+    
+    
     func createTimer() {
         timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
         let position = CGPoint(x: (self.frame.width / 2) - 60,
@@ -467,6 +479,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(timer)
     }
+    
+    func startTimer() {
+        let timerAction = SKAction.wait(forDuration: 1)
+        let block = SKAction.run {
+            if self.timerCountdown > 0 {
+                self.timerCountdown -= 1
+            } else {
+                self.gameOverDelegate?.won = false
+                self.gameOverDelegate?.pushGameOverViewController()
+                self.removeAction(forKey: "countdown")
+            }
+        }
+        let sequence = SKAction.sequence([timerAction, block])
+        let repeatAction = SKAction.repeatForever(sequence)
+        run(repeatAction, withKey: "countdown")
+    }
+    
+    
+    //MARK: GAME STARTING TIMER
+    
     
     func createGameStartTimer() {
         gameStartTimer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
@@ -516,21 +548,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    func startTimer() {
-        let timerAction = SKAction.wait(forDuration: 1)
-        let block = SKAction.run {
-            if self.timerCountdown > 0 {
-                self.timerCountdown -= 1
-            } else {
-                self.gameOverDelegate?.won = false
-                self.gameOverDelegate?.pushGameOverViewController()
-                self.removeAction(forKey: "countdown")
-            }
-        }
-        let sequence = SKAction.sequence([timerAction, block])
-        let repeatAction = SKAction.repeatForever(sequence)
-        run(repeatAction, withKey: "countdown")
-    }
     
     
     func module(_ a: CGFloat) -> CGFloat {
