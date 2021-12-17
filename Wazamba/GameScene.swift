@@ -45,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity.dy = gravity(self.level)
-        
+        print(blocksCount)
         createBackground()
         createTimer()
         createBlocks()
@@ -254,11 +254,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 2:
             return 3
         case 3:
-            return Int.random(in: 4...5)
+            return 5
         case 4:
             return 6
         case 5:
-            return Int.random(in: 7...8)
+            return 7
         case 6:
             return 9
         case 7:
