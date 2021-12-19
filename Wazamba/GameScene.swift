@@ -81,11 +81,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        guard !timerShouldStart else { return }
+        guard !timerStarted else { return }
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
-            self.timerShouldStart = true
+            self.timerStarted = true
             timer.alpha = 1
             startTimer()
         }
@@ -223,25 +223,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-
+        if timerStarted {
+            checkIfWon()
+        }
     }
     
 
     
-    // replace [SKSpriteNode]() with blocksArray
     func checkIfWon() {
-        var index = 0
-        var currentTimeBlocksArray = blocksArray
+        let currentTimeBlocksArray = blocksArray
         blocksInTheirStartingPositions = 0
-        for item in blocksArray {
-            currentTimeBlocksArray.append(item)
-        }
+
+        var index = 0
         for block in currentTimeBlocksArray {
             let startingPosition = self.startingPositions[index]
-//
-//            let diffferenceX = module(startingPosition.x) - module(currentPosition.x)
-//            let diffferenceY = module(startingPosition.y) - module(currentPosition.y)
-            
+
             let blockIsInStartingPosition: Bool = ((block.frame.maxX > startingPosition.x) && (block.frame.minX < startingPosition.x)) && ((block.frame.maxY > startingPosition.y) && (block.frame.minY < startingPosition.y))
             
             if blockIsInStartingPosition {
