@@ -5,17 +5,17 @@ import GameplayKit
 class GameViewController: UIViewController, GameOverDelegate {
 
     var won: Bool?
-    
+    var level: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let view = self.view as! SKView? {
             if let scene = GameScene(fileNamed: "GameScene") {
-                
+                scene.level = level
                 scene.gameOverDelegate = self
                 scene.scaleMode = .resizeFill
                 view.presentScene(scene)

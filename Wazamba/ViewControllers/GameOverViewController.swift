@@ -16,7 +16,13 @@ class GameOverViewController: UIViewController {
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
+        if won {
+            guard let levelsViewController = navigationController?.viewControllers[1] else { return }
+            self.navigationController?.popToViewController(levelsViewController, animated: true)
+            
+        } else {
         self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func configure(won: Bool) {

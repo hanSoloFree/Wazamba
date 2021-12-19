@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //MARK: - LEVEL
-    var level: Int = 2
+    var level: Int = 0
     
     var gameStarted: Bool = false
     
@@ -294,7 +294,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             buildLine(lineNumber: 1)
         }
         
-        
         if (blocksCount > 3) && (blocksCount <= 7) {
             buildLine(lineNumber: 1)
             buildLine(lineNumber: 2)
@@ -305,8 +304,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             buildLine(lineNumber: 2)
             buildLine(lineNumber: 3)
         }
-        
-        
     }
     
     // MARK: LINE
@@ -316,11 +313,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
         
-        
         let blockHeight = (self.frame.height / 15)
         
         var index = 0
-        
         
         switch lineNumber {
         case 1:
