@@ -10,6 +10,7 @@ class LevelsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationController?.navigationBar.isHidden = true
         backgrroundImageView.image = UIImage(named: "background")
         let cellName = String(describing: LevelsCollectionViewCell.self)
@@ -21,8 +22,6 @@ class LevelsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         levelsCount = UserDefaults.standard.integer(forKey: "LEVEL")
-        
-        
         images.removeAll()
         for number in 1...levelsCount {
             let name = "level" + String(describing: number)
@@ -30,8 +29,14 @@ class LevelsViewController: UIViewController {
             
             self.images.append(levelImage)
         }
-        
         collectionView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let indexPath = IndexPath(item: images.count - 1, section: 0)
+        self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
     }
 }
 
