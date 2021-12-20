@@ -1,6 +1,6 @@
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var startButton: UIButton!

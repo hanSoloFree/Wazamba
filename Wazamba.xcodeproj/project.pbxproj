@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		048C9048276CC42400C31C1A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C9047276CC42400C31C1A /* Block.swift */; };
 		04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */; };
+		04948D802770C3C800FE5DA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */; };
 		0496A4F6276F6B400023B3EA /* LevelsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496A4F4276F6B3F0023B3EA /* LevelsCollectionViewCell.swift */; };
 		0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0496A4F5276F6B3F0023B3EA /* LevelsCollectionViewCell.xib */; };
 		0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E74B276B68D4002EE87F /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		048C9047276CC42400C31C1A /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0496A4F4276F6B3F0023B3EA /* LevelsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0496A4F5276F6B3F0023B3EA /* LevelsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LevelsCollectionViewCell.xib; sourceTree = "<group>"; };
 		0498E748276B68D4002EE87F /* Wazamba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wazamba.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 		0498E764276BCDAF002EE87F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */,
 				04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */,
 				0498E76A276BE6F2002EE87F /* LevelsViewController.swift */,
 				0498E768276BE57D002EE87F /* MainViewController.swift */,
@@ -195,6 +198,7 @@
 			files = (
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
 				048C9048276CC42400C31C1A /* Block.swift in Sources */,
+				04948D802770C3C800FE5DA3 /* BaseViewController.swift in Sources */,
 				04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */,
 				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
 				0496A4F6276F6B400023B3EA /* LevelsCollectionViewCell.swift in Sources */,

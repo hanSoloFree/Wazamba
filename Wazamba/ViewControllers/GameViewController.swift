@@ -2,7 +2,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController, GameOverDelegate {
+class GameViewController: BaseViewController, GameOverDelegate {
 
     var won: Bool?
     var level: Int!
@@ -23,21 +23,21 @@ class GameViewController: UIViewController, GameOverDelegate {
         }
     }
 
-    override var shouldAutorotate: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+//    override var shouldAutorotate: Bool {
+//        return true
+//    }
+//
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        if UIDevice.current.userInterfaceIdiom == .phone {
+//            return .allButUpsideDown
+//        } else {
+//            return .all
+//        }
+//    }
+//
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
     
     
     func pushGameOverViewController() {

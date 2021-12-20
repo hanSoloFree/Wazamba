@@ -1,6 +1,6 @@
 import UIKit
 
-class LevelsViewController: UIViewController {
+class LevelsViewController: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgrroundImageView: UIImageView!

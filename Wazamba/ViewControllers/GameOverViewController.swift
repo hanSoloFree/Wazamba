@@ -1,6 +1,6 @@
 import UIKit
 
-class GameOverViewController: UIViewController {
+class GameOverViewController: BaseViewController {
     
     var won: Bool!
     

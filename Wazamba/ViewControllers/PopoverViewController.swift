@@ -1,6 +1,6 @@
 import UIKit
 
-class PopoverViewController: UIViewController {
+class PopoverViewController: BaseViewController {
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
