@@ -10,7 +10,6 @@ class LevelsCollectionViewCell: UICollectionViewCell {
     
     
     func configure(with image: UIImage) {
-        print(image)
         self.backgroundImageView.image = image
     }
 }

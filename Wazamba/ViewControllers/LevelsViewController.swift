@@ -6,11 +6,11 @@ class LevelsViewController: UIViewController {
     @IBOutlet weak var backgrroundImageView: UIImageView!
     
     var levelsCount: Int!
-    var images: [UIImage]!
+    var images: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        self.navigationController?.navigationBar.isHidden = true
         backgrroundImageView.image = UIImage(named: "background")
         let cellName = String(describing: LevelsCollectionViewCell.self)
         collectionView.register(UINib(nibName: cellName, bundle: nil),
@@ -19,20 +19,32 @@ class LevelsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        levelsCount = UserDefaults.standard.integer(forKey: "LEVEL")
+        
+        
+        images.removeAll()
+        for number in 1...levelsCount {
+            let name = "level" + String(describing: number)
+            guard let levelImage = UIImage(named: name) else { return }
+            
+            self.images.append(levelImage)
+        }
+        
+        collectionView.reloadData()
     }
 }
 
 
 extension LevelsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard levelsCount != nil else { return 0}
         return levelsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = String(describing: LevelsCollectionViewCell.self)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? LevelsCollectionViewCell else { return UICollectionViewCell() }
+        
         
         cell.configure(with: images[indexPath.item])
         return cell
@@ -60,19 +72,5 @@ extension LevelsViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.frame.width - 128
         
         return CGSize(width: width, height: width)
-    }
-}
- 
-extension LevelsViewController {
-    private func setupNavigationBar() {
-        let label = UILabel()
-        label.text = "LEVELS"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 42)
-        label.textAlignment = .center
-        label.textColor = .white
-        navigationItem.titleView = label
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.tintColor = .white
     }
 }
