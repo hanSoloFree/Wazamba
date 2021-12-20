@@ -78,6 +78,51 @@
             </objects>
             <point key="canvasLocation" x="4191.304347826087" y="58.928571428571423"/>
         </scene>
+        <!--Popover View Controller-->
+        <scene sceneID="QJL-8L-LmS">
+            <objects>
+                <viewController storyboardIdentifier="PopoverViewController" id="3K2-Gi-nYl" customClass="PopoverViewController" customModule="Wazamba" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="owN-up-MLg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOE-vT-Aeh">
+                                <rect key="frame" x="64" y="224" width="286" height="370"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfq-Ld-CmV">
+                                        <rect key="frame" x="8" y="0.0" width="270" height="370"/>
+                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.52888331638909303" green="0.68708030464722936" blue="0.44807026087605062" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="Dfq-Ld-CmV" firstAttribute="top" secondItem="tOE-vT-Aeh" secondAttribute="top" id="SQm-0J-aiT"/>
+                                    <constraint firstItem="Dfq-Ld-CmV" firstAttribute="leading" secondItem="tOE-vT-Aeh" secondAttribute="leading" constant="8" id="kvs-hE-0Aw"/>
+                                    <constraint firstAttribute="bottom" secondItem="Dfq-Ld-CmV" secondAttribute="bottom" id="qth-fj-999"/>
+                                    <constraint firstAttribute="width" secondItem="tOE-vT-Aeh" secondAttribute="height" multiplier="143:185" id="rNQ-iQ-L4Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dfq-Ld-CmV" secondAttribute="trailing" constant="8" id="wFY-Cy-zoK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="diF-lK-PLI"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tOE-vT-Aeh" firstAttribute="top" secondItem="diF-lK-PLI" secondAttribute="top" constant="180" id="Mnc-dO-UxX"/>
+                            <constraint firstItem="tOE-vT-Aeh" firstAttribute="leading" secondItem="diF-lK-PLI" secondAttribute="leading" constant="64" id="fJK-BX-oon"/>
+                            <constraint firstItem="diF-lK-PLI" firstAttribute="trailing" secondItem="tOE-vT-Aeh" secondAttribute="trailing" constant="64" id="uLj-Iz-nhg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="tOE-vT-Aeh" id="EeH-KG-mm1"/>
+                        <outlet property="infoLabel" destination="Dfq-Ld-CmV" id="Sgl-cV-tGB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXm-bU-stt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="144.92753623188406" y="-673.66071428571422"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="qWs-pp-Dz6">
             <objects>
@@ -101,16 +146,26 @@
                                     <action selector="startButtonPressed:" destination="W5r-r8-keo" eventType="touchUpInside" id="cMi-ra-DDP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRI-bV-7Ku">
+                                <rect key="frame" x="16" y="104" width="44" height="31"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="W5r-r8-keo" eventType="touchUpInside" id="iOm-d9-dxr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Auz-2G-AQN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="l9d-NE-w5J" firstAttribute="leading" secondItem="Auz-2G-AQN" secondAttribute="leading" id="DHe-gs-Ejt"/>
                             <constraint firstItem="Auz-2G-AQN" firstAttribute="trailing" secondItem="l9d-NE-w5J" secondAttribute="trailing" id="NFd-ZH-eTT"/>
+                            <constraint firstItem="NRI-bV-7Ku" firstAttribute="top" secondItem="Auz-2G-AQN" secondAttribute="top" constant="16" id="RFs-wC-PoI"/>
                             <constraint firstItem="fyL-SH-mOc" firstAttribute="centerX" secondItem="SMf-Ia-NTp" secondAttribute="centerX" id="UbV-5l-n6Q"/>
                             <constraint firstAttribute="bottom" secondItem="l9d-NE-w5J" secondAttribute="bottom" id="ciX-bU-RLL"/>
                             <constraint firstItem="l9d-NE-w5J" firstAttribute="top" secondItem="SMf-Ia-NTp" secondAttribute="top" id="ezm-Jq-Mon"/>
                             <constraint firstItem="fyL-SH-mOc" firstAttribute="centerY" secondItem="SMf-Ia-NTp" secondAttribute="centerY" id="yJA-8t-Paz"/>
+                            <constraint firstItem="NRI-bV-7Ku" firstAttribute="leading" secondItem="Auz-2G-AQN" secondAttribute="leading" constant="16" id="zLl-4G-BEj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="xjN-Qy-FGN">
@@ -118,6 +173,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="l9d-NE-w5J" id="neK-df-uR6"/>
+                        <outlet property="infoButton" destination="NRI-bV-7Ku" id="f8m-At-dAF"/>
                         <outlet property="startButton" destination="fyL-SH-mOc" id="bpT-nI-fsn"/>
                     </connections>
                 </viewController>

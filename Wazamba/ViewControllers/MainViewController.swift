@@ -4,9 +4,9 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var startButton: UIButton!
-    
-//    var levelsCount: Int = 7
-//    var images: [UIImage] = [UIImage]()
+    @IBOutlet weak var infoButton: UIButton!
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
         configure()
     }
     
+   
+    
     func configure() {
         backgroundImageView.image = UIImage(named: "background")
         startButton.layer.cornerRadius = 15
@@ -28,9 +30,17 @@ class MainViewController: UIViewController {
     @IBAction func startButtonPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let levelsViewController = storyboard.instantiateViewController(withIdentifier: "LevelsViewController") as? LevelsViewController else { return }
-//        levelsViewController.levelsCount = self.levelsCount
-//        levelsViewController.images = self.images
         
         self.navigationController?.pushViewController(levelsViewController, animated: true)
     }
+    
+    @IBAction func infoButtonPressed(_ sender: UIButton) {
+
+        guard let popOverViewController = storyboard?.instantiateViewController(withIdentifier: "PopoverViewController") as? PopoverViewController else { return }
+        self.present(popOverViewController, animated: true, completion: nil)
+        
+    }
+    
 }
+
+
