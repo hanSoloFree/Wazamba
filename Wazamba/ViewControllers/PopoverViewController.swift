@@ -4,6 +4,7 @@ class PopoverViewController: BaseViewController {
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var blurEffect: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,11 +16,14 @@ class PopoverViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.backgroundView.addSubview(blurEffect)
         self.backgroundView.layer.cornerRadius = 20
+
+        self.blurEffect.layer.masksToBounds = true
+        self.blurEffect.layer.cornerRadius = 20
     }
     
     @objc func tap() {
         self.dismiss(animated: true, completion: nil)
     }
- 
 }

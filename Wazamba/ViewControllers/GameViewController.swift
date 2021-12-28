@@ -6,6 +6,7 @@ class GameViewController: BaseViewController, GameOverDelegate {
 
     var won: Bool?
     var level: Int!
+    var currentLevel: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,28 +23,12 @@ class GameViewController: BaseViewController, GameOverDelegate {
             }
         }
     }
-
-//    override var shouldAutorotate: Bool {
-//        return true
-//    }
-//
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        if UIDevice.current.userInterfaceIdiom == .phone {
-//            return .allButUpsideDown
-//        } else {
-//            return .all
-//        }
-//    }
-//
-//    override var prefersStatusBarHidden: Bool {
-//        return true
-//    }
-    
     
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
         gameOverViewController.won = self.won
+        gameOverViewController.currentLevel = self.currentLevel
         self.navigationController?.pushViewController(gameOverViewController, animated: true)
     }
 }

@@ -3,10 +3,11 @@ import UIKit
 class GameOverViewController: BaseViewController {
     
     var won: Bool!
+    var currentLevel: Int!
     
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var winLoseImageView: UIImageView!
+    @IBOutlet weak var buttonImageView: UIImageView!
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -15,11 +16,14 @@ class GameOverViewController: BaseViewController {
         configure(won: won)
     }
     
-    @IBAction func buttonPressed(_ sender: UIButton) {
+    @objc func tapped() {
         if won {
             guard let levelsViewController = navigationController?.viewControllers[1] else { return }
-            let level = UserDefaults.standard.integer(forKey: "LEVEL") + 1
-            UserDefaults.standard.set(level, forKey: "LEVEL")
+            let levelsOpened = UserDefaults.standard.integer(forKey: "LEVEL")
+            if currentLevel == levelsOpened {
+                let level = levelsOpened + 1
+                UserDefaults.standard.set(level, forKey: "LEVEL")
+            }
             self.navigationController?.popToViewController(levelsViewController, animated: true)
             
         } else {
@@ -28,19 +32,21 @@ class GameOverViewController: BaseViewController {
     }
     
     func configure(won: Bool) {
-        backgroundImageView.image = UIImage(named: "background")
-        button.layer.cornerRadius = 15
-        var buttonText = ""
-        var imageName = ""
         if won {
-            buttonText = "NEXT!"
-            imageName = "won"
+            backgroundImageView.image = UIImage(named: "wonBackground")
+            buttonImageView.image = UIImage(named: "nextButton")
         } else {
-            buttonText = "TRY AGAIN"
-            imageName = "lose"
+            backgroundImageView.image = UIImage(named: "loseBackground")
+            buttonImageView.image = UIImage(named: "replayButton")
         }
-        self.button.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 32)
-        self.button.titleLabel?.text = buttonText
-        self.winLoseImageView.image = UIImage(named: imageName)
+        setupGestures()
+    }
+    
+    
+    func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.numberOfTapsRequired = 1
+        self.buttonImageView.isUserInteractionEnabled = true
+        self.buttonImageView.addGestureRecognizer(tap)
     }
 }

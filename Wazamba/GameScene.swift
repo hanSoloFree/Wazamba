@@ -82,6 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         guard !timerStarted else { return }
+        
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
@@ -249,6 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             isPaused = true
             self.removeAction(forKey: "countdown")
             gameOverDelegate?.won = true
+            gameOverDelegate?.currentLevel = self.level
             gameOverDelegate?.pushGameOverViewController()
         }
     }
@@ -265,18 +267,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // MARK: GROUND
         ground = SKSpriteNode(imageNamed: "ground")
-        let width = self.frame.width + 25
-        let height = 150.0
+        let width = self.frame.width
+        let height = width / 3.45
         ground.size = CGSize(width: width, height: height)
         let y = -(self.frame.height / 2) + (height / 2)
         ground.position = CGPoint(x: 0, y: y)
         ground.zPosition = 1
         
         ground.physicsBody = SKPhysicsBody(texture: ground.texture!, size: ground.size)
-        ground.physicsBody?.isDynamic = false
-        ground.physicsBody?.allowsRotation = false
-        ground.physicsBody?.affectedByGravity = false
-        ground.physicsBody?.pinned = false
+        physicsBody(for: ground, isOn: false)
+        
+        ground.physicsBody?.pinned = true
         
         ground.physicsBody?.categoryBitMask =  0x1 << 2
         ground.physicsBody?.contactTestBitMask = 0x1 << 1
@@ -284,7 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(ground)
         
         //MARK: BORDERS
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.background.frame)
     }
     
     func createBlocks() {
@@ -313,7 +314,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var horizontalSpacing: CGFloat!
         var verticalSpacing: CGFloat!
         
-        let blockHeight = (self.frame.height / 15)
+        let blockHeight: CGFloat = (self.frame.height / 14)
         
         var index = 0
         
@@ -321,7 +322,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 1:
             index = 0
             if blocksCount >= 3 {
-                horizontalSpacing = self.frame.width / 5.3
+                horizontalSpacing = self.frame.width / 5.5
                 blocksForLine = 3
             } else {
                 horizontalSpacing = self.frame.width / 3.8
@@ -332,10 +333,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             index = 3
             if blocksCount >= 7 {
                 blocksForLine = 4
-                horizontalSpacing = self.frame.width / 8
+                horizontalSpacing = self.frame.width / 9
             } else if blocksCount == 6 {
                 blocksForLine = blocksCount - 3
-                horizontalSpacing = self.frame.width / 5.3
+                horizontalSpacing = self.frame.width / 5.5
             } else {
                 blocksForLine = 2
                 horizontalSpacing = self.frame.width / 3.8
@@ -345,13 +346,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             index = 7
             if blocksCount == 8 {
                 blocksForLine = 1
-                horizontalSpacing =  self.frame.width / 3
+                horizontalSpacing =  self.frame.width / 2.8
             } else if blocksCount == 9{
                 blocksForLine = 2
                 horizontalSpacing = self.frame.width / 3.8
             } else if blocksCount == 10 {
                 blocksForLine = 3
-                horizontalSpacing = self.frame.width / 5.3
+                horizontalSpacing = self.frame.width / 5.5
             }
             verticalSpacing = 2 * (blockHeight + 20.0)
             
@@ -384,11 +385,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             horizontalSpacing += block.size.width
             
             block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
+            physicsBody(for: block, isOn: false)
+
             block.physicsBody?.categoryBitMask = 0x1 << 1
             block.physicsBody?.contactTestBitMask = 0x1 << 2
-            
-            physicsBody(for: block, isOn: false)
-            
+                        
 
             blockStartingSize = block.size
             startingPositions.append(block.position)
@@ -398,7 +399,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //MARK: BLOCK'S FRAME
             
             let frame = SKSpriteNode(imageNamed: "frame")
-            frame.size = CGSize(width: blockHeight + 10, height: blockHeight + 10)
+            frame.size = CGSize(width: blockHeight + 10, height: blockHeight + 5)
             frame.position = CGPoint(x: x, y: y)
             frame.zPosition = 9
             framesArray.append(frame)
@@ -482,12 +483,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 self.blocksArray.forEach { block in
                     
-                    block.physicsBody?.allowsRotation = true
-                    block.physicsBody?.isDynamic = true
-                    block.physicsBody?.affectedByGravity = true
+                    self.physicsBody(for: block, isOn: true)
                                         
-                    let randomX = CGFloat.random(in: -200...200)
-                    let randomY = CGFloat.random(in: -50...200)
+                    let randomX = CGFloat.random(in: -100...100)
+                    let randomY = CGFloat.random(in: -50...150)
                     let impulse = CGVector(dx: randomX, dy: randomY)
                     
                     block.physicsBody?.velocity.dx = randomX

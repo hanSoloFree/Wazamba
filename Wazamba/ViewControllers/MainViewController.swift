@@ -1,15 +1,44 @@
 import UIKit
 
 class MainViewController: BaseViewController {
+    
+    var musicIsOn: Bool = true {
+        didSet {
+            if musicIsOn {
+                soundImageView.image = UIImage(named: "soundOn")
+                player?.play()
+            } else {
+                soundImageView.image = UIImage(named: "soundOff")
+                player?.stop()
+            }
+        }
+    }
 
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var infoButton: UIButton!
-
-
+    @IBOutlet weak var playImageView: UIImageView!
+    @IBOutlet weak var infoImageView: UIImageView!
+    @IBOutlet weak var titleImageView: UIImageView!
+    @IBOutlet weak var soundImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
+        
+        let playTap = UITapGestureRecognizer(target: self, action: #selector(playTapped))
+        playTap.numberOfTapsRequired = 1
+        self.playImageView.isUserInteractionEnabled = true
+        self.playImageView.addGestureRecognizer(playTap)
+        
+        let musicTap = UITapGestureRecognizer(target: self, action: #selector(musicTapped))
+        musicTap.numberOfTapsRequired = 1
+        soundImageView.isUserInteractionEnabled = true
+        soundImageView.addGestureRecognizer(musicTap)
+        
+        let infoTap = UITapGestureRecognizer(target: self, action: #selector(infoTapped))
+        infoTap.numberOfTapsRequired = 1
+        infoImageView.isUserInteractionEnabled = true
+        infoImageView.addGestureRecognizer(infoTap)
+        
         if UserDefaults.standard.integer(forKey: "LEVEL") < 1 {
             UserDefaults.standard.set(1, forKey: "LEVEL")
         }
@@ -23,24 +52,32 @@ class MainViewController: BaseViewController {
    
     
     func configure() {
-        backgroundImageView.image = UIImage(named: "background")
-        startButton.layer.cornerRadius = 15
+        backgroundImageView.image = UIImage(named: "mainBackground")
+        titleImageView.image = UIImage(named: "mainTitle")
+        playImageView.image = UIImage(named: "playButton")
+        infoImageView.image = UIImage(named: "info")
+        soundImageView.image = UIImage(named: "soundOn")
+        playSound()
     }
     
-    @IBAction func startButtonPressed(_ sender: UIButton) {
+    @objc func playTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let levelsViewController = storyboard.instantiateViewController(withIdentifier: "LevelsViewController") as? LevelsViewController else { return }
+        let identifier = String(describing: LevelsViewController.self)
+        guard let levelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? LevelsViewController else { return }
         
         self.navigationController?.pushViewController(levelsViewController, animated: true)
     }
     
-    @IBAction func infoButtonPressed(_ sender: UIButton) {
-
-        guard let popOverViewController = storyboard?.instantiateViewController(withIdentifier: "PopoverViewController") as? PopoverViewController else { return }
-        self.present(popOverViewController, animated: true, completion: nil)
-        
+    @objc func musicTapped() {
+        self.musicIsOn = !self.musicIsOn
     }
     
+    @objc func infoTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: PopoverViewController.self)
+        guard let popOverViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? PopoverViewController else { return }
+        self.present(popOverViewController, animated: true, completion: nil)
+    }
 }
 
 

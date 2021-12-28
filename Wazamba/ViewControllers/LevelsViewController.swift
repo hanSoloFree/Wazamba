@@ -4,6 +4,7 @@ class LevelsViewController: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgrroundImageView: UIImageView!
+    @IBOutlet weak var backImageView: UIImageView!
     
     var levelsCount: Int!
     var images: [UIImage] = []
@@ -12,10 +13,17 @@ class LevelsViewController: BaseViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = true
-        backgrroundImageView.image = UIImage(named: "background")
+        backgrroundImageView.image = UIImage(named: "levelsBackground")
+        backImageView.image = UIImage(named: "back")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.numberOfTapsRequired = 1
+        backImageView.isUserInteractionEnabled = true
+        backImageView.addGestureRecognizer(tap)
+        
         let cellName = String(describing: LevelsCollectionViewCell.self)
-        collectionView.register(UINib(nibName: cellName, bundle: nil),
-                                forCellWithReuseIdentifier: cellName)
+        let cellNib = UINib(nibName: cellName, bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: cellName)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +46,10 @@ class LevelsViewController: BaseViewController {
         let indexPath = IndexPath(item: images.count - 1, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
     }
+    
+    @objc func tapped() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 
@@ -58,7 +70,8 @@ extension LevelsViewController: UICollectionViewDataSource {
 
 extension LevelsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 64, left: 64, bottom: 64, right: 64)
+        let inset = 40.0
+        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

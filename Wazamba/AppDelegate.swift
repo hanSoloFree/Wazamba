@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Wazamba
-//
-//  Created by mac on 16.12.2021.
-//
-
 import UIKit
 
 @main
