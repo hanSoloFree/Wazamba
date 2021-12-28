@@ -119,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     let selectedTexture = SKTexture(imageNamed: name + "s")
                     
                     let newTextureAction = SKAction.setTexture(selectedTexture)
-                    let scaleAction = SKAction.scale(by: 1.1, duration: 0.2)
+                    let scaleAction = SKAction.scale(by: 1.3, duration: 0.2)
                     let actionsGroup = SKAction.group([newTextureAction, scaleAction])
                     
                         block.run(actionsGroup) {
