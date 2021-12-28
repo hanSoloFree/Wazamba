@@ -56,8 +56,12 @@ class MainViewController: BaseViewController {
         titleImageView.image = UIImage(named: "mainTitle")
         playImageView.image = UIImage(named: "playButton")
         infoImageView.image = UIImage(named: "info")
-        soundImageView.image = UIImage(named: "soundOn")
-        playSound()
+        guard let player = player else { return }
+        if player.isPlaying {
+            soundImageView.image = UIImage(named: "soundOn")
+        } else {
+            soundImageView.image = UIImage(named: "soundOff")
+        }
     }
     
     @objc func playTapped() {

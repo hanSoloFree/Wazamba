@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0480D74F277B4795001CC93D /* MusicSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480D74E277B4795001CC93D /* MusicSupport.swift */; };
 		0480D751277B47FE001CC93D /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0480D750277B47FE001CC93D /* music.mp3 */; };
+		0480D755277B585B001CC93D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0480D753277B585B001CC93D /* Actions.sks */; };
+		0480D756277B585B001CC93D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0480D754277B585B001CC93D /* GameScene.sks */; };
 		048C9048276CC42400C31C1A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C9047276CC42400C31C1A /* Block.swift */; };
 		04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */; };
 		04948D802770C3C800FE5DA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		0480D74E277B4795001CC93D /* MusicSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSupport.swift; sourceTree = "<group>"; };
 		0480D750277B47FE001CC93D /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		0480D753277B585B001CC93D /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		0480D754277B585B001CC93D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		048C9047276CC42400C31C1A /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 				0498E764276BCDAF002EE87F /* ViewControllers */,
 				0498E74B276B68D4002EE87F /* AppDelegate.swift */,
 				048C9047276CC42400C31C1A /* Block.swift */,
+				0480D753277B585B001CC93D /* Actions.sks */,
+				0480D754277B585B001CC93D /* GameScene.sks */,
 				0498E751276B68D4002EE87F /* GameScene.swift */,
 				0498E755276B68D4002EE87F /* Main.storyboard */,
 				0498E758276B68D5002EE87F /* Assets.xcassets */,
@@ -189,8 +195,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0498E757276B68D4002EE87F /* Main.storyboard in Resources */,
+				0480D755277B585B001CC93D /* Actions.sks in Resources */,
 				0498E759276B68D5002EE87F /* Assets.xcassets in Resources */,
 				0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */,
+				0480D756277B585B001CC93D /* GameScene.sks in Resources */,
 				0480D751277B47FE001CC93D /* music.mp3 in Resources */,
 				0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */,
 			);
