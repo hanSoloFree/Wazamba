@@ -17,3 +17,78 @@ extension SKAction {
         return SKAction.sequence(actionsArray)
     }
 }
+
+extension SKScene {
+     func countBlocks(_ level: Int) -> Int {
+        switch level {
+        case 1:
+            return 2
+        case 2:
+            return 3
+        case 3:
+            return 5
+        case 4:
+            return 6
+        case 5:
+            return 7
+        case 6:
+            return 9
+        case 7:
+            return 10
+        default:
+            return 0
+        }
+    }
+}
+
+extension RestoreGameScene {
+    func timeToRemember(_ level: Int) -> Int {
+        switch level {
+        case 1...2:
+            return 3
+        case 3...4:
+            return 6
+        case 5:
+            return 7
+        case 6...7:
+            return 9
+        default:
+            return 5
+        }
+    }
+    
+    func physicsBody(for block: SKSpriteNode, isOn: Bool) {
+        block.physicsBody?.affectedByGravity = isOn
+        block.physicsBody?.allowsRotation = isOn
+        block.physicsBody?.isDynamic = isOn
+    }
+    
+    func checkIfBlockIsInTheFrame(_ block: SKSpriteNode, array: [SKSpriteNode]) -> Bool {
+        for i in array {
+            if i == block {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    func getFiiledFrameAccordingToBlock(_ block: SKSpriteNode, array: [SKSpriteNode]) -> SKSpriteNode {
+        for filledFrame in array {
+            let blockIsInTheFrame: Bool = ((filledFrame.position.y < block.frame.maxY) && (filledFrame.position.y > block.frame.minY)) && ((filledFrame.position.x < block.frame.maxX) && (filledFrame.position.x > block.frame.minX))
+            
+            if blockIsInTheFrame {
+                return filledFrame
+            }
+        }
+        return SKSpriteNode()
+    }
+}
+
+
+extension CGFloat {
+    static func module(_ a: CGFloat) -> CGFloat {
+        return sqrt(a*a)
+    }
+}

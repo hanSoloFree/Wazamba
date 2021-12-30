@@ -111,7 +111,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
                 if blockIsTouched && !blockIsSelected  {
                                             //MARK: SELECT
 
-                    if !checkIfBlockIsInTheFrame(block) && block.physicsBody!.affectedByGravity {
+                    if !checkIfBlockIsInTheFrame(block, array: blocksInTheFrame) && block.physicsBody!.affectedByGravity {
                     
                     guard let name = block.name else { return }
 
@@ -133,7 +133,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
                         
                         
                         removeFromBlocksInTheFrames(block)
-                        let filledFrame = getFiiledFrameAccordingToBlock(block)
+                        let filledFrame = getFiiledFrameAccordingToBlock(block, array: filledFramesArray)
                         removeFromFilledFrames(filledFrame)
                         
                         
@@ -147,7 +147,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
                 
                                 //MARK: DESELECT
                 
-                if   blockIsSelected && !checkIfBlockIsInTheFrame(block) && block.physicsBody!.affectedByGravity {
+                if   blockIsSelected && !checkIfBlockIsInTheFrame(block, array: blocksInTheFrame) && block.physicsBody!.affectedByGravity {
                     
                     guard let size = blockStartingSize else { return }
                     guard let name = block.name else { return }
@@ -467,7 +467,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
         gameStartTimer.fontSize = 60
         gameStartTimer.zPosition = 20
         
-        gameStartTimerCountdown = timeToRemember()
+        gameStartTimerCountdown = timeToRemember(self.level)
         
         guard let time = gameStartTimerCountdown else { return }
         
@@ -508,71 +508,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - MAY BE INCAPSULATED
     
-    func countBlocks(_ level: Int) -> Int {
-        switch level {
-        case 1:
-            return 2
-        case 2:
-            return 3
-        case 3:
-            return 5
-        case 4:
-            return 6
-        case 5:
-            return 7
-        case 6:
-            return 9
-        case 7:
-            return 10
-        default:
-            return 0
-        }
-    }
     
-    func timeToRemember() -> Int {
-        switch self.level {
-        case 1...2:
-            return 3
-        case 3...4:
-            return 6
-        case 5:
-            return 7
-        case 6...7:
-            return 9
-        default:
-            return 5
-        }
-    }
-    
-    func physicsBody(for block: SKSpriteNode, isOn: Bool) {
-        block.physicsBody?.affectedByGravity = isOn
-        block.physicsBody?.allowsRotation = isOn
-        block.physicsBody?.isDynamic = isOn
-    }
-    
-    
-    
-    func checkIfBlockIsInTheFrame(_ block: SKSpriteNode) -> Bool {
-        for i in blocksInTheFrame {
-            if i == block {
-                return true
-            } else {
-                return false
-            }
-        }
-        return false
-    }
-    
-    func getFiiledFrameAccordingToBlock(_ block: SKSpriteNode) -> SKSpriteNode {
-        for filledFrame in filledFramesArray {
-            let blockIsInTheFrame: Bool = ((filledFrame.position.y < block.frame.maxY) && (filledFrame.position.y > block.frame.minY)) && ((filledFrame.position.x < block.frame.maxX) && (filledFrame.position.x > block.frame.minX))
-            
-            if blockIsInTheFrame {
-                return filledFrame
-            }
-        }
-        return SKSpriteNode()
-    }
     
     func removeFromFilledFrames(_ frame: SKSpriteNode) {
         var index = 0
@@ -605,11 +541,5 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             index += 1
         }
         return -1
-    }
-    
-    
-    
-    func module(_ a: CGFloat) -> CGFloat {
-        return sqrt(a*a)
     }
 }
