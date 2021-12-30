@@ -3,6 +3,8 @@ import GameplayKit
 
 class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     
+    var gameOverDelegate: GameOverDelegate?
+    
     var aspectRatio: CGFloat!
 
     var gameStartTimerCountdown: Int! {
@@ -41,12 +43,19 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var chain: [SKSpriteNode] = [SKSpriteNode]()
     
-    var touchedCount: Int =  0
+    var touchedCount: Int = 0 {
+        didSet {
+            if touchedCount == blocksCount {
+                gameOverDelegate?.won = true
+                gameOverDelegate?.currentLevel = self.level
+                gameOverDelegate?.pushGameOverViewController()
+            }
+        }
+    }
     
-    var level: Int = 3
+    var level: Int!
     
     override func didMove(to view: SKView) {
-        super.didMove(to: view)
         physicsWorld.contactDelegate = self
         aspectRatio = self.frame.width / self.frame.height
         
@@ -55,6 +64,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         createBackground()
         createBlocks()
     }
+    
+
                                     //MARK: - TOUCH LOGIC
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -64,13 +75,14 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 let blockIsTouched: Bool = ((touchLocation.x > block.frame.minX) && (touchLocation.x < block.frame.maxX)) && ((touchLocation.y > block.frame.minY) && (touchLocation.y < block.frame.maxY))
                 
-                if blockIsTouched  {
+                if blockIsTouched {
                     if block == chain.first {
                         chain.removeFirst()
                         block.removeFromParent()
                         touchedCount += 1
                     } else {
-                        print("LOSE")
+                        self.gameOverDelegate?.won = false
+                        self.gameOverDelegate?.pushGameOverViewController()
                     }
                 }
             }

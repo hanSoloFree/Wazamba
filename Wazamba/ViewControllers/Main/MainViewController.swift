@@ -19,7 +19,8 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var infoImageView: UIImageView!
     @IBOutlet weak var titleImageView: UIImageView!
     @IBOutlet weak var soundImageView: UIImageView!
-
+    @IBOutlet weak var playChainGameImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -28,6 +29,11 @@ class MainViewController: BaseViewController {
         playTap.numberOfTapsRequired = 1
         self.playImageView.isUserInteractionEnabled = true
         self.playImageView.addGestureRecognizer(playTap)
+        
+        let chainGameTap = UITapGestureRecognizer(target: self, action: #selector(chainGameTapped))
+        chainGameTap.numberOfTapsRequired = 1
+        self.playChainGameImageView.isUserInteractionEnabled = true
+        self.playChainGameImageView.addGestureRecognizer(chainGameTap)
         
         let musicTap = UITapGestureRecognizer(target: self, action: #selector(musicTapped))
         musicTap.numberOfTapsRequired = 1
@@ -55,6 +61,7 @@ class MainViewController: BaseViewController {
         backgroundImageView.image = UIImage(named: "mainBackground")
         titleImageView.image = UIImage(named: "mainTitle")
         playImageView.image = UIImage(named: "playButton")
+        playChainGameImageView.image = UIImage(named: "playButton")
         infoImageView.image = UIImage(named: "info")
         guard let player = player else { return }
         if player.isPlaying {
@@ -62,6 +69,14 @@ class MainViewController: BaseViewController {
         } else {
             soundImageView.image = UIImage(named: "soundOff")
         }
+    }
+    
+    @objc func chainGameTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: ChainGameViewController.self)
+        guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
+        
+        self.navigationController?.pushViewController(chainGameViewController, animated: true)
     }
     
     @objc func playTapped() {

@@ -8,8 +8,6 @@ class GameOverViewController: BaseViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var buttonImageView: UIImageView!
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
