@@ -53,6 +53,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: LEVEL
+    
     var level: Int!
     
     override func didMove(to view: SKView) {
@@ -77,15 +79,41 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if blockIsTouched {
                     if block == chain.first {
-                        chain.removeFirst()
-                        block.removeFromParent()
-                        touchedCount += 1
+                        self.remove(block: block)
                     } else {
-                        self.gameOverDelegate?.won = false
-                        self.gameOverDelegate?.pushGameOverViewController()
+                        chain.forEach { block in
+                            block.physicsBody?.affectedByGravity = true
+                            block.physicsBody?.isDynamic = true
+                            let randomX = CGFloat.random(in: -50...50)
+                            let randomY = CGFloat.random(in: -50...50)
+                            let vector = CGVector(dx: randomX, dy: randomY)
+                            block.physicsBody?.applyImpulse(vector)
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard gameStarted else { return }
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
+            gameOverDelegate?.won = false
+            gameOverDelegate?.pushGameOverViewController()
+            gameStarted = false
+        }
+    }
+    
+    func remove(block: SKSpriteNode) {
+        let scaleAction = SKAction.scale(by: 0, duration: 0.4)
+        block.run(scaleAction) {
+            self.chain.removeFirst()
+            block.removeFromParent()
+            self.touchedCount += 1
         }
     }
     
@@ -117,6 +145,9 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.contactTestBitMask = 0x1 << 1
         
         addChild(ground)
+        
+        //MARK: BORDERS
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.background.frame)
     }
     
     func createBlocks() {
@@ -217,7 +248,6 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             block.physicsBody?.isDynamic = false
             block.physicsBody?.affectedByGravity = false
             block.physicsBody?.allowsRotation = false
-            block.physicsBody?.pinned = true
             
             block.physicsBody?.categoryBitMask = 0x1 << 1
             block.physicsBody?.contactTestBitMask = 0x1 << 2
@@ -304,9 +334,6 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         run(repeatAction, withKey: "gameStartCountdown")
     }
 }
-
-
-
 
 
 extension ChainGameScene {
