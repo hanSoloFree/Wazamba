@@ -32,12 +32,16 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameStartTimer: SKLabelNode!
     
+    var gameStarted: Bool = false
+    
     var blocksCount: Int! {
         return countBlocks(level)
     }
     
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var chain: [SKSpriteNode] = [SKSpriteNode]()
+    
+    var touchedCount: Int =  0
     
     var level: Int = 3
     
@@ -50,6 +54,27 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         
         createBackground()
         createBlocks()
+    }
+                                    //MARK: - TOUCH LOGIC
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if gameStarted {
+            for block in chain {
+                guard let touchLocation = touches.first?.location(in: self) else { return }
+                
+                let blockIsTouched: Bool = ((touchLocation.x > block.frame.minX) && (touchLocation.x < block.frame.maxX)) && ((touchLocation.y > block.frame.minY) && (touchLocation.y < block.frame.maxY))
+                
+                if blockIsTouched  {
+                    if block == chain.first {
+                        chain.removeFirst()
+                        block.removeFromParent()
+                        touchedCount += 1
+                    } else {
+                        print("LOSE")
+                    }
+                }
+            }
+        }
     }
     
     func createBackground() {
@@ -209,6 +234,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         let block = SKAction.run {
             guard self.index < self.chain.count - 1 else {
                 self.removeAction(forKey: "blinking")
+                self.showStartLabel()
+                self.gameStarted = true
                 return
             }
             self.index += 1
@@ -219,6 +246,18 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction, withKey: "blinking")
     }
+    
+    func showStartLabel() {
+        self.gameStartTimer.text = "Start!"
+        let fadeIn = SKAction.fadeIn(withDuration: 0.1)
+        let wait = SKAction.wait(forDuration: 1)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.1)
+        let sequence = SKAction.sequence([fadeIn, wait, fadeOut])
+        self.gameStartTimer.run(sequence) {
+            self.gameStartTimer.isHidden = true
+        }
+    }
+    
 
     //MARK: GAME STARTING TIMER
     
@@ -243,7 +282,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             if self.gameStartTimerCountdown > 0 {
                 self.gameStartTimerCountdown -= 1
             } else {
-                self.gameStartTimer.isHidden = true
+                self.gameStartTimer.alpha = 0
                 self.gameStartTimer.removeAllActions()
                 self.createChain()
             }
