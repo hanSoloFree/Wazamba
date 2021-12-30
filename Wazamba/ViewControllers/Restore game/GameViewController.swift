@@ -12,6 +12,7 @@ class GameViewController: BaseViewController, GameOverDelegate {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let view = self.view as! SKView? {
@@ -27,6 +28,7 @@ class GameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
+        gameOverViewController.game = "restore"
         gameOverViewController.won = self.won
         gameOverViewController.currentLevel = self.currentLevel
         self.navigationController?.pushViewController(gameOverViewController, animated: true)

@@ -5,9 +5,9 @@ import GameplayKit
 class ChainGameViewController: BaseViewController, GameOverDelegate {
     
     var won: Bool?
-    var level: Int = 2
+    var level: Int!
     var currentLevel: Int?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -29,6 +29,8 @@ class ChainGameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
+        
+        gameOverViewController.game = "chain"
         gameOverViewController.won = self.won
         gameOverViewController.currentLevel = self.currentLevel
         self.navigationController?.pushViewController(gameOverViewController, animated: true)

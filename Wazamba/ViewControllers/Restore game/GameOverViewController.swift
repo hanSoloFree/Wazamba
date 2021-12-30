@@ -4,6 +4,7 @@ class GameOverViewController: BaseViewController {
     
     var won: Bool!
     var currentLevel: Int!
+    var game: String!
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var buttonImageView: UIImageView!
@@ -16,12 +17,23 @@ class GameOverViewController: BaseViewController {
     
     @objc func tapped() {
         if won {
-            guard let levelsViewController = navigationController?.viewControllers[1] else { return }
-            let levelsOpened = UserDefaults.standard.integer(forKey: "LEVEL")
-            if currentLevel == levelsOpened {
-                let level = levelsOpened + 1
-                UserDefaults.standard.set(level, forKey: "LEVEL")
+            switch game {
+            case "restore":
+                let levelsOpened = UserDefaults.standard.integer(forKey: "restore levels")
+                if currentLevel == levelsOpened {
+                    let level = levelsOpened + 1
+                    UserDefaults.standard.set(level, forKey: "restore levels")
+                }
+            case "chain":
+                let levelsOpened = UserDefaults.standard.integer(forKey: "chain levels")
+                if currentLevel == levelsOpened {
+                    let level = levelsOpened + 1
+                    UserDefaults.standard.set(level, forKey: "chain levels")
+                }
+            default:
+                break
             }
+            guard let levelsViewController = navigationController?.viewControllers[1] else { return }
             self.navigationController?.popToViewController(levelsViewController, animated: true)
             
         } else {

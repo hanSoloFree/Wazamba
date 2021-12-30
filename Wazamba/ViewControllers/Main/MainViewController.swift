@@ -25,6 +25,27 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         
+        setupLevels()
+        setupGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configure()
+    }
+    
+    func setupLevels() {
+        if UserDefaults.standard.integer(forKey: "restore levels") < 1 {
+            UserDefaults.standard.set(1, forKey: "restore levelsr")
+        }
+        
+        if UserDefaults.standard.integer(forKey: "chain levels") < 1 {
+            UserDefaults.standard.set(1, forKey: "chain levels")
+        }
+    }
+    
+    
+    func setupGestures() {
         let playTap = UITapGestureRecognizer(target: self, action: #selector(playTapped))
         playTap.numberOfTapsRequired = 1
         self.playImageView.isUserInteractionEnabled = true
@@ -44,17 +65,7 @@ class MainViewController: BaseViewController {
         infoTap.numberOfTapsRequired = 1
         infoImageView.isUserInteractionEnabled = true
         infoImageView.addGestureRecognizer(infoTap)
-        
-        if UserDefaults.standard.integer(forKey: "LEVEL") < 1 {
-            UserDefaults.standard.set(1, forKey: "LEVEL")
-        }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configure()
-    }
-    
    
     
     func configure() {

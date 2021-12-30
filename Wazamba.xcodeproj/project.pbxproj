@@ -126,9 +126,9 @@
 			children = (
 				04948D7F2770C3C800FE5DA3 /* BaseViewController.swift */,
 				04E964F7277C4FFD00039CDA /* Main */,
+				04E964F5277C4FC600039CDA /* Levels */,
 				04C08AD8277DC21A00BEDF68 /* Chain game */,
 				04E964F6277C4FD900039CDA /* Restore game */,
-				04E964F5277C4FC600039CDA /* Levels */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
