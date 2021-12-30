@@ -11,6 +11,11 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         didSet {
             guard let time = gameStartTimerCountdown else { return }
             gameStartTimer.text = String(describing: time)
+            DispatchQueue.global().async {
+                for _ in 1...Int.random(in: 1...3) {
+                    self.createCoin()
+                }
+            }
         }
     }
     
@@ -34,19 +39,12 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         return self.countBlocks(level)
     }
     
+    var coins: [SKSpriteNode] = [SKSpriteNode]()
+    
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var blocks: [SKSpriteNode] = [SKSpriteNode]()
     var chain: [SKSpriteNode] = [SKSpriteNode]()
     
-    var touchedCount: Int = 0 {
-        didSet {
-            if touchedCount == blocksCount {
-                gameOverDelegate?.won = true
-                gameOverDelegate?.currentLevel = self.level
-                gameOverDelegate?.pushGameOverViewController()
-            }
-        }
-    }
     
     //MARK: LEVEL
     
@@ -71,40 +69,26 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
                 guard let touchLocation = touches.first?.location(in: self) else { return }
                 
                 let blockIsTouched: Bool = ((touchLocation.x > block.frame.minX) && (touchLocation.x < block.frame.maxX)) && ((touchLocation.y > block.frame.minY) && (touchLocation.y < block.frame.maxY))
-                
+                               
                 if blockIsTouched {
                     if !(chain.contains(block)) {
                         present(block)
                     } else {
+                        let scale = SKAction.scale(by: 0, duration: 0.2)
+                        let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
+                        self.run(sound)
                         blocks.forEach { block in
-                            self.drop(block)
+                            block.run(scale)
+                        }
+                        self.run(.wait(forDuration: 0.3)) {
+                            self.gameOverDelegate?.won = false
+                            self.gameOverDelegate?.pushGameOverViewController()
+                            self.gameStarted = false
                         }
                     }
                 }
             }
         }
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        guard gameStarted else { return }
-        
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
-            gameOverDelegate?.won = false
-            gameOverDelegate?.pushGameOverViewController()
-            gameStarted = false
-        }
-    }
-    
-    func drop(_ block: SKSpriteNode) {
-        block.physicsBody?.affectedByGravity = true
-        block.physicsBody?.isDynamic = true
-        let randomX = CGFloat.random(in: -50...50)
-        let randomY = CGFloat.random(in: -50...50)
-        let vector = CGVector(dx: randomX, dy: randomY)
-        block.physicsBody?.applyImpulse(vector)
     }
     
     func present(_ block: SKSpriteNode) {
@@ -115,10 +99,49 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         let group = SKAction.group([scale, position])
         let sequence = SKAction.sequence([group, wait])
         block.run(sequence) {
+            self.burst(block)
+        }
+    }
+    
+    func burst(_ block: SKSpriteNode) {
+        let scale = SKAction.scale(by: 0, duration: 0.1)
+        block.run(scale) {
+            self.dropCoins()
+        }
+    }
+    
+    func dropCoins() {
+        self.coins.forEach { coin in
+            self.addChild(coin)
+
+            let randomX = CGFloat.random(in: -20...20)
+            let vector = CGVector(dx: randomX, dy: 10)
+            
+            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+            
+            coin.physicsBody?.pinned = false
+            
+            coin.run(sound)
+
+            coin.physicsBody?.applyImpulse(vector)
+        }
+        self.run(.wait(forDuration: 1)) {
             self.gameOverDelegate?.won = true
             self.gameOverDelegate?.currentLevel = self.level
             self.gameOverDelegate?.pushGameOverViewController()
         }
+    }
+    
+    func createCoin() {
+        let coin = SKSpriteNode(imageNamed: "coin")
+        coin.size = CGSize(width: 40, height: 40)
+        coin.position = CGPoint(x: 0, y: 0)
+        coin.zPosition = 20
+        coin.physicsBody = SKPhysicsBody(texture: coin.texture!, size: coin.size)
+        coin.physicsBody?.affectedByGravity = true
+        coin.physicsBody?.isDynamic = true
+        
+        self.coins.append(coin)
     }
     
     func createBackground() {
@@ -144,9 +167,6 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.affectedByGravity = false
         ground.physicsBody?.allowsRotation = false
         ground.physicsBody?.pinned = true
-        
-        ground.physicsBody?.categoryBitMask =  0x1 << 2
-        ground.physicsBody?.contactTestBitMask = 0x1 << 1
         
         addChild(ground)
         
@@ -247,14 +267,6 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             block.zPosition = 10
             
             horizontalSpacing += block.size.width
-            
-            block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
-            block.physicsBody?.isDynamic = false
-            block.physicsBody?.affectedByGravity = false
-            block.physicsBody?.allowsRotation = false
-            
-            block.physicsBody?.categoryBitMask = 0x1 << 1
-            block.physicsBody?.contactTestBitMask = 0x1 << 2
                         
             addChild(block)
             

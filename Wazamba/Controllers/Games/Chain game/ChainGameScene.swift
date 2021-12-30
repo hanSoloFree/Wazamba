@@ -43,12 +43,17 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var chain: [SKSpriteNode] = [SKSpriteNode]()
     
+    var coins: [SKSpriteNode] = [SKSpriteNode]()
+    
     var touchedCount: Int = 0 {
         didSet {
             if touchedCount == blocksCount {
-                gameOverDelegate?.won = true
-                gameOverDelegate?.currentLevel = self.level
-                gameOverDelegate?.pushGameOverViewController()
+                dropCoins()
+                self.run(.wait(forDuration: 1)) {
+                    self.gameOverDelegate?.won = true
+                    self.gameOverDelegate?.currentLevel = self.level
+                    self.gameOverDelegate?.pushGameOverViewController()
+                }
             }
         }
     }
@@ -61,10 +66,10 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         aspectRatio = self.frame.width / self.frame.height
         
-        createGameStartTimer()
-        
-        createBackground()
         createBlocks()
+        createBackground()
+        
+        createGameStartTimer()
     }
     
 
@@ -102,6 +107,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         let bodyB = contact.bodyB
         
         if ((bodyA.categoryBitMask == 0x1 << 1) && (bodyB.categoryBitMask == 0x1 << 2)) || ((bodyA.categoryBitMask == 0x1 << 2) && (bodyB.categoryBitMask == 0x1 << 1)) {
+            let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
+            self.run(sound)
             gameOverDelegate?.won = false
             gameOverDelegate?.pushGameOverViewController()
             gameStarted = false
@@ -269,6 +276,11 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             blocksArray.remove(at: randomIndex)
             chain.append(block)
         }
+        DispatchQueue.global().async {
+            for _ in 1...Int.random(in: 6...8) {
+                self.createCoin()
+            }
+        }
         startBlinking()
     }
     
@@ -326,11 +338,43 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 self.gameStartTimer.alpha = 0
                 self.gameStartTimer.removeAllActions()
-                self.createChain()
+                DispatchQueue.global().async {
+                    self.createChain()
+                }
             }
         }
         let sequence = SKAction.sequence([timerAction, block])
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction, withKey: "gameStartCountdown")
+    }
+    
+    func createCoin() {
+        let coin = SKSpriteNode(imageNamed: "coin")
+        coin.size = CGSize(width: 40, height: 40)
+        guard let last = chain.last else { return }
+        coin.position = CGPoint(x: last.position.x, y: last.position.y)
+        coin.zPosition = 20
+        coin.physicsBody = SKPhysicsBody(texture: coin.texture!, size: coin.size)
+        coin.physicsBody?.affectedByGravity = true
+        coin.physicsBody?.isDynamic = true
+        
+        self.coins.append(coin)
+    }
+    
+    func dropCoins() {
+        self.coins.forEach { coin in
+            self.addChild(coin)
+
+            let randomX = CGFloat.random(in: -20...20)
+            let vector = CGVector(dx: randomX, dy: 10)
+            
+            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+            
+            coin.physicsBody?.pinned = false
+            
+            coin.run(sound)
+
+            coin.physicsBody?.applyImpulse(vector)
+        }
     }
 }

@@ -34,6 +34,8 @@
 		04C08AF2277E09FE00BEDF68 /* QuitGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AF1277E09FE00BEDF68 /* QuitGameScene.sks */; };
 		04C08AF4277E2E7800BEDF68 /* QuitLevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AF3277E2E7800BEDF68 /* QuitLevelsViewController.swift */; };
 		04C08AF6277E3A6300BEDF68 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AF5277E3A6300BEDF68 /* Extensions.swift */; };
+		04C08AF9277E617500BEDF68 /* coinDrop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AF8277E617500BEDF68 /* coinDrop.mp3 */; };
+		04C08AFB277E647900BEDF68 /* loseSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AFA277E647900BEDF68 /* loseSound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		04C08AF1277E09FE00BEDF68 /* QuitGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = QuitGameScene.sks; sourceTree = "<group>"; };
 		04C08AF3277E2E7800BEDF68 /* QuitLevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitLevelsViewController.swift; sourceTree = "<group>"; };
 		04C08AF5277E3A6300BEDF68 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		04C08AF8277E617500BEDF68 /* coinDrop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinDrop.mp3; sourceTree = "<group>"; };
+		04C08AFA277E647900BEDF68 /* loseSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = loseSound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 		0480D752277B48FC001CC93D /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				04C08AF8277E617500BEDF68 /* coinDrop.mp3 */,
+				04C08AFA277E647900BEDF68 /* loseSound.mp3 */,
 				0480D750277B47FE001CC93D /* music.mp3 */,
 				0480D74E277B4795001CC93D /* MusicSupport.swift */,
 			);
@@ -119,6 +125,7 @@
 				0498E767276BCF68002EE87F /* Delegates */,
 				0498E764276BCDAF002EE87F /* Controllers */,
 				0480D753277B585B001CC93D /* Actions.sks */,
+				04C08AF5277E3A6300BEDF68 /* Extensions.swift */,
 				0498E755276B68D4002EE87F /* Main.storyboard */,
 				0498E758276B68D5002EE87F /* Assets.xcassets */,
 				0498E75A276B68D5002EE87F /* LaunchScreen.storyboard */,
@@ -197,7 +204,6 @@
 				04C08AED277E08D100BEDF68 /* QuitGameViewController.swift */,
 				04C08AEF277E095E00BEDF68 /* QuitGameScene.swift */,
 				04C08AF1277E09FE00BEDF68 /* QuitGameScene.sks */,
-				04C08AF5277E3A6300BEDF68 /* Extensions.swift */,
 			);
 			path = "Quit game";
 			sourceTree = "<group>";
@@ -302,10 +308,12 @@
 				0480D755277B585B001CC93D /* Actions.sks in Resources */,
 				0498E759276B68D5002EE87F /* Assets.xcassets in Resources */,
 				04C08AF2277E09FE00BEDF68 /* QuitGameScene.sks in Resources */,
+				04C08AFB277E647900BEDF68 /* loseSound.mp3 in Resources */,
 				0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */,
 				04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */,
 				0480D756277B585B001CC93D /* RestoreGameScene.sks in Resources */,
 				0480D751277B47FE001CC93D /* music.mp3 in Resources */,
+				04C08AF9277E617500BEDF68 /* coinDrop.mp3 in Resources */,
 				0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

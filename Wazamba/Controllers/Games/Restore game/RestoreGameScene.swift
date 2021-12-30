@@ -247,11 +247,16 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             index += 1
         }
         if blocksInTheirStartingPositions == blocksArray.count {
-            isPaused = true
-            self.removeAction(forKey: "countdown")
-            gameOverDelegate?.won = true
-            gameOverDelegate?.currentLevel = self.level
-            gameOverDelegate?.pushGameOverViewController()
+            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+            let group = SKAction.group([sound, sound, sound])
+            let repeatAction = SKAction.repeat(group, count: 2)
+            self.run(repeatAction) {
+                self.isPaused = true
+                self.removeAction(forKey: "countdown")
+                self.gameOverDelegate?.won = true
+                self.gameOverDelegate?.currentLevel = self.level
+                self.gameOverDelegate?.pushGameOverViewController()
+            }
         }
     }
     
@@ -444,6 +449,8 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             if self.timerCountdown > 0 {
                 self.timerCountdown -= 1
             } else {
+                let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
+                self.run(sound)
                 self.gameOverDelegate?.won = false
                 self.gameOverDelegate?.pushGameOverViewController()
                 self.removeAction(forKey: "countdown")
