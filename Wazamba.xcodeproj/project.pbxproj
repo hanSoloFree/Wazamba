@@ -28,6 +28,9 @@
 		04C08ADA277DC25700BEDF68 /* ChainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */; };
 		04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */; };
 		04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */; };
+		04C08AE2277DF36400BEDF68 /* ChainLevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AE1277DF36400BEDF68 /* ChainLevelsViewController.swift */; };
+		04C08AE8277DF42100BEDF68 /* ChainLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AE6277DF42100BEDF68 /* ChainLevelCollectionViewCell.swift */; };
+		04C08AE9277DF42100BEDF68 /* ChainLevelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AE7277DF42100BEDF68 /* ChainLevelCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +56,9 @@
 		04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameViewController.swift; sourceTree = "<group>"; };
 		04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameScene.swift; sourceTree = "<group>"; };
 		04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChainGameScene.sks; sourceTree = "<group>"; };
+		04C08AE1277DF36400BEDF68 /* ChainLevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainLevelsViewController.swift; sourceTree = "<group>"; };
+		04C08AE6277DF42100BEDF68 /* ChainLevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainLevelCollectionViewCell.swift; sourceTree = "<group>"; };
+		04C08AE7277DF42100BEDF68 /* ChainLevelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChainLevelCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,11 +151,38 @@
 			path = "Chain game";
 			sourceTree = "<group>";
 		};
-		04E964F5277C4FC600039CDA /* Levels */ = {
+		04C08ADF277DF32F00BEDF68 /* RestoreLevels */ = {
 			isa = PBXGroup;
 			children = (
 				0498E76A276BE6F2002EE87F /* LevelsViewController.swift */,
 				0496A4F3276F6B230023B3EA /* Cell */,
+			);
+			path = RestoreLevels;
+			sourceTree = "<group>";
+		};
+		04C08AE0277DF33E00BEDF68 /* ChainLevels */ = {
+			isa = PBXGroup;
+			children = (
+				04C08AE1277DF36400BEDF68 /* ChainLevelsViewController.swift */,
+				04C08AE3277DF3D700BEDF68 /* Cell */,
+			);
+			path = ChainLevels;
+			sourceTree = "<group>";
+		};
+		04C08AE3277DF3D700BEDF68 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04C08AE6277DF42100BEDF68 /* ChainLevelCollectionViewCell.swift */,
+				04C08AE7277DF42100BEDF68 /* ChainLevelCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		04E964F5277C4FC600039CDA /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				04C08AE0277DF33E00BEDF68 /* ChainLevels */,
+				04C08ADF277DF32F00BEDF68 /* RestoreLevels */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -239,6 +272,7 @@
 				04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */,
 				0480D756277B585B001CC93D /* RestoreGameScene.sks in Resources */,
 				0480D751277B47FE001CC93D /* music.mp3 in Resources */,
+				04C08AE9277DF42100BEDF68 /* ChainLevelCollectionViewCell.xib in Resources */,
 				0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,10 +285,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C08ADA277DC25700BEDF68 /* ChainGameViewController.swift in Sources */,
+				04C08AE2277DF36400BEDF68 /* ChainLevelsViewController.swift in Sources */,
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
 				04948D802770C3C800FE5DA3 /* BaseViewController.swift in Sources */,
 				04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */,
 				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
+				04C08AE8277DF42100BEDF68 /* ChainLevelCollectionViewCell.swift in Sources */,
 				0496A4F6276F6B400023B3EA /* LevelsCollectionViewCell.swift in Sources */,
 				0498E752276B68D4002EE87F /* RestoreGameScene.swift in Sources */,
 				0480D74F277B4795001CC93D /* MusicSupport.swift in Sources */,

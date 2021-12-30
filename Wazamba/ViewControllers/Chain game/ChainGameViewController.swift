@@ -8,6 +8,11 @@ class ChainGameViewController: BaseViewController, GameOverDelegate {
     var level: Int = 2
     var currentLevel: Int?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let view = self.view as! SKView? {

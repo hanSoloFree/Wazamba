@@ -22,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1787" y="59"/>
+            <point key="canvasLocation" x="1787" y="-315"/>
         </scene>
         <!--Game Over View Controller-->
         <scene sceneID="3kA-ug-MCz">
@@ -273,7 +273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OtG-He-ege" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="59"/>
+            <point key="canvasLocation" x="961" y="-315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PHs-ga-4Ko">
@@ -307,7 +307,68 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbQ-sH-fJ7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="823"/>
+            <point key="canvasLocation" x="1787" y="414"/>
+        </scene>
+        <!--Chain Levels View Controller-->
+        <scene sceneID="maJ-EF-uOI">
+            <objects>
+                <viewController storyboardIdentifier="ChainLevelsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ybZ-QV-mFF" customClass="ChainLevelsViewController" customModule="Wazamba" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3H8-G6-gpa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HFL-LT-Qhb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sFB-P1-tFl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="40" minimumInteritemSpacing="40" id="nYs-hc-wlV">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ybZ-QV-mFF" id="9tn-d7-PjB"/>
+                                    <outlet property="delegate" destination="ybZ-QV-mFF" id="Jzt-gh-lrl"/>
+                                </connections>
+                            </collectionView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z60-Fe-aK3">
+                                <rect key="frame" x="12" y="60" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="2CH-yP-bRs"/>
+                                    <constraint firstAttribute="height" constant="50" id="jvo-fP-pW5"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hyX-06-k2F"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hyX-06-k2F" firstAttribute="trailing" secondItem="sFB-P1-tFl" secondAttribute="trailing" id="9Jb-Mn-vAz"/>
+                            <constraint firstItem="HFL-LT-Qhb" firstAttribute="top" secondItem="3H8-G6-gpa" secondAttribute="top" id="BBs-9L-ZyL"/>
+                            <constraint firstItem="sFB-P1-tFl" firstAttribute="top" secondItem="3H8-G6-gpa" secondAttribute="top" id="BPM-BF-QUY"/>
+                            <constraint firstItem="hyX-06-k2F" firstAttribute="trailing" secondItem="HFL-LT-Qhb" secondAttribute="trailing" id="CCE-aU-KpJ"/>
+                            <constraint firstAttribute="bottom" secondItem="HFL-LT-Qhb" secondAttribute="bottom" id="D7L-7u-8rv"/>
+                            <constraint firstItem="Z60-Fe-aK3" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" constant="12" id="Mni-Lj-qgT"/>
+                            <constraint firstItem="sFB-P1-tFl" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" id="Mzs-Dl-5Mm"/>
+                            <constraint firstAttribute="bottom" secondItem="sFB-P1-tFl" secondAttribute="bottom" id="UYj-dF-7NW"/>
+                            <constraint firstItem="HFL-LT-Qhb" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" id="ai9-Id-XeD"/>
+                            <constraint firstItem="Z60-Fe-aK3" firstAttribute="top" secondItem="hyX-06-k2F" secondAttribute="top" constant="16" id="mWG-0C-xOv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="93R-MH-lZZ"/>
+                    <connections>
+                        <outlet property="backImageView" destination="Z60-Fe-aK3" id="MJb-QG-GnH"/>
+                        <outlet property="backgrroundImageView" destination="HFL-LT-Qhb" id="cxl-e2-4Im"/>
+                        <outlet property="collectionView" destination="sFB-P1-tFl" id="hYk-BA-E1A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wge-J1-5DP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="961" y="414"/>
         </scene>
     </scenes>
     <resources>

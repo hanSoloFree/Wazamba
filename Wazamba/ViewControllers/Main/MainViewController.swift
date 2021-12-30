@@ -73,10 +73,10 @@ class MainViewController: BaseViewController {
     
     @objc func chainGameTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: ChainGameViewController.self)
-        guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
+        let identifier = String(describing: ChainLevelsViewController.self)
+        guard let chainLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainLevelsViewController else { return }
         
-        self.navigationController?.pushViewController(chainGameViewController, animated: true)
+        self.navigationController?.pushViewController(chainLevelsViewController, animated: true)
     }
     
     @objc func playTapped() {
