@@ -1,7 +1,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameOverDelegate: GameOverDelegate?
     
@@ -70,6 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
+        super.didMove(to: view)
         physicsWorld.contactDelegate = self
         aspectRatio = self.frame.width / self.frame.height
         

@@ -15,7 +15,7 @@ class GameViewController: BaseViewController, GameOverDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let view = self.view as! SKView? {
-            if let scene = GameScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "RestoreGameScene") as? RestoreGameScene {
                 scene.level = level
                 scene.gameOverDelegate = self
                 scene.scaleMode = .resizeFill
