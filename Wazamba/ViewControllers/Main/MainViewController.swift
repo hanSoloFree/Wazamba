@@ -20,6 +20,7 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var titleImageView: UIImageView!
     @IBOutlet weak var soundImageView: UIImageView!
     @IBOutlet weak var playChainGameImageView: UIImageView!
+    @IBOutlet weak var playQuitImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +37,15 @@ class MainViewController: BaseViewController {
     
     func setupLevels() {
         if UserDefaults.standard.integer(forKey: "restore levels") < 1 {
-            UserDefaults.standard.set(1, forKey: "restore levelsr")
+            UserDefaults.standard.set(1, forKey: "restore levels")
         }
         
         if UserDefaults.standard.integer(forKey: "chain levels") < 1 {
             UserDefaults.standard.set(1, forKey: "chain levels")
+        }
+        
+        if UserDefaults.standard.integer(forKey: "quit levels") < 1 {
+            UserDefaults.standard.set(1, forKey: "quit levels")
         }
     }
     
@@ -55,6 +60,11 @@ class MainViewController: BaseViewController {
         chainGameTap.numberOfTapsRequired = 1
         self.playChainGameImageView.isUserInteractionEnabled = true
         self.playChainGameImageView.addGestureRecognizer(chainGameTap)
+        
+        let quitGameTap = UITapGestureRecognizer(target: self, action: #selector(quitGameTapped))
+        quitGameTap.numberOfTapsRequired = 1
+        self.playQuitImageView.isUserInteractionEnabled = true
+        self.playQuitImageView.addGestureRecognizer(quitGameTap)
         
         let musicTap = UITapGestureRecognizer(target: self, action: #selector(musicTapped))
         musicTap.numberOfTapsRequired = 1
@@ -73,6 +83,7 @@ class MainViewController: BaseViewController {
         titleImageView.image = UIImage(named: "mainTitle")
         playImageView.image = UIImage(named: "playButton")
         playChainGameImageView.image = UIImage(named: "playButton")
+        playQuitImageView.image = UIImage(named: "playButton")
         infoImageView.image = UIImage(named: "info")
         guard let player = player else { return }
         if player.isPlaying {
@@ -80,6 +91,14 @@ class MainViewController: BaseViewController {
         } else {
             soundImageView.image = UIImage(named: "soundOff")
         }
+    }
+    
+    @objc func quitGameTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: QuitLevelsViewController.self)
+        guard let quitLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? QuitLevelsViewController else { return }
+        
+        self.navigationController?.pushViewController(quitLevelsViewController, animated: true)
     }
     
     @objc func chainGameTapped() {

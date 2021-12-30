@@ -5,7 +5,7 @@ import GameplayKit
 class QuitGameViewController: BaseViewController, GameOverDelegate {
     
     var won: Bool?
-    var level: Int = 3
+    var level: Int!
     var currentLevel: Int?
 
     override func viewDidLoad() {
@@ -30,10 +30,9 @@ class QuitGameViewController: BaseViewController, GameOverDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
         
-        gameOverViewController.game = "chain"
+        gameOverViewController.game = "quit"
         gameOverViewController.won = self.won
         gameOverViewController.currentLevel = self.currentLevel
         self.navigationController?.pushViewController(gameOverViewController, animated: true)
     }
-    
 }

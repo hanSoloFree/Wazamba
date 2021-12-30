@@ -79,7 +79,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if blockIsTouched {
                     if block == chain.first {
-                        self.remove(block: block)
+                        self.remove(block)
                     } else {
                         chain.forEach { block in
                             block.physicsBody?.affectedByGravity = true
@@ -108,7 +108,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func remove(block: SKSpriteNode) {
+    func remove(_ block: SKSpriteNode) {
         let scaleAction = SKAction.scale(by: 0, duration: 0.4)
         block.run(scaleAction) {
             self.chain.removeFirst()

@@ -1,6 +1,6 @@
 import UIKit
 
-class ChainLevelsViewController: BaseViewController {
+class QuitLevelsViewController: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgrroundImageView: UIImageView!
@@ -29,7 +29,7 @@ class ChainLevelsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        levelsCount = UserDefaults.standard.integer(forKey: "chain levels")
+        levelsCount = UserDefaults.standard.integer(forKey: "quit levels")
         images.removeAll()
         for number in 1...levelsCount {
             let name = "level" + String(describing: number)
@@ -53,7 +53,7 @@ class ChainLevelsViewController: BaseViewController {
 }
 
 
-extension ChainLevelsViewController: UICollectionViewDataSource {
+extension QuitLevelsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return levelsCount
     }
@@ -68,7 +68,7 @@ extension ChainLevelsViewController: UICollectionViewDataSource {
     }
 }
 
-extension ChainLevelsViewController: UICollectionViewDelegate {
+extension QuitLevelsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = 40.0
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
@@ -76,14 +76,14 @@ extension ChainLevelsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: ChainGameViewController.self)
-        guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
-        chainGameViewController.level = indexPath.item + 1
-        self.navigationController?.pushViewController(chainGameViewController, animated: true)
+        let identifier = String(describing: QuitGameViewController.self)
+        guard let quitGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? QuitGameViewController else { return }
+        quitGameViewController.level = indexPath.item + 1
+        self.navigationController?.pushViewController(quitGameViewController, animated: true)
     }
 }
 
-extension ChainLevelsViewController: UICollectionViewDelegateFlowLayout {
+extension QuitLevelsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = collectionView.frame.width - 128

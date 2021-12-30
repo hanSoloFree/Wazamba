@@ -30,6 +30,12 @@ class GameOverViewController: BaseViewController {
                     let level = levelsOpened + 1
                     UserDefaults.standard.set(level, forKey: "chain levels")
                 }
+            case "quit":
+                let levelsOpened = UserDefaults.standard.integer(forKey: "quit levels")
+                if currentLevel == levelsOpened {
+                    let level = levelsOpened + 1
+                    UserDefaults.standard.set(level, forKey: "quit levels")
+                }
             default:
                 break
             }
@@ -37,7 +43,7 @@ class GameOverViewController: BaseViewController {
             self.navigationController?.popToViewController(levelsViewController, animated: true)
             
         } else {
-        self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

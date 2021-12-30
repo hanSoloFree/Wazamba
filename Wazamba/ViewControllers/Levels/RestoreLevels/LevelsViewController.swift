@@ -29,7 +29,7 @@ class LevelsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        levelsCount = UserDefaults.standard.integer(forKey: "LEVEL")
+        levelsCount = UserDefaults.standard.integer(forKey: "restore levels")
         images.removeAll()
         for number in 1...levelsCount {
             let name = "level" + String(describing: number)

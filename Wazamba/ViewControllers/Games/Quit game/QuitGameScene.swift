@@ -16,18 +16,12 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
     
     var index: Int = -1 {
         didSet {
-            chain[index].run(blinkAction)
+            let block = chain[index]
+            let shake = SKAction.shake(initialPosition: block.position, duration: 1)
+            block.run(shake)
         }
     }
     
-    var blinkAction: SKAction {
-        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
-        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
-        
-        let sequence = SKAction.sequence([fadeOut, fadeIn])
-        
-        return sequence
-    }
     
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
@@ -80,9 +74,11 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if blockIsTouched {
                     if !(chain.contains(block)) {
-                        print("WON")
+                        present(block)
                     } else {
-                        print("LOSE")
+                        blocks.forEach { block in
+                            self.drop(block)
+                        }
                     }
                 }
             }
@@ -102,12 +98,26 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func remove(block: SKSpriteNode) {
-        let scaleAction = SKAction.scale(by: 0, duration: 0.4)
-        block.run(scaleAction) {
-            self.chain.removeFirst()
-            block.removeFromParent()
-            self.touchedCount += 1
+    func drop(_ block: SKSpriteNode) {
+        block.physicsBody?.affectedByGravity = true
+        block.physicsBody?.isDynamic = true
+        let randomX = CGFloat.random(in: -50...50)
+        let randomY = CGFloat.random(in: -50...50)
+        let vector = CGVector(dx: randomX, dy: randomY)
+        block.physicsBody?.applyImpulse(vector)
+    }
+    
+    func present(_ block: SKSpriteNode) {
+        let center = CGPoint(x: 0, y: 0)
+        let scale = SKAction.scale(by: 3.0, duration: 0.5)
+        let position = SKAction.move(to: center, duration: 0.5)
+        let wait = SKAction.wait(forDuration: 0.5)
+        let group = SKAction.group([scale, position])
+        let sequence = SKAction.sequence([group, wait])
+        block.run(sequence) {
+            self.gameOverDelegate?.won = true
+            self.gameOverDelegate?.currentLevel = self.level
+            self.gameOverDelegate?.pushGameOverViewController()
         }
     }
     
@@ -266,13 +276,13 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             chain.append(block)
         }
         chain.removeLast()
-        startBlinking()
+        startShaking()
     }
     
-    func startBlinking() {
+    func startShaking() {
         let block = SKAction.run {
             guard self.index < self.chain.count - 1 else {
-                self.removeAction(forKey: "blinking")
+                self.removeAction(forKey: "shaking")
                 self.showStartLabel()
                 self.gameStarted = true
                 return
@@ -280,10 +290,9 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             self.index += 1
         }
         let wait = SKAction.wait(forDuration: 1.0)
-        
         let sequence = SKAction.sequence([block, wait])
         let repeatAction = SKAction.repeatForever(sequence)
-        run(repeatAction, withKey: "blinking")
+        run(repeatAction, withKey: "shaking")
     }
     
     func showStartLabel() {
