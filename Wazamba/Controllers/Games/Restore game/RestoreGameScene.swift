@@ -31,7 +31,6 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
     var blocksArray: [SKSpriteNode] = [SKSpriteNode]()
     var blocksInTheFrame: [SKSpriteNode] = [SKSpriteNode]()
     
@@ -361,8 +360,6 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             break
         }
 
-        
-        
         // MARK: BLOCK
         
         for _ in 1...blocksForLine {
@@ -502,8 +499,6 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction, withKey: "gameStartCountdown")
     }
-    
-    
     
     
     // MARK: - MAY BE INCAPSULATED

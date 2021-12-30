@@ -1,10 +1,11 @@
 import UIKit
 
-class ChainLevelsViewController: BaseViewController {
+class RestoreLevelsViewController: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgrroundImageView: UIImageView!
     @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var titleImageView: UIImageView!
     
     var levelsCount: Int!
     var images: [UIImage] = []
@@ -15,6 +16,7 @@ class ChainLevelsViewController: BaseViewController {
         self.navigationController?.navigationBar.isHidden = true
         backgrroundImageView.image = UIImage(named: "levelsBackground")
         backImageView.image = UIImage(named: "back")
+        titleImageView.image = UIImage(named: "mainTitle")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
         tap.numberOfTapsRequired = 1
@@ -29,7 +31,7 @@ class ChainLevelsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        levelsCount = UserDefaults.standard.integer(forKey: "chain levels")
+        levelsCount = UserDefaults.standard.integer(forKey: "restore levels")
         images.removeAll()
         for number in 1...levelsCount {
             let name = "level" + String(describing: number)
@@ -53,7 +55,7 @@ class ChainLevelsViewController: BaseViewController {
 }
 
 
-extension ChainLevelsViewController: UICollectionViewDataSource {
+extension RestoreLevelsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return levelsCount
     }
@@ -68,7 +70,7 @@ extension ChainLevelsViewController: UICollectionViewDataSource {
     }
 }
 
-extension ChainLevelsViewController: UICollectionViewDelegate {
+extension RestoreLevelsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = 40.0
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
@@ -76,14 +78,15 @@ extension ChainLevelsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: ChainGameViewController.self)
-        guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
-        chainGameViewController.level = indexPath.item + 1
-        self.navigationController?.pushViewController(chainGameViewController, animated: true)
+        let identifier = String(describing: GameViewController.self)
+        guard let gameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? GameViewController else { return }
+        
+        gameViewController.level = indexPath.item + 1
+        self.navigationController?.pushViewController(gameViewController, animated: true)
     }
 }
 
-extension ChainLevelsViewController: UICollectionViewDelegateFlowLayout {
+extension RestoreLevelsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = collectionView.frame.width - 128

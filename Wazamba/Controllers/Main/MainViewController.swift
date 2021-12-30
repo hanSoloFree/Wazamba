@@ -111,10 +111,10 @@ class MainViewController: BaseViewController {
     
     @objc func playTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: LevelsViewController.self)
-        guard let levelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? LevelsViewController else { return }
+        let identifier = String(describing: RestoreLevelsViewController.self)
+        guard let restoreLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? RestoreLevelsViewController else { return }
         
-        self.navigationController?.pushViewController(levelsViewController, animated: true)
+        self.navigationController?.pushViewController(restoreLevelsViewController, animated: true)
     }
     
     @objc func musicTapped() {
