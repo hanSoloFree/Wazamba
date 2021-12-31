@@ -280,7 +280,7 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Dc-9p-zSc">
-                                <rect key="frame" x="12" y="75" width="40" height="40"/>
+                                <rect key="frame" x="12" y="73.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="PPZ-ud-TU7"/>
@@ -288,7 +288,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wbo-2Y-OBN">
-                                <rect key="frame" x="84" y="70" width="298" height="49.5"/>
+                                <rect key="frame" x="92" y="70" width="282" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wbo-2Y-OBN" secondAttribute="height" multiplier="6" id="TmB-yB-goA"/>
@@ -307,8 +307,8 @@
                             <constraint firstItem="2Dc-9p-zSc" firstAttribute="leading" secondItem="xWA-8d-XBN" secondAttribute="leading" constant="12" id="R2a-It-w6A"/>
                             <constraint firstAttribute="bottom" secondItem="75e-ei-gS7" secondAttribute="bottom" id="Ul2-Rp-M3O"/>
                             <constraint firstItem="xWA-8d-XBN" firstAttribute="trailing" secondItem="75e-ei-gS7" secondAttribute="trailing" id="ZHH-aO-4KW"/>
-                            <constraint firstItem="xWA-8d-XBN" firstAttribute="trailing" secondItem="wbo-2Y-OBN" secondAttribute="trailing" constant="32" id="fR8-UB-Mnr"/>
-                            <constraint firstItem="wbo-2Y-OBN" firstAttribute="leading" secondItem="2Dc-9p-zSc" secondAttribute="trailing" constant="32" id="iXq-0Y-qsv"/>
+                            <constraint firstItem="xWA-8d-XBN" firstAttribute="trailing" secondItem="wbo-2Y-OBN" secondAttribute="trailing" constant="40" id="fR8-UB-Mnr"/>
+                            <constraint firstItem="wbo-2Y-OBN" firstAttribute="leading" secondItem="2Dc-9p-zSc" secondAttribute="trailing" constant="40" id="iXq-0Y-qsv"/>
                             <constraint firstItem="hS4-P7-vVC" firstAttribute="top" secondItem="IyQ-Ge-KTY" secondAttribute="top" id="pj2-5T-6ab"/>
                             <constraint firstItem="wbo-2Y-OBN" firstAttribute="top" secondItem="IyQ-Ge-KTY" secondAttribute="top" constant="70" id="sa3-ry-U8U"/>
                         </constraints>
@@ -403,7 +403,7 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z60-Fe-aK3">
-                                <rect key="frame" x="12" y="75" width="40" height="40"/>
+                                <rect key="frame" x="12" y="73.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="2CH-yP-bRs"/>
@@ -411,7 +411,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YMs-EF-ID9">
-                                <rect key="frame" x="84" y="70" width="298" height="49.5"/>
+                                <rect key="frame" x="92" y="70" width="282" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YMs-EF-ID9" secondAttribute="height" multiplier="6" id="CJw-k9-qY5"/>
@@ -421,7 +421,7 @@
                         <viewLayoutGuide key="safeArea" id="hyX-06-k2F"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="YMs-EF-ID9" firstAttribute="leading" secondItem="Z60-Fe-aK3" secondAttribute="trailing" constant="32" id="2Wn-U6-X4a"/>
+                            <constraint firstItem="YMs-EF-ID9" firstAttribute="leading" secondItem="Z60-Fe-aK3" secondAttribute="trailing" constant="40" id="2Wn-U6-X4a"/>
                             <constraint firstItem="hyX-06-k2F" firstAttribute="trailing" secondItem="sFB-P1-tFl" secondAttribute="trailing" id="9Jb-Mn-vAz"/>
                             <constraint firstItem="HFL-LT-Qhb" firstAttribute="top" secondItem="3H8-G6-gpa" secondAttribute="top" id="BBs-9L-ZyL"/>
                             <constraint firstItem="sFB-P1-tFl" firstAttribute="top" secondItem="3H8-G6-gpa" secondAttribute="top" id="BPM-BF-QUY"/>
@@ -429,7 +429,7 @@
                             <constraint firstAttribute="bottom" secondItem="HFL-LT-Qhb" secondAttribute="bottom" id="D7L-7u-8rv"/>
                             <constraint firstItem="Z60-Fe-aK3" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" constant="12" id="Mni-Lj-qgT"/>
                             <constraint firstItem="sFB-P1-tFl" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" id="Mzs-Dl-5Mm"/>
-                            <constraint firstItem="hyX-06-k2F" firstAttribute="trailing" secondItem="YMs-EF-ID9" secondAttribute="trailing" constant="32" id="PP4-ai-Dqx"/>
+                            <constraint firstItem="hyX-06-k2F" firstAttribute="trailing" secondItem="YMs-EF-ID9" secondAttribute="trailing" constant="40" id="PP4-ai-Dqx"/>
                             <constraint firstAttribute="bottom" secondItem="sFB-P1-tFl" secondAttribute="bottom" id="UYj-dF-7NW"/>
                             <constraint firstItem="HFL-LT-Qhb" firstAttribute="leading" secondItem="hyX-06-k2F" secondAttribute="leading" id="ai9-Id-XeD"/>
                             <constraint firstItem="YMs-EF-ID9" firstAttribute="top" secondItem="3H8-G6-gpa" secondAttribute="top" constant="70" id="pfa-k9-AC0"/>
@@ -508,14 +508,14 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mqD-6i-Hh9">
-                                <rect key="frame" x="84" y="70" width="298" height="49.5"/>
+                                <rect key="frame" x="92" y="70" width="282" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mqD-6i-Hh9" secondAttribute="height" multiplier="6" id="4cS-mG-rCS"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-6g-Pr8">
-                                <rect key="frame" x="12" y="75" width="40" height="40"/>
+                                <rect key="frame" x="12" y="73.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="XDO-Gs-Zgd"/>
@@ -526,13 +526,13 @@
                         <viewLayoutGuide key="safeArea" id="mHM-U6-jSj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="mqD-6i-Hh9" firstAttribute="leading" secondItem="T2x-6g-Pr8" secondAttribute="trailing" constant="32" id="1r3-rS-89N"/>
+                            <constraint firstItem="mqD-6i-Hh9" firstAttribute="leading" secondItem="T2x-6g-Pr8" secondAttribute="trailing" constant="40" id="1r3-rS-89N"/>
                             <constraint firstItem="4XP-AY-XVl" firstAttribute="leading" secondItem="mHM-U6-jSj" secondAttribute="leading" id="2vf-tF-Hyv"/>
                             <constraint firstItem="4XP-AY-XVl" firstAttribute="top" secondItem="6WL-i2-PUY" secondAttribute="top" id="5Y8-hG-tFd"/>
                             <constraint firstItem="wOm-kV-FRh" firstAttribute="leading" secondItem="mHM-U6-jSj" secondAttribute="leading" id="HPG-jL-hWo"/>
                             <constraint firstItem="mHM-U6-jSj" firstAttribute="trailing" secondItem="wOm-kV-FRh" secondAttribute="trailing" id="PRe-gE-Tr1"/>
                             <constraint firstItem="wOm-kV-FRh" firstAttribute="top" secondItem="6WL-i2-PUY" secondAttribute="top" id="WTE-XB-hW6"/>
-                            <constraint firstItem="mHM-U6-jSj" firstAttribute="trailing" secondItem="mqD-6i-Hh9" secondAttribute="trailing" constant="32" id="ZC4-dH-gh4"/>
+                            <constraint firstItem="mHM-U6-jSj" firstAttribute="trailing" secondItem="mqD-6i-Hh9" secondAttribute="trailing" constant="40" id="ZC4-dH-gh4"/>
                             <constraint firstAttribute="bottom" secondItem="wOm-kV-FRh" secondAttribute="bottom" id="bu0-0I-1gF"/>
                             <constraint firstItem="T2x-6g-Pr8" firstAttribute="leading" secondItem="mHM-U6-jSj" secondAttribute="leading" constant="12" id="fEy-Kb-4mB"/>
                             <constraint firstItem="mqD-6i-Hh9" firstAttribute="top" secondItem="6WL-i2-PUY" secondAttribute="top" constant="70" id="nsb-k0-buX"/>
