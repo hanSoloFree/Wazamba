@@ -1,7 +1,7 @@
 import UIKit
 
 class RestoreLevelsViewController: BaseViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgrroundImageView: UIImageView!
     @IBOutlet weak var backImageView: UIImageView!
@@ -81,12 +81,12 @@ extension RestoreLevelsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item < levelsCount {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: GameViewController.self)
-        guard let gameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? GameViewController else { return }
-        
-        gameViewController.level = indexPath.item + 1
-        self.navigationController?.pushViewController(gameViewController, animated: true)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let identifier = String(describing: RestoreGameViewController.self)
+            guard let restoreGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? RestoreGameViewController else { return }
+            
+            restoreGameViewController.level = indexPath.item + 1
+            self.navigationController?.pushViewController(restoreGameViewController, animated: true)
         } else {
             print("LOCKED")
         }

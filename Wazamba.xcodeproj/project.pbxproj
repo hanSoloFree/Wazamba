@@ -17,7 +17,7 @@
 		0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0496A4F5276F6B3F0023B3EA /* LevelsCollectionViewCell.xib */; };
 		0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E74B276B68D4002EE87F /* AppDelegate.swift */; };
 		0498E752276B68D4002EE87F /* RestoreGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E751276B68D4002EE87F /* RestoreGameScene.swift */; };
-		0498E754276B68D4002EE87F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E753276B68D4002EE87F /* GameViewController.swift */; };
+		0498E754276B68D4002EE87F /* RestoreGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E753276B68D4002EE87F /* RestoreGameViewController.swift */; };
 		0498E757276B68D4002EE87F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0498E755276B68D4002EE87F /* Main.storyboard */; };
 		0498E759276B68D5002EE87F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498E758276B68D5002EE87F /* Assets.xcassets */; };
 		0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0498E75A276B68D5002EE87F /* LaunchScreen.storyboard */; };
@@ -25,6 +25,7 @@
 		0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E765276BCF3D002EE87F /* GameOverDelegate.swift */; };
 		0498E769276BE57D002EE87F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E768276BE57D002EE87F /* MainViewController.swift */; };
 		0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E76A276BE6F2002EE87F /* LevelsViewController.swift */; };
+		049AAFE7277F24120040969C /* LevelUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AAFE6277F24120040969C /* LevelUpDelegate.swift */; };
 		04C08ADA277DC25700BEDF68 /* ChainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */; };
 		04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */; };
 		04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */; };
@@ -50,7 +51,7 @@
 		0498E748276B68D4002EE87F /* Wazamba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wazamba.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0498E74B276B68D4002EE87F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0498E751276B68D4002EE87F /* RestoreGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGameScene.swift; sourceTree = "<group>"; };
-		0498E753276B68D4002EE87F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		0498E753276B68D4002EE87F /* RestoreGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGameViewController.swift; sourceTree = "<group>"; };
 		0498E756276B68D4002EE87F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0498E758276B68D5002EE87F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0498E75B276B68D5002EE87F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 		0498E765276BCF3D002EE87F /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		0498E768276BE57D002EE87F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0498E76A276BE6F2002EE87F /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
+		049AAFE6277F24120040969C /* LevelUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpDelegate.swift; sourceTree = "<group>"; };
 		04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameViewController.swift; sourceTree = "<group>"; };
 		04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameScene.swift; sourceTree = "<group>"; };
 		04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChainGameScene.sks; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			children = (
 				0498E74B276B68D4002EE87F /* AppDelegate.swift */,
 				0498E765276BCF3D002EE87F /* GameOverDelegate.swift */,
+				049AAFE6277F24120040969C /* LevelUpDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -230,7 +233,7 @@
 		04E964F6277C4FD900039CDA /* Restore game */ = {
 			isa = PBXGroup;
 			children = (
-				0498E753276B68D4002EE87F /* GameViewController.swift */,
+				0498E753276B68D4002EE87F /* RestoreGameViewController.swift */,
 				0498E751276B68D4002EE87F /* RestoreGameScene.swift */,
 				0480D754277B585B001CC93D /* RestoreGameScene.sks */,
 			);
@@ -327,6 +330,7 @@
 			files = (
 				04C08ADA277DC25700BEDF68 /* ChainGameViewController.swift in Sources */,
 				04C08AF6277E3A6300BEDF68 /* Extensions.swift in Sources */,
+				049AAFE7277F24120040969C /* LevelUpDelegate.swift in Sources */,
 				04C08AE2277DF36400BEDF68 /* ChainLevelsViewController.swift in Sources */,
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
 				04C08AEE277E08D100BEDF68 /* QuitGameViewController.swift in Sources */,
@@ -340,7 +344,7 @@
 				0498E769276BE57D002EE87F /* MainViewController.swift in Sources */,
 				0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */,
 				04C08AF0277E095E00BEDF68 /* QuitGameScene.swift in Sources */,
-				0498E754276B68D4002EE87F /* GameViewController.swift in Sources */,
+				0498E754276B68D4002EE87F /* RestoreGameViewController.swift in Sources */,
 				0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */,
 				04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */,
 			);

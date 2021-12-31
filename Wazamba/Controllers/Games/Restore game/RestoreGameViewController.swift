@@ -2,7 +2,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: BaseViewController, GameOverDelegate {
+class RestoreGameViewController: BaseViewController, GameOverDelegate {
 
     var won: Bool?
     var level: Int!
@@ -28,9 +28,17 @@ class GameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
+        gameOverViewController.levelUpDelegate = self
+        
         gameOverViewController.game = "restore"
         gameOverViewController.won = self.won
         gameOverViewController.currentLevel = self.currentLevel
-        self.navigationController?.pushViewController(gameOverViewController, animated: true)
+        self.present(gameOverViewController, animated: true)
+    }
+}
+
+extension RestoreGameViewController: LevelUpDelegate {
+    func levelUp() {
+        self.level += 1
     }
 }

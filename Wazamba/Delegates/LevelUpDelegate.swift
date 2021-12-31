@@ -1,0 +1,3 @@
+protocol LevelUpDelegate {
+    func levelUp()
+}

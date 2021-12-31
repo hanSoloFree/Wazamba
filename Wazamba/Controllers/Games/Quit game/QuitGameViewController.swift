@@ -7,7 +7,7 @@ class QuitGameViewController: BaseViewController, GameOverDelegate {
     var won: Bool?
     var level: Int!
     var currentLevel: Int?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -29,10 +29,17 @@ class QuitGameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
-        
+        gameOverViewController.levelUpDelegate = self
+
         gameOverViewController.game = "quit"
         gameOverViewController.won = self.won
         gameOverViewController.currentLevel = self.currentLevel
-        self.navigationController?.pushViewController(gameOverViewController, animated: true)
+        self.present(gameOverViewController, animated: true)
+    }
+}
+
+extension QuitGameViewController: LevelUpDelegate {
+    func levelUp() {
+        self.level += 1
     }
 }

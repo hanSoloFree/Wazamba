@@ -6,6 +6,8 @@ class GameOverViewController: BaseViewController {
     var currentLevel: Int!
     var game: String!
     
+    var levelUpDelegate: LevelUpDelegate?
+    
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var buttonImageView: UIImageView!
     
@@ -39,11 +41,10 @@ class GameOverViewController: BaseViewController {
             default:
                 break
             }
-            guard let levelsViewController = navigationController?.viewControllers[1] else { return }
-            self.navigationController?.popToViewController(levelsViewController, animated: true)
-            
+            levelUpDelegate?.levelUp()
+            self.dismiss(animated: true)
         } else {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }
     }
     
