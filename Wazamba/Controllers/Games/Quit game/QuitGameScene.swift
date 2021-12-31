@@ -12,7 +12,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             guard let time = gameStartTimerCountdown else { return }
             gameStartTimer.text = String(describing: time)
             DispatchQueue.global().async {
-                for _ in 1...Int.random(in: 1...3) {
+                for _ in 1...Int.random(in: 2...3) {
                     self.createCoin()
                 }
             }
@@ -92,6 +92,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func present(_ block: SKSpriteNode) {
+        block.zPosition = 25
         let center = CGPoint(x: 0, y: 0)
         let scale = SKAction.scale(by: 3.0, duration: 0.5)
         let position = SKAction.move(to: center, duration: 0.5)
@@ -116,20 +117,22 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
 
             let randomX = CGFloat.random(in: -20...20)
             let vector = CGVector(dx: randomX, dy: 10)
-            
-            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
-            
+                        
             coin.physicsBody?.pinned = false
-            
-            coin.run(sound)
-
             coin.physicsBody?.applyImpulse(vector)
         }
+        coinSound()
         self.run(.wait(forDuration: 1)) {
             self.gameOverDelegate?.won = true
             self.gameOverDelegate?.currentLevel = self.level
             self.gameOverDelegate?.pushGameOverViewController()
         }
+    }
+    
+    func coinSound() {
+        let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+        let group = SKAction.group([sound, sound, sound])
+        self.run(group)
     }
     
     func createCoin() {
@@ -301,7 +304,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.index += 1
         }
-        let wait = SKAction.wait(forDuration: 1.0)
+        let wait = SKAction.wait(forDuration: 0.5)
         let sequence = SKAction.sequence([block, wait])
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction, withKey: "shaking")

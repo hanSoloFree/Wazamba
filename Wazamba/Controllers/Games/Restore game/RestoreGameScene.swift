@@ -20,6 +20,11 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
         didSet {
             guard let time = gameStartTimerCountdown else { return }
             gameStartTimer.text = String(describing: time)
+            DispatchQueue.global().async {
+                for _ in 1...Int.random(in: 2...3) {
+                    self.createCoin()
+                }
+            }
         }
     }
     
@@ -37,6 +42,8 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
     
     var framesArray: [SKSpriteNode] = [SKSpriteNode]()
     var filledFramesArray:[SKSpriteNode] = [SKSpriteNode]()
+    
+    var coins:[SKSpriteNode] = [SKSpriteNode]()
     
     
     var startingPositions: [CGPoint] = [CGPoint]()
@@ -229,8 +236,6 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-
-    
     func checkIfWon() {
         let currentTimeBlocksArray = blocksArray
         blocksInTheirStartingPositions = 0
@@ -247,19 +252,51 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             index += 1
         }
         if blocksInTheirStartingPositions == blocksArray.count {
-            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
-            let group = SKAction.group([sound, sound, sound])
-            let repeatAction = SKAction.repeat(group, count: 2)
-            self.run(repeatAction) {
-                self.isPaused = true
+            coinSound {
+                self.timerStarted = false
                 self.removeAction(forKey: "countdown")
-                self.gameOverDelegate?.won = true
-                self.gameOverDelegate?.currentLevel = self.level
-                self.gameOverDelegate?.pushGameOverViewController()
+                self.dropCoins()
+                self.run(.wait(forDuration: 1)) {
+                    self.gameOverDelegate?.won = true
+                    self.gameOverDelegate?.currentLevel = self.level
+                    self.gameOverDelegate?.pushGameOverViewController()
+                }
             }
         }
     }
     
+    func coinSound(_ completion: @escaping(() -> ())) {
+        let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+        let group = SKAction.group([sound, sound, sound])
+        self.run(group) {
+            completion()
+        }
+    }
+    
+    func createCoin() {
+        let coin = SKSpriteNode(imageNamed: "coin")
+        coin.size = CGSize(width: 40, height: 40)
+        guard let last = blocksArray.last else { return }
+        coin.position = CGPoint(x: last.position.x, y: last.position.y)
+        coin.zPosition = 20
+        coin.physicsBody = SKPhysicsBody(texture: coin.texture!, size: coin.size)
+        coin.physicsBody?.affectedByGravity = true
+        coin.physicsBody?.isDynamic = true
+        
+        self.coins.append(coin)
+    }
+    
+    func dropCoins() {
+        self.coins.forEach { coin in
+            self.addChild(coin)
+
+            let randomX = CGFloat.random(in: -20...20)
+            let vector = CGVector(dx: randomX, dy: 10)
+                        
+            coin.physicsBody?.pinned = false
+            coin.physicsBody?.applyImpulse(vector)
+        }
+    }
     
     
     func createBackground() {
@@ -387,12 +424,13 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
             
             horizontalSpacing += block.size.width
             
-            block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
-            physicsBody(for: block, isOn: false)
-
-            block.physicsBody?.categoryBitMask = 0x1 << 1
-            block.physicsBody?.contactTestBitMask = 0x1 << 2
-                        
+            DispatchQueue.global().async {
+                block.physicsBody = SKPhysicsBody(texture: block.texture!, size: block.size)
+                self.physicsBody(for: block, isOn: false)
+                
+                block.physicsBody?.categoryBitMask = 0x1 << 1
+                block.physicsBody?.contactTestBitMask = 0x1 << 2
+            }
 
             blockStartingSize = block.size
             startingPositions.append(block.position)
@@ -414,33 +452,35 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func createTimer() {
-        timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
-        var y:CGFloat = 100
-        if aspectRatio > 0.5 { y = 60 }
-        
-        let position = CGPoint(x: (self.frame.width / 2) - 60,
-                               y: (self.frame.height / 2) - y)
-        
-        timer.fontSize = (self.frame.width / 10.35)
-        timer.position = position
-        timer.alpha = 0
-        
-        switch level {
-        case 1...2:
-            timerCountdown = 6
-        case 3...5:
-            timerCountdown = 20
-        case 6:
-            timerCountdown = 45
-        case 7:
-            timerCountdown = 60
-        default:
-            timerCountdown = 15
+        DispatchQueue.global().async {
+            self.timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
+            var y:CGFloat = 100
+            if self.aspectRatio > 0.5 { y = 60 }
+            
+            let position = CGPoint(x: (self.frame.width / 2) - 60,
+                                   y: (self.frame.height / 2) - y)
+            
+            self.timer.fontSize = (self.frame.width / 10.35)
+            self.timer.position = position
+            self.timer.alpha = 0
+            
+            switch self.level {
+            case 1...2:
+                self.timerCountdown = 6
+            case 3...5:
+                self.timerCountdown = 20
+            case 6:
+                self.timerCountdown = 45
+            case 7:
+                self.timerCountdown = 60
+            default:
+                self.timerCountdown = 15
+            }
+            guard let time = self.timerCountdown else { return }
+            self.timer.text = String(describing: time)
+            
+            self.addChild(self.timer)
         }
-        guard let time = timerCountdown else { return }
-        timer.text = String(describing: time)
-        
-        addChild(timer)
     }
     
     func startTimer() {

@@ -294,7 +294,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.index += 1
         }
-        let wait = SKAction.wait(forDuration: 1.0)
+        let wait = SKAction.wait(forDuration: 0.5)
         
         let sequence = SKAction.sequence([block, wait])
         let repeatAction = SKAction.repeatForever(sequence)
@@ -367,14 +367,16 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
 
             let randomX = CGFloat.random(in: -20...20)
             let vector = CGVector(dx: randomX, dy: 10)
-            
-            let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
-            
+                        
             coin.physicsBody?.pinned = false
-            
-            coin.run(sound)
-
             coin.physicsBody?.applyImpulse(vector)
         }
+        coinSound()
+    }
+    
+    func coinSound() {
+        let sound = SKAction.playSoundFileNamed("coinDrop", waitForCompletion: false)
+        let group = SKAction.group([sound, sound, sound])
+        self.run(group)
     }
 }
