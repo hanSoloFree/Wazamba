@@ -117,8 +117,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     
     func remove(_ block: SKSpriteNode) {
         let scaleAction = SKAction.scale(by: 0, duration: 0.4)
+        self.chain.removeFirst()
         block.run(scaleAction) {
-            self.chain.removeFirst()
             block.removeFromParent()
             self.touchedCount += 1
         }

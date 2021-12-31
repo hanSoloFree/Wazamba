@@ -42,9 +42,8 @@ class ChainLevelsViewController: BaseViewController {
         collectionView.reloadData()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let indexPath = IndexPath(item: images.count - 1, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
     }
@@ -57,7 +56,7 @@ class ChainLevelsViewController: BaseViewController {
 
 extension ChainLevelsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return levelsCount
+        return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,7 +64,12 @@ extension ChainLevelsViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? LevelsCollectionViewCell else { return UICollectionViewCell() }
         
         
-        cell.configure(with: images[indexPath.item])
+        if indexPath.item  < levelsCount {
+            cell.configure(with: images[indexPath.item])
+        } else {
+            guard let closedLevelImage = UIImage(named: "info") else { return UICollectionViewCell() }
+            cell.configure(with: closedLevelImage)
+        }
         return cell
     }
 }
@@ -73,15 +77,19 @@ extension ChainLevelsViewController: UICollectionViewDataSource {
 extension ChainLevelsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = 40.0
-        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        return UIEdgeInsets(top: inset * 2, left: inset, bottom: inset, right: inset)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item < levelsCount {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let identifier = String(describing: ChainGameViewController.self)
         guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
         chainGameViewController.level = indexPath.item + 1
         self.navigationController?.pushViewController(chainGameViewController, animated: true)
+        } else {
+            print("LOCKED")
+        }
     }
 }
 
