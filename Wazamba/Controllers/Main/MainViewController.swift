@@ -15,7 +15,7 @@ class MainViewController: BaseViewController {
     }
 
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var playImageView: UIImageView!
+    @IBOutlet weak var playRestoreImageView: UIImageView!
     @IBOutlet weak var infoImageView: UIImageView!
     @IBOutlet weak var titleImageView: UIImageView!
     @IBOutlet weak var soundImageView: UIImageView!
@@ -65,8 +65,8 @@ class MainViewController: BaseViewController {
     func setupGestures() {
         let playTap = UITapGestureRecognizer(target: self, action: #selector(playTapped))
         playTap.numberOfTapsRequired = 1
-        self.playImageView.isUserInteractionEnabled = true
-        self.playImageView.addGestureRecognizer(playTap)
+        self.playRestoreImageView.isUserInteractionEnabled = true
+        self.playRestoreImageView.addGestureRecognizer(playTap)
         
         let chainGameTap = UITapGestureRecognizer(target: self, action: #selector(chainGameTapped))
         chainGameTap.numberOfTapsRequired = 1
@@ -93,9 +93,9 @@ class MainViewController: BaseViewController {
     func configure() {
         backgroundImageView.image = UIImage(named: "mainBackground")
         titleImageView.image = UIImage(named: "mainTitle")
-        playImageView.image = UIImage(named: "playButton")
-        playChainGameImageView.image = UIImage(named: "playButton")
-        playQuitImageView.image = UIImage(named: "playButton")
+        playRestoreImageView.image = UIImage(named: "restoreButton")
+        playChainGameImageView.image = UIImage(named: "chainButton")
+        playQuitImageView.image = UIImage(named: "quitButton")
         infoImageView.image = UIImage(named: "info")
         guard let player = player else { return }
         if player.isPlaying {

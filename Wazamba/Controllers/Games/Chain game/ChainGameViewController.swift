@@ -45,7 +45,7 @@ class ChainGameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
-        gameOverViewController.levelUpDelegate = self
+        gameOverViewController.levelsDelegate = self
         
         gameOverViewController.game = "chain"
         gameOverViewController.won = self.won
@@ -55,8 +55,12 @@ class ChainGameViewController: BaseViewController, GameOverDelegate {
     
 }
 
-extension ChainGameViewController: LevelUpDelegate {
+extension ChainGameViewController: LevelsDelegate {
     func levelUp() {
         self.level += 1
+    }
+    
+    func popToLevelsViewController() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

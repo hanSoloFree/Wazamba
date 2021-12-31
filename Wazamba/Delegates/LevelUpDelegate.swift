@@ -1,3 +1,4 @@
-protocol LevelUpDelegate {
+protocol LevelsDelegate {
     func levelUp()
+    func popToLevelsViewController()
 }

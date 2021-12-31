@@ -44,7 +44,7 @@ class RestoreGameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
-        gameOverViewController.levelUpDelegate = self
+        gameOverViewController.levelsDelegate = self
         
         gameOverViewController.game = "restore"
         gameOverViewController.won = self.won
@@ -53,8 +53,12 @@ class RestoreGameViewController: BaseViewController, GameOverDelegate {
     }
 }
 
-extension RestoreGameViewController: LevelUpDelegate {
+extension RestoreGameViewController: LevelsDelegate {
     func levelUp() {
         self.level += 1
+    }
+    
+    func popToLevelsViewController() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

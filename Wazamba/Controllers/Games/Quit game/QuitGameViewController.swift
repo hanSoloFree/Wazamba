@@ -45,7 +45,7 @@ class QuitGameViewController: BaseViewController, GameOverDelegate {
     func pushGameOverViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let gameOverViewController = storyboard.instantiateViewController(withIdentifier: "GameOverViewController") as? GameOverViewController else { return }
-        gameOverViewController.levelUpDelegate = self
+        gameOverViewController.levelsDelegate = self
 
         gameOverViewController.game = "quit"
         gameOverViewController.won = self.won
@@ -54,8 +54,12 @@ class QuitGameViewController: BaseViewController, GameOverDelegate {
     }
 }
 
-extension QuitGameViewController: LevelUpDelegate {
+extension QuitGameViewController: LevelsDelegate {
     func levelUp() {
         self.level += 1
+    }
+    
+    func popToLevelsViewController() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

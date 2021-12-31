@@ -16,7 +16,7 @@ class ChainLevelsViewController: BaseViewController {
         self.navigationController?.navigationBar.isHidden = true
         backgrroundImageView.image = UIImage(named: "levelsBackground")
         backImageView.image = UIImage(named: "back")
-        titleImageView.image = UIImage(named: "mainTitle")
+        titleImageView.image = UIImage(named: "chainLabel")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
         tap.numberOfTapsRequired = 1
@@ -67,7 +67,7 @@ extension ChainLevelsViewController: UICollectionViewDataSource {
         if indexPath.item  < levelsCount {
             cell.configure(with: images[indexPath.item])
         } else {
-            guard let closedLevelImage = UIImage(named: "info") else { return UICollectionViewCell() }
+            guard let closedLevelImage = UIImage(named: "lockedLevel") else { return UICollectionViewCell() }
             cell.configure(with: closedLevelImage)
         }
         return cell

@@ -6,10 +6,11 @@ class GameOverViewController: BaseViewController {
     var currentLevel: Int!
     var game: String!
     
-    var levelUpDelegate: LevelUpDelegate?
+    var levelsDelegate: LevelsDelegate?
     
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var buttonImageView: UIImageView!
+    @IBOutlet weak var playImageView: UIImageView!
+    @IBOutlet weak var levelsButtonImageView: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -17,7 +18,12 @@ class GameOverViewController: BaseViewController {
         configure(won: won)
     }
     
-    @objc func tapped() {
+    @objc func tappedLevels() {
+        levelsDelegate?.popToLevelsViewController()
+        self.dismiss(animated: true)
+    }
+    
+    @objc func tappedPlay() {
         if won {
             switch game {
             case "restore":
@@ -41,7 +47,7 @@ class GameOverViewController: BaseViewController {
             default:
                 break
             }
-            levelUpDelegate?.levelUp()
+            levelsDelegate?.levelUp()
             self.dismiss(animated: true)
         } else {
             self.dismiss(animated: true)
@@ -51,19 +57,25 @@ class GameOverViewController: BaseViewController {
     func configure(won: Bool) {
         if won {
             backgroundImageView.image = UIImage(named: "wonBackground")
-            buttonImageView.image = UIImage(named: "nextButton")
+            playImageView.image = UIImage(named: "nextButton")
         } else {
             backgroundImageView.image = UIImage(named: "loseBackground")
-            buttonImageView.image = UIImage(named: "replayButton")
+            playImageView.image = UIImage(named: "replayButton")
         }
+        levelsButtonImageView.image = UIImage(named: "levelsButton")
         setupGestures()
     }
     
     
     func setupGestures() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tap.numberOfTapsRequired = 1
-        self.buttonImageView.isUserInteractionEnabled = true
-        self.buttonImageView.addGestureRecognizer(tap)
+        let tapPlay = UITapGestureRecognizer(target: self, action: #selector(tappedPlay))
+        tapPlay.numberOfTapsRequired = 1
+        self.playImageView.isUserInteractionEnabled = true
+        self.playImageView.addGestureRecognizer(tapPlay)
+        
+        let tapLevels = UITapGestureRecognizer(target: self, action: #selector(tappedLevels))
+        tapLevels.numberOfTapsRequired = 1
+        self.levelsButtonImageView.isUserInteractionEnabled = true
+        self.levelsButtonImageView.addGestureRecognizer(tapLevels)
     }
 }
