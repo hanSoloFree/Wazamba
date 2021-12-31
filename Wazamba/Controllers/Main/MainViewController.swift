@@ -33,6 +33,18 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configure()
+        showGamesInfo()
+    }
+    
+    func showGamesInfo() {
+        let shown = UserDefaults.standard.bool(forKey: "rules")
+        if !shown {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let identifier = String(describing: PopoverViewController.self)
+            guard let popOverViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? PopoverViewController else { return }
+            self.present(popOverViewController, animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: "rules")
+        }
     }
     
     func setupLevels() {
