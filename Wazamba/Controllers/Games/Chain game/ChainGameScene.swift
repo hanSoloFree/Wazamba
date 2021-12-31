@@ -6,6 +6,13 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
     var gameOverDelegate: GameOverDelegate?
     
     var aspectRatio: CGFloat!
+    
+    var timerCountdown: Int! {
+        didSet {
+            guard let time = timerCountdown else { return }
+            timer.text = String(describing: time)
+        }
+    }
 
     var gameStartTimerCountdown: Int! {
         didSet {
@@ -20,18 +27,10 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    var blinkAction: SKAction {
-        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
-        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
-        
-        let sequence = SKAction.sequence([fadeOut, fadeIn])
-        
-        return sequence
-    }
-    
     var background: SKSpriteNode!
     var ground: SKSpriteNode!
     
+    var timer: SKLabelNode!
     var gameStartTimer: SKLabelNode!
     
     var gameStarted: Bool = false
@@ -56,6 +55,15 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    var blinkAction: SKAction {
+        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+        
+        let sequence = SKAction.sequence([fadeOut, fadeIn])
+        
+        return sequence
     }
     
     //MARK: LEVEL
@@ -309,6 +317,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         let sequence = SKAction.sequence([fadeIn, wait, fadeOut])
         self.gameStartTimer.run(sequence) {
             self.gameStartTimer.isHidden = true
+            self.timer.alpha = 1
+            self.startTimer()
         }
     }
     
@@ -337,7 +347,8 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
                 self.gameStartTimerCountdown -= 1
             } else {
                 self.gameStartTimer.alpha = 0
-                self.gameStartTimer.removeAllActions()
+                self.removeAction(forKey: "gameStartCountdown")
+                self.createTimer()
                 DispatchQueue.global().async {
                     self.createChain()
                 }
@@ -346,6 +357,45 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
         let sequence = SKAction.sequence([timerAction, block])
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction, withKey: "gameStartCountdown")
+    }
+    
+    func createTimer() {
+        DispatchQueue.global().async {
+            self.timer = SKLabelNode(fontNamed: "Arial Rounded MT Bold")
+            var y:CGFloat = 100
+            if self.aspectRatio > 0.5 { y = 60 }
+            
+            let position = CGPoint(x: (self.frame.width / 2) - 60,
+                                   y: (self.frame.height / 2) - y)
+            
+            self.timer.fontSize = (self.frame.width / 10.35)
+            self.timer.position = position
+            self.timer.alpha = 0
+            
+            self.timerCountdown = 10
+            guard let time = self.timerCountdown else { return }
+            self.timer.text = String(describing: time)
+            
+            self.addChild(self.timer)
+        }
+    }
+    
+    func startTimer() {
+        let timerAction = SKAction.wait(forDuration: 1)
+        let block = SKAction.run {
+            if self.timerCountdown > 0 {
+                self.timerCountdown -= 1
+            } else {
+                let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
+                self.run(sound)
+                self.gameOverDelegate?.won = false
+                self.gameOverDelegate?.pushGameOverViewController()
+                self.removeAction(forKey: "countdown")
+            }
+        }
+        let sequence = SKAction.sequence([timerAction, block])
+        let repeatAction = SKAction.repeatForever(sequence)
+        run(repeatAction, withKey: "countdown")
     }
     
     func createCoin() {

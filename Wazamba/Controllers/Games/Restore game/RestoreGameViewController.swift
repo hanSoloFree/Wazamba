@@ -8,8 +8,11 @@ class RestoreGameViewController: BaseViewController, GameOverDelegate {
     var level: Int!
     var currentLevel: Int?
     
+    @IBOutlet weak var backImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBackImage()
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -23,6 +26,19 @@ class RestoreGameViewController: BaseViewController, GameOverDelegate {
                 view.presentScene(scene)
             }
         }
+    }
+    
+    @objc func backTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setupBackImage() {
+        self.backImageView.image = UIImage(named: "back")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(backTapped))
+        tap.numberOfTapsRequired = 1
+        self.backImageView.isUserInteractionEnabled = true
+        self.backImageView.addGestureRecognizer(tap)
     }
     
     func pushGameOverViewController() {

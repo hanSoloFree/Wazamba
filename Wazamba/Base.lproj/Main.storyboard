@@ -15,10 +15,27 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XqJ-UH-Hja">
+                                <rect key="frame" x="12" y="70" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="HFe-Ll-YzJ"/>
+                                    <constraint firstAttribute="height" constant="40" id="gEc-0f-ipN"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XqJ-UH-Hja" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="12" id="1sn-ih-ib2"/>
+                            <constraint firstItem="XqJ-UH-Hja" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="70" id="4Dg-87-0yv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ReM-BD-Ynw"/>
+                    <connections>
+                        <outlet property="backImageView" destination="XqJ-UH-Hja" id="weo-W3-ous"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
@@ -322,10 +339,27 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4Vg-Ky-tIa" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wCl-jq-Ls7">
+                                <rect key="frame" x="12" y="70" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="R2Z-cC-roI"/>
+                                    <constraint firstAttribute="width" constant="40" id="Wng-8u-gHp"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="y5z-15-mPw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wCl-jq-Ls7" firstAttribute="top" secondItem="4Vg-Ky-tIa" secondAttribute="top" constant="70" id="g75-lI-TjT"/>
+                            <constraint firstItem="wCl-jq-Ls7" firstAttribute="leading" secondItem="y5z-15-mPw" secondAttribute="leading" constant="12" id="v3m-5J-h8h"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="l6I-e0-f4B"/>
+                    <connections>
+                        <outlet property="backImageView" destination="wCl-jq-Ls7" id="ufs-D6-6CD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbQ-sH-fJ7" sceneMemberID="firstResponder"/>
             </objects>
@@ -410,14 +444,31 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Qhy-nC-3QC" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uPW-oV-Ydl">
+                                <rect key="frame" x="12" y="70" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="pf0-Gz-nuN"/>
+                                    <constraint firstAttribute="height" constant="40" id="yIb-Xx-l3H"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Cwx-TK-xe9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uPW-oV-Ydl" firstAttribute="top" secondItem="Qhy-nC-3QC" secondAttribute="top" constant="70" id="Zfi-z2-Nnl"/>
+                            <constraint firstItem="uPW-oV-Ydl" firstAttribute="leading" secondItem="Cwx-TK-xe9" secondAttribute="leading" constant="12" id="xsZ-Hw-lAW"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ab3-Ey-m3Q"/>
+                    <connections>
+                        <outlet property="backImageView" destination="uPW-oV-Ydl" id="5fO-ot-5ZN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qym-3K-ZFL" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1787" y="781"/>
+            <point key="canvasLocation" x="1786.9565217391305" y="780.80357142857144"/>
         </scene>
         <!--Quit Levels View Controller-->
         <scene sceneID="rw6-65-XOV">

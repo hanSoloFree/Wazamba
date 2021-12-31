@@ -24,7 +24,7 @@
 		0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E762276BCDA8002EE87F /* GameOverViewController.swift */; };
 		0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E765276BCF3D002EE87F /* GameOverDelegate.swift */; };
 		0498E769276BE57D002EE87F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E768276BE57D002EE87F /* MainViewController.swift */; };
-		0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E76A276BE6F2002EE87F /* LevelsViewController.swift */; };
+		0498E76B276BE6F2002EE87F /* RestoreLevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E76A276BE6F2002EE87F /* RestoreLevelsViewController.swift */; };
 		049AAFE7277F24120040969C /* LevelUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AAFE6277F24120040969C /* LevelUpDelegate.swift */; };
 		04C08ADA277DC25700BEDF68 /* ChainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */; };
 		04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */; };
@@ -58,7 +58,7 @@
 		0498E762276BCDA8002EE87F /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		0498E765276BCF3D002EE87F /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		0498E768276BE57D002EE87F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		0498E76A276BE6F2002EE87F /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
+		0498E76A276BE6F2002EE87F /* RestoreLevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreLevelsViewController.swift; sourceTree = "<group>"; };
 		049AAFE6277F24120040969C /* LevelUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpDelegate.swift; sourceTree = "<group>"; };
 		04C08AD9277DC25700BEDF68 /* ChainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameViewController.swift; sourceTree = "<group>"; };
 		04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameScene.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		04C08ADF277DF32F00BEDF68 /* RestoreLevels */ = {
 			isa = PBXGroup;
 			children = (
-				0498E76A276BE6F2002EE87F /* LevelsViewController.swift */,
+				0498E76A276BE6F2002EE87F /* RestoreLevelsViewController.swift */,
 			);
 			path = RestoreLevels;
 			sourceTree = "<group>";
@@ -342,7 +342,7 @@
 				04C08AF4277E2E7800BEDF68 /* QuitLevelsViewController.swift in Sources */,
 				0480D74F277B4795001CC93D /* MusicSupport.swift in Sources */,
 				0498E769276BE57D002EE87F /* MainViewController.swift in Sources */,
-				0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */,
+				0498E76B276BE6F2002EE87F /* RestoreLevelsViewController.swift in Sources */,
 				04C08AF0277E095E00BEDF68 /* QuitGameScene.swift in Sources */,
 				0498E754276B68D4002EE87F /* RestoreGameViewController.swift in Sources */,
 				0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */,
