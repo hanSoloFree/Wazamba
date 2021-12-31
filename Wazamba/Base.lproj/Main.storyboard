@@ -73,17 +73,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOE-vT-Aeh">
-                                <rect key="frame" x="64" y="305" width="286" height="286"/>
+                                <rect key="frame" x="64" y="269.5" width="286" height="357.5"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0O8-Pj-uKS">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="286"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="357.5"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eSb-VL-dhD">
-                                            <rect key="frame" x="0.0" y="0.0" width="286" height="286"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="286" height="357.5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfq-Ld-CmV">
-                                                    <rect key="frame" x="20" y="8" width="246" height="270"/>
-                                                    <fontDescription key="fontDescription" name="Charter-Roman" family="Charter" pointSize="20"/>
+                                                    <rect key="frame" x="20" y="8" width="246" height="341.5"/>
+                                                    <fontDescription key="fontDescription" name="Charter-Bold" family="Charter" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -95,7 +95,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Dfq-Ld-CmV" secondAttribute="trailing" constant="20" id="qmN-bB-U8L"/>
                                             </constraints>
                                         </view>
-                                        <blurEffect style="systemThinMaterialDark"/>
+                                        <blurEffect style="systemMaterialDark"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,7 +103,7 @@
                                     <constraint firstItem="0O8-Pj-uKS" firstAttribute="top" secondItem="tOE-vT-Aeh" secondAttribute="top" id="Rwn-8b-2fI"/>
                                     <constraint firstAttribute="trailing" secondItem="0O8-Pj-uKS" secondAttribute="trailing" id="aOo-Dc-79F"/>
                                     <constraint firstItem="0O8-Pj-uKS" firstAttribute="leading" secondItem="tOE-vT-Aeh" secondAttribute="leading" id="hsc-md-ZAl"/>
-                                    <constraint firstAttribute="width" secondItem="tOE-vT-Aeh" secondAttribute="height" id="rNQ-iQ-L4Z"/>
+                                    <constraint firstAttribute="width" secondItem="tOE-vT-Aeh" secondAttribute="height" multiplier="0.8" id="rNQ-iQ-L4Z"/>
                                     <constraint firstAttribute="bottom" secondItem="0O8-Pj-uKS" secondAttribute="bottom" id="rqo-kx-XYv"/>
                                 </constraints>
                             </view>

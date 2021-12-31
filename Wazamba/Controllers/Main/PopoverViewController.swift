@@ -8,7 +8,10 @@ class PopoverViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.infoLabel.text = "Game info!\n\n You have to remember the positions of blocks and restore before countdown ends!\n\nWith each new level it gets harder and harder."
+        self.infoLabel.text =
+            "Games info!\n\n1. Restore game. You have to remember the positions of blocks and restore before countdown ends!\n\n2. Chain game. Each block blinks in a random sequence. Your task is to repeat the chain.\n\n3. Quit game. Blocks shakes, but only one don't. Find it!."
+        self.infoLabel.adjustsFontSizeToFitWidth = true
+        self.infoLabel.minimumScaleFactor = 0.8
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
