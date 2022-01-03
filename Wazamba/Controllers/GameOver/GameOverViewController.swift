@@ -47,7 +47,11 @@ class GameOverViewController: BaseViewController {
             default:
                 break
             }
-            levelsDelegate?.levelUp()
+            if currentLevel != 7 {
+                levelsDelegate?.levelUp(currentLevel)
+            } else {
+                levelsDelegate?.popToLevelsViewController()
+            }
             self.dismiss(animated: true)
         } else {
             self.dismiss(animated: true)

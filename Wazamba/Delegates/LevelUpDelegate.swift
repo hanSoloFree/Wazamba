@@ -1,4 +1,4 @@
 protocol LevelsDelegate {
-    func levelUp()
+    func levelUp(_ currentLevel: Int)
     func popToLevelsViewController()
 }

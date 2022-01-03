@@ -257,6 +257,7 @@ class RestoreGameScene: SKScene, SKPhysicsContactDelegate {
                 self.removeAction(forKey: "countdown")
                 self.dropCoins()
                 self.run(.wait(forDuration: 1)) {
+                    
                     self.gameOverDelegate?.won = true
                     self.gameOverDelegate?.currentLevel = self.level
                     self.gameOverDelegate?.pushGameOverViewController()

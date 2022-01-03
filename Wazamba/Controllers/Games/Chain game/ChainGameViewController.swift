@@ -56,8 +56,9 @@ class ChainGameViewController: BaseViewController, GameOverDelegate {
 }
 
 extension ChainGameViewController: LevelsDelegate {
-    func levelUp() {
-        self.level += 1
+    func levelUp(_ currentLevel: Int) {
+        let nextLevel = currentLevel + 1
+        self.level = nextLevel
     }
     
     func popToLevelsViewController() {
