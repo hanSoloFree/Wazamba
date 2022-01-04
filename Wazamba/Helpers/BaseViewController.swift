@@ -9,7 +9,6 @@ class BaseViewController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-
 }
 
 class BaseNavigationController: UINavigationController {
@@ -21,5 +20,6 @@ class BaseNavigationController: UINavigationController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
 }
+
+

@@ -1,6 +1,6 @@
 import UIKit
 
-class MainViewController: BaseViewController {
+class MainViewController: UIViewController {
     
     var musicIsOn: Bool = true {
         didSet {

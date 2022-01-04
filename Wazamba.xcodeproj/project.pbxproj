@@ -12,7 +12,6 @@
 		0480D755277B585B001CC93D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0480D753277B585B001CC93D /* Actions.sks */; };
 		0480D756277B585B001CC93D /* RestoreGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0480D754277B585B001CC93D /* RestoreGameScene.sks */; };
 		04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */; };
-		04948D802770C3C800FE5DA3 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948D7F2770C3C800FE5DA3 /* Base.swift */; };
 		0496A4F6276F6B400023B3EA /* LevelsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496A4F4276F6B3F0023B3EA /* LevelsCollectionViewCell.swift */; };
 		0496A4F7276F6B400023B3EA /* LevelsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0496A4F5276F6B3F0023B3EA /* LevelsCollectionViewCell.xib */; };
 		0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E74B276B68D4002EE87F /* AppDelegate.swift */; };
@@ -26,6 +25,15 @@
 		0498E769276BE57D002EE87F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E768276BE57D002EE87F /* MainViewController.swift */; };
 		0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498E76A276BE6F2002EE87F /* LevelsViewController.swift */; };
 		049AAFE7277F24120040969C /* LevelUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049AAFE6277F24120040969C /* LevelUpDelegate.swift */; };
+		04A4528027846CCF00992D02 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527827846CCC00992D02 /* Checker.swift */; };
+		04A4528127846CCF00992D02 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527927846CCD00992D02 /* HelpViewController.swift */; };
+		04A4528227846CCF00992D02 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527A27846CCD00992D02 /* InitialViewController.swift */; };
+		04A4528327846CCF00992D02 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527B27846CCD00992D02 /* Consts.swift */; };
+		04A4528427846CCF00992D02 /* SegmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527C27846CCE00992D02 /* SegmentManager.swift */; };
+		04A4528527846CCF00992D02 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527D27846CCE00992D02 /* UserDefaultsManager.swift */; };
+		04A4528627846CCF00992D02 /* EventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527E27846CCE00992D02 /* EventsManager.swift */; };
+		04A4528727846CCF00992D02 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4527F27846CCF00992D02 /* BaseViewController.swift */; };
+		04A4528927847E3B00992D02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04A4528827847E3B00992D02 /* GoogleService-Info.plist */; };
 		04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */; };
 		04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */; };
 		04C08AF0277E095E00BEDF68 /* QuitGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AEF277E095E00BEDF68 /* QuitGameScene.swift */; };
@@ -33,6 +41,7 @@
 		04C08AF6277E3A6300BEDF68 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C08AF5277E3A6300BEDF68 /* Extensions.swift */; };
 		04C08AF9277E617500BEDF68 /* coinDrop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AF8277E617500BEDF68 /* coinDrop.mp3 */; };
 		04C08AFB277E647900BEDF68 /* loseSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04C08AFA277E647900BEDF68 /* loseSound.mp3 */; };
+		908EACC2C2F2FAAE9C116008 /* libPods-Wazamba.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53509803B665B6AB85545168 /* libPods-Wazamba.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +50,6 @@
 		0480D753277B585B001CC93D /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		0480D754277B585B001CC93D /* RestoreGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RestoreGameScene.sks; sourceTree = "<group>"; };
 		04948D7D2770B1F700FE5DA3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		04948D7F2770C3C800FE5DA3 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		0496A4F4276F6B3F0023B3EA /* LevelsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0496A4F5276F6B3F0023B3EA /* LevelsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LevelsCollectionViewCell.xib; sourceTree = "<group>"; };
 		0498E748276B68D4002EE87F /* Wazamba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wazamba.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +64,17 @@
 		0498E768276BE57D002EE87F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0498E76A276BE6F2002EE87F /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
 		049AAFE6277F24120040969C /* LevelUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpDelegate.swift; sourceTree = "<group>"; };
+		04A4527827846CCC00992D02 /* Checker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		04A4527927846CCD00992D02 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		04A4527A27846CCD00992D02 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		04A4527B27846CCD00992D02 /* Consts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		04A4527C27846CCE00992D02 /* SegmentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentManager.swift; sourceTree = "<group>"; };
+		04A4527D27846CCE00992D02 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		04A4527E27846CCE00992D02 /* EventsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsManager.swift; sourceTree = "<group>"; };
+		04A4527F27846CCF00992D02 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		04A4528827847E3B00992D02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04A4528A2784824600992D02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		04A4528B278488B300992D02 /* Wazamba.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wazamba.entitlements; sourceTree = "<group>"; };
 		04C08ADB277DC60100BEDF68 /* ChainGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainGameScene.swift; sourceTree = "<group>"; };
 		04C08ADD277DCB0500BEDF68 /* ChainGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChainGameScene.sks; sourceTree = "<group>"; };
 		04C08AEF277E095E00BEDF68 /* QuitGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitGameScene.swift; sourceTree = "<group>"; };
@@ -63,6 +82,9 @@
 		04C08AF5277E3A6300BEDF68 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		04C08AF8277E617500BEDF68 /* coinDrop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinDrop.mp3; sourceTree = "<group>"; };
 		04C08AFA277E647900BEDF68 /* loseSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = loseSound.mp3; sourceTree = "<group>"; };
+		53509803B665B6AB85545168 /* libPods-Wazamba.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wazamba.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D48601FAF6B6A9D00DCB47DD /* Pods-Wazamba.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wazamba.release.xcconfig"; path = "Target Support Files/Pods-Wazamba/Pods-Wazamba.release.xcconfig"; sourceTree = "<group>"; };
+		ECCD2762ECFB2529E02ABD03 /* Pods-Wazamba.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wazamba.debug.xcconfig"; path = "Target Support Files/Pods-Wazamba/Pods-Wazamba.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908EACC2C2F2FAAE9C116008 /* libPods-Wazamba.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +124,8 @@
 			children = (
 				0498E74A276B68D4002EE87F /* Wazamba */,
 				0498E749276B68D4002EE87F /* Products */,
+				2A2473E6F68F1F86AB0E0532 /* Pods */,
+				7A05AE42D41C75EDA385B86A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +140,10 @@
 		0498E74A276B68D4002EE87F /* Wazamba */ = {
 			isa = PBXGroup;
 			children = (
+				04A4528B278488B300992D02 /* Wazamba.entitlements */,
+				04A4528A2784824600992D02 /* Info.plist */,
+				04A4528827847E3B00992D02 /* GoogleService-Info.plist */,
+				04A4527727846CB200992D02 /* Helpers */,
 				0480D752277B48FC001CC93D /* Music */,
 				0498E767276BCF68002EE87F /* Delegates */,
 				0498E764276BCDAF002EE87F /* Controllers */,
@@ -130,7 +159,6 @@
 		0498E764276BCDAF002EE87F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				04948D7F2770C3C800FE5DA3 /* Base.swift */,
 				04E964F7277C4FFD00039CDA /* Main */,
 				04E964F5277C4FC600039CDA /* Levels */,
 				04C08AEB277E086F00BEDF68 /* Games */,
@@ -147,6 +175,21 @@
 				049AAFE6277F24120040969C /* LevelUpDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		04A4527727846CB200992D02 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				04A4527F27846CCF00992D02 /* BaseViewController.swift */,
+				04A4527827846CCC00992D02 /* Checker.swift */,
+				04A4527B27846CCD00992D02 /* Consts.swift */,
+				04A4527E27846CCE00992D02 /* EventsManager.swift */,
+				04A4527927846CCD00992D02 /* HelpViewController.swift */,
+				04A4527A27846CCD00992D02 /* InitialViewController.swift */,
+				04A4527C27846CCE00992D02 /* SegmentManager.swift */,
+				04A4527D27846CCE00992D02 /* UserDefaultsManager.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		04C08AD8277DC21A00BEDF68 /* Chain game */ = {
@@ -213,6 +256,23 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		2A2473E6F68F1F86AB0E0532 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ECCD2762ECFB2529E02ABD03 /* Pods-Wazamba.debug.xcconfig */,
+				D48601FAF6B6A9D00DCB47DD /* Pods-Wazamba.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7A05AE42D41C75EDA385B86A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53509803B665B6AB85545168 /* libPods-Wazamba.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,9 +280,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0498E75F276B68D5002EE87F /* Build configuration list for PBXNativeTarget "Wazamba" */;
 			buildPhases = (
+				ADA40F7AAF6E6CE165BFB7C2 /* [CP] Check Pods Manifest.lock */,
 				0498E744276B68D4002EE87F /* Sources */,
 				0498E745276B68D4002EE87F /* Frameworks */,
 				0498E746276B68D4002EE87F /* Resources */,
+				1DB910F3BF9EC0FE3496C2B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,6 +338,7 @@
 				0498E759276B68D5002EE87F /* Assets.xcassets in Resources */,
 				04C08AF2277E09FE00BEDF68 /* QuitGameScene.sks in Resources */,
 				04C08AFB277E647900BEDF68 /* loseSound.mp3 in Resources */,
+				04A4528927847E3B00992D02 /* GoogleService-Info.plist in Resources */,
 				0498E75C276B68D5002EE87F /* LaunchScreen.storyboard in Resources */,
 				04C08ADE277DCB0500BEDF68 /* ChainGameScene.sks in Resources */,
 				0480D756277B585B001CC93D /* RestoreGameScene.sks in Resources */,
@@ -287,15 +350,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1DB910F3BF9EC0FE3496C2B8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wazamba/Pods-Wazamba-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wazamba/Pods-Wazamba-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wazamba/Pods-Wazamba-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADA40F7AAF6E6CE165BFB7C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Wazamba-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0498E744276B68D4002EE87F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				04C08AF6277E3A6300BEDF68 /* Extensions.swift in Sources */,
+				04A4528427846CCF00992D02 /* SegmentManager.swift in Sources */,
 				049AAFE7277F24120040969C /* LevelUpDelegate.swift in Sources */,
+				04A4528727846CCF00992D02 /* BaseViewController.swift in Sources */,
 				0498E763276BCDA8002EE87F /* GameOverViewController.swift in Sources */,
-				04948D802770C3C800FE5DA3 /* Base.swift in Sources */,
+				04A4528227846CCF00992D02 /* InitialViewController.swift in Sources */,
 				04948D7E2770B1F700FE5DA3 /* PopoverViewController.swift in Sources */,
 				0498E766276BCF3D002EE87F /* GameOverDelegate.swift in Sources */,
 				0496A4F6276F6B400023B3EA /* LevelsCollectionViewCell.swift in Sources */,
@@ -303,9 +410,14 @@
 				0480D74F277B4795001CC93D /* MusicSupport.swift in Sources */,
 				0498E769276BE57D002EE87F /* MainViewController.swift in Sources */,
 				0498E76B276BE6F2002EE87F /* LevelsViewController.swift in Sources */,
+				04A4528127846CCF00992D02 /* HelpViewController.swift in Sources */,
 				04C08AF0277E095E00BEDF68 /* QuitGameScene.swift in Sources */,
 				0498E754276B68D4002EE87F /* GameViewController.swift in Sources */,
+				04A4528627846CCF00992D02 /* EventsManager.swift in Sources */,
+				04A4528027846CCF00992D02 /* Checker.swift in Sources */,
+				04A4528527846CCF00992D02 /* UserDefaultsManager.swift in Sources */,
 				0498E74C276B68D4002EE87F /* AppDelegate.swift in Sources */,
+				04A4528327846CCF00992D02 /* Consts.swift in Sources */,
 				04C08ADC277DC60100BEDF68 /* ChainGameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -438,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -450,27 +562,33 @@
 		};
 		0498E760276B68D5002EE87F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECCD2762ECFB2529E02ABD03 /* Pods-Wazamba.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Wazamba/Wazamba.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FCFHS2BVLY;
+				DEVELOPMENT_TEAM = 77W5JP637Q;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wazamba/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = artem.Wazamba;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kostylevalenka.Wazamba;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = WazambaProvisioningProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -479,27 +597,33 @@
 		};
 		0498E761276B68D5002EE87F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D48601FAF6B6A9D00DCB47DD /* Pods-Wazamba.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Wazamba/Wazamba.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FCFHS2BVLY;
+				DEVELOPMENT_TEAM = 77W5JP637Q;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wazamba/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = artem.Wazamba;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kostylevalenka.Wazamba;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = WazambaProvisioningProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
