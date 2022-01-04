@@ -53,28 +53,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Ic-iR-b8w">
-                                <rect key="frame" x="88" y="449.5" width="238" height="77"/>
+                                <rect key="frame" x="88" y="558.5" width="238" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9Ic-iR-b8w" secondAttribute="height" multiplier="3.09" id="W9V-Ee-uMf"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kp7-bU-0Xo">
-                                <rect key="frame" x="88" y="558.5" width="238" height="77"/>
+                                <rect key="frame" x="88" y="449.5" width="238" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kp7-bU-0Xo" secondAttribute="height" multiplier="3.09" id="qmP-wh-alk"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="RiD-Pe-n2u">
+                                <rect key="frame" x="188.5" y="388.5" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cAr-1c-84W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kp7-bU-0Xo" firstAttribute="centerY" secondItem="azo-8z-3wG" secondAttribute="centerY" constant="40" id="7Fy-TZ-zmG"/>
+                            <constraint firstItem="RiD-Pe-n2u" firstAttribute="centerX" secondItem="azo-8z-3wG" secondAttribute="centerX" id="8Jd-b3-Gtk"/>
                             <constraint firstItem="Vtb-9c-zin" firstAttribute="leading" secondItem="cAr-1c-84W" secondAttribute="leading" id="G6J-dr-0lx"/>
+                            <constraint firstItem="9Ic-iR-b8w" firstAttribute="top" secondItem="kp7-bU-0Xo" secondAttribute="bottom" constant="32" id="HcY-kC-MW6"/>
                             <constraint firstItem="Vtb-9c-zin" firstAttribute="top" secondItem="azo-8z-3wG" secondAttribute="top" id="I88-qM-tJh"/>
-                            <constraint firstItem="9Ic-iR-b8w" firstAttribute="centerY" secondItem="azo-8z-3wG" secondAttribute="centerY" constant="40" id="LVr-j6-b5b"/>
                             <constraint firstItem="9Ic-iR-b8w" firstAttribute="leading" secondItem="cAr-1c-84W" secondAttribute="leading" constant="88" id="OYj-se-A91"/>
-                            <constraint firstItem="kp7-bU-0Xo" firstAttribute="top" secondItem="9Ic-iR-b8w" secondAttribute="bottom" constant="32" id="Wem-AE-Huh"/>
                             <constraint firstItem="kp7-bU-0Xo" firstAttribute="leading" secondItem="cAr-1c-84W" secondAttribute="leading" constant="88" id="amr-Ha-Bym"/>
                             <constraint firstItem="cAr-1c-84W" firstAttribute="trailing" secondItem="Vtb-9c-zin" secondAttribute="trailing" id="d6u-68-wq7"/>
+                            <constraint firstItem="kp7-bU-0Xo" firstAttribute="top" secondItem="RiD-Pe-n2u" secondAttribute="bottom" constant="24" id="fDJ-wg-u0m"/>
                             <constraint firstItem="cAr-1c-84W" firstAttribute="trailing" secondItem="kp7-bU-0Xo" secondAttribute="trailing" constant="88" id="jZ8-Wd-ByS"/>
                             <constraint firstAttribute="bottom" secondItem="Vtb-9c-zin" secondAttribute="bottom" id="rBE-ju-cC4"/>
                             <constraint firstItem="cAr-1c-84W" firstAttribute="trailing" secondItem="9Ic-iR-b8w" secondAttribute="trailing" constant="88" id="rwh-Nm-AqB"/>
@@ -83,6 +89,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="nEg-SY-guO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="RiD-Pe-n2u" id="dkc-8D-NOQ"/>
                         <outlet property="backgroundImageView" destination="Vtb-9c-zin" id="1Hw-Zt-GwF"/>
                         <outlet property="levelsButtonImageView" destination="kp7-bU-0Xo" id="gSV-z4-Lah"/>
                         <outlet property="playImageView" destination="9Ic-iR-b8w" id="xuf-C5-x98"/>
@@ -90,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fa-KP-mxC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2939" y="59"/>
+            <point key="canvasLocation" x="2892.753623188406" y="58.928571428571423"/>
         </scene>
         <!--Popover View Controller-->
         <scene sceneID="QJL-8L-LmS">
@@ -106,7 +113,7 @@
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0O8-Pj-uKS">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="357.5"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eSb-VL-dhD">
-                                            <rect key="frame" x="0.0" y="0.0" width="286" height="357.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="286" height="358"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfq-Ld-CmV">

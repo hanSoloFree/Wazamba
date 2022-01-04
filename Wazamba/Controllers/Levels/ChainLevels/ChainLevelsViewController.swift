@@ -13,19 +13,7 @@ class ChainLevelsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = true
-        backgrroundImageView.image = UIImage(named: "levelsBackground")
-        backImageView.image = UIImage(named: "back")
-        titleImageView.image = UIImage(named: "chainLabel")
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tap.numberOfTapsRequired = 1
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tap)
-        
-        let cellName = String(describing: LevelsCollectionViewCell.self)
-        let cellNib = UINib(nibName: cellName, bundle: nil)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: cellName)
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +38,22 @@ class ChainLevelsViewController: BaseViewController {
     
     @objc func tapped() {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func configure() {
+        self.navigationController?.navigationBar.isHidden = true
+        backgrroundImageView.image = UIImage(named: "levelsBackground")
+        backImageView.image = UIImage(named: "back")
+        titleImageView.image = UIImage(named: "chainLabel")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.numberOfTapsRequired = 1
+        backImageView.isUserInteractionEnabled = true
+        backImageView.addGestureRecognizer(tap)
+        
+        let cellName = String(describing: LevelsCollectionViewCell.self)
+        let cellNib = UINib(nibName: cellName, bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: cellName)
     }
 }
 
@@ -82,11 +86,11 @@ extension ChainLevelsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item < levelsCount {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: ChainGameViewController.self)
-        guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
-        chainGameViewController.level = indexPath.item + 1
-        self.navigationController?.pushViewController(chainGameViewController, animated: true)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let identifier = String(describing: ChainGameViewController.self)
+            guard let chainGameViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainGameViewController else { return }
+            chainGameViewController.level = indexPath.item + 1
+            self.navigationController?.pushViewController(chainGameViewController, animated: true)
         } else {
             print("LOCKED")
         }

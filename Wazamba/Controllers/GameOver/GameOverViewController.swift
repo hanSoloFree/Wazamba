@@ -11,19 +11,28 @@ class GameOverViewController: BaseViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var playImageView: UIImageView!
     @IBOutlet weak var levelsButtonImageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.activityIndicator.isHidden = true
         navigationController?.navigationBar.isHidden = true
         configure(won: won)
     }
     
     @objc func tappedLevels() {
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
         levelsDelegate?.popToLevelsViewController()
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     @objc func tappedPlay() {
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
         if won {
             switch game {
             case "restore":
@@ -49,12 +58,11 @@ class GameOverViewController: BaseViewController {
             }
             if currentLevel != 7 {
                 levelsDelegate?.levelUp(currentLevel)
-            } else {
-                levelsDelegate?.popToLevelsViewController()
             }
-            self.dismiss(animated: true)
-        } else {
-            self.dismiss(animated: true)
+        }
+        self.dismiss(animated: true) {
+            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -65,6 +73,10 @@ class GameOverViewController: BaseViewController {
         } else {
             backgroundImageView.image = UIImage(named: "loseBackground")
             playImageView.image = UIImage(named: "replayButton")
+        }
+        
+        if currentLevel == 7 {
+            self.playImageView.isHidden = true
         }
         levelsButtonImageView.image = UIImage(named: "levelsButton")
         setupGestures()

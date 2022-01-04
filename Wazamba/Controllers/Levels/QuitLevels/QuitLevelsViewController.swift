@@ -13,19 +13,7 @@ class QuitLevelsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = true
-        backgrroundImageView.image = UIImage(named: "levelsBackground")
-        backImageView.image = UIImage(named: "back")
-        titleImageView.image = UIImage(named: "quitLabel")
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tap.numberOfTapsRequired = 1
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tap)
-        
-        let cellName = String(describing: LevelsCollectionViewCell.self)
-        let cellNib = UINib(nibName: cellName, bundle: nil)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: cellName)
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +38,22 @@ class QuitLevelsViewController: BaseViewController {
     
     @objc func tapped() {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func configure() {
+        self.navigationController?.navigationBar.isHidden = true
+        backgrroundImageView.image = UIImage(named: "levelsBackground")
+        backImageView.image = UIImage(named: "back")
+        titleImageView.image = UIImage(named: "quitLabel")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.numberOfTapsRequired = 1
+        backImageView.isUserInteractionEnabled = true
+        backImageView.addGestureRecognizer(tap)
+        
+        let cellName = String(describing: LevelsCollectionViewCell.self)
+        let cellNib = UINib(nibName: cellName, bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: cellName)
     }
 }
 
