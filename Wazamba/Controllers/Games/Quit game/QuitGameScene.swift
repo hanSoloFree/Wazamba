@@ -84,6 +84,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
                     } else {
                         let scale = SKAction.scale(by: 0, duration: 0.2)
                         let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
+                        guard self.gameStarted else { return }
                         self.run(sound)
                         blocks.forEach { block in
                             block.run(scale)
@@ -131,6 +132,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
         }
         coinSound()
         self.run(.wait(forDuration: 1)) {
+            self.gameStarted = false
             self.gameOverDelegate?.won = true
             self.gameOverDelegate?.currentLevel = self.level
             self.gameOverDelegate?.pushGameOverViewController()
@@ -396,6 +398,7 @@ class QuitGameScene: SKScene, SKPhysicsContactDelegate {
             if self.timerCountdown > 0 {
                 self.timerCountdown -= 1
             } else {
+                guard self.gameStarted else { return }
                 let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
                 self.run(sound)
                 self.gameOverDelegate?.won = false

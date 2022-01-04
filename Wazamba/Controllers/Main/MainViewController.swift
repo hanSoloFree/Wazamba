@@ -36,6 +36,30 @@ class MainViewController: BaseViewController {
         showGamesInfo()
     }
     
+    @objc func quitGameTapped() {
+        setupLevelsViewController("quit")
+    }
+    
+    @objc func chainGameTapped() {
+        setupLevelsViewController("chain")
+    }
+    
+    @objc func playTapped() {
+        setupLevelsViewController("restore")
+    }
+    
+    @objc func musicTapped() {
+        self.musicIsOn = !self.musicIsOn
+    }
+    
+    @objc func infoTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: PopoverViewController.self)
+        guard let popOverViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? PopoverViewController else { return }
+        self.present(popOverViewController, animated: true, completion: nil)
+    }
+    
+    
     func showGamesInfo() {
         let shown = UserDefaults.standard.bool(forKey: "rules")
         if !shown {
@@ -105,39 +129,13 @@ class MainViewController: BaseViewController {
         }
     }
     
-    @objc func quitGameTapped() {
+    func setupLevelsViewController(_ game: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: QuitLevelsViewController.self)
-        guard let quitLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? QuitLevelsViewController else { return }
+        let identifier = String(describing: LevelsViewController.self)
+        guard let levelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? LevelsViewController else { return }
+        levelsViewController.game = game
         
-        self.navigationController?.pushViewController(quitLevelsViewController, animated: true)
-    }
-    
-    @objc func chainGameTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: ChainLevelsViewController.self)
-        guard let chainLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? ChainLevelsViewController else { return }
-        
-        self.navigationController?.pushViewController(chainLevelsViewController, animated: true)
-    }
-    
-    @objc func playTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: RestoreLevelsViewController.self)
-        guard let restoreLevelsViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? RestoreLevelsViewController else { return }
-        
-        self.navigationController?.pushViewController(restoreLevelsViewController, animated: true)
-    }
-    
-    @objc func musicTapped() {
-        self.musicIsOn = !self.musicIsOn
-    }
-    
-    @objc func infoTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: PopoverViewController.self)
-        guard let popOverViewController = storyboard.instantiateViewController(withIdentifier: identifier) as? PopoverViewController else { return }
-        self.present(popOverViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(levelsViewController, animated: true)
     }
 }
 

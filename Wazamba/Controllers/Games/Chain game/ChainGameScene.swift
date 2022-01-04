@@ -49,6 +49,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             if touchedCount == blocksCount {
                 dropCoins()
                 self.run(.wait(forDuration: 1)) {
+                    self.gameStarted = false
                     self.gameOverDelegate?.won = true
                     self.gameOverDelegate?.currentLevel = self.level
                     self.gameOverDelegate?.pushGameOverViewController()
@@ -386,6 +387,7 @@ class ChainGameScene: SKScene, SKPhysicsContactDelegate {
             if self.timerCountdown > 0 {
                 self.timerCountdown -= 1
             } else {
+                guard self.gameStarted else { return }
                 let sound = SKAction.playSoundFileNamed("loseSound", waitForCompletion: false)
                 self.run(sound)
                 self.gameOverDelegate?.won = false
